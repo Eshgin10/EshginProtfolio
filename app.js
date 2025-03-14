@@ -268,3 +268,12 @@ window.addEventListener('scroll', () => {
       }
     });
   });
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector(".contact-form form");
+
+    form.addEventListener("submit", function (event) {
+        setTimeout(() => {
+            form.reset(); // Clears all inputs and textarea after submission
+        }, 100);
+    });
+});
