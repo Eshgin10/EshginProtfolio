@@ -205,12 +205,24 @@
         <h2 class="contact-title">Get in Touch</h2>
         <div class="contact-wrapper">
           <div class="contact-form">
-            <form>
-              <input type="text" placeholder="Your Name" class="contact-input" required>
-              <input type="email" placeholder="Your Email" class="contact-input" required>
-              <textarea placeholder="Your Message" class="contact-textarea" required></textarea>
-              <button type="submit" class="contact-button">Send Message</button>
-            </form>
+<div class="contact-form">
+  <form action="https://formspree.io/f/mvgkgojp" method="POST">
+    <label>
+      Your Name:
+      <input type="text" name="name" placeholder="Your Name" class="contact-input" required>
+    </label>
+    <label>
+      Your Email:
+      <input type="email" name="email" placeholder="Your Email" class="contact-input" required>
+    </label>
+    <label>
+      Your Message:
+      <textarea name="message" placeholder="Your Message" class="contact-textarea" required></textarea>
+    </label>
+    <button type="submit" class="contact-button">Send Message</button>
+  </form>
+</div>
+
           </div>
           <div class="contact-info">
             <p class="contact-text">Feel free to reach out!</p>
