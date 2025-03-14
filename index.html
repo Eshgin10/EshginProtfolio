@@ -206,11 +206,10 @@
     <div class="contact-wrapper">
         <div class="contact-form">
             <form action="https://formspree.io/f/mvgkgojp" method="POST">
-                <input type="text" placeholder="Your Name" class="contact-input" name="name" required>
+                <input type="text" placeholder="Your Name" class="contact-input" name="name">
                 <input type="email" placeholder="Your Email" class="contact-input" name="email" required>
-                <input type="tel" placeholder="Your Phone Number" class="contact-input" name="phone" required>
                 <textarea placeholder="Your Message" class="contact-textarea" name="message" required></textarea>
-                <button type="submit" class="contact-button">Send Message</button>
+                <button type="submit" class="contact-button" onClick = "Send-Message">Send Message</button>
             </form>
         </div>
         <div class="contact-info">
