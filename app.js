@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
 document.addEventListener('DOMContentLoaded', () => {
     const burgerMenu = document.querySelector('.burger-menu');
     const navLinks = document.querySelector('.nav-links');
@@ -100,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
 // Select all sections that have an ID defined
 const sections = document.querySelectorAll("main, div[id]");
 const navLinks = document.querySelectorAll(".nav-links .nav-link");
@@ -141,6 +143,7 @@ const observer = new IntersectionObserver(observerCallback, observerOptions);
 
 // Observe all sections
 sections.forEach(section => observer.observe(section));
+
 // Add inside document.addEventListener('DOMContentLoaded', () => { ... })
 window.addEventListener('scroll', () => {
     if (window.scrollY > 0) {
@@ -149,6 +152,7 @@ window.addEventListener('scroll', () => {
         navbar.classList.remove('sticky');
     }
 });
+
 // Add inside document.addEventListener('DOMContentLoaded', () => { ... })
 window.addEventListener('scroll', () => {
     const navLinks = document.querySelector('.nav-links');
@@ -268,6 +272,7 @@ window.addEventListener('scroll', () => {
       }
     });
   });
+
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector(".contact-form form");
 
@@ -277,6 +282,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 100);
     });
 });
+
 // YouTube Section Animation
 document.addEventListener('DOMContentLoaded', function() {
     // Animate decorative elements in YouTube section
