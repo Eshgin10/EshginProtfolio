@@ -1348,3 +1348,138 @@ h1 {
       height: 20px;
     }
   }
+/* YouTube Section Styles */
+.youtube-section {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 20px;
+    overflow: hidden;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-header h2 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.highlight {
+    font-style: italic;
+}
+
+.section-header p {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.video-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.video-card {
+    width: 340px;
+    background-color: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.video-frame {
+    width: 100%;
+    height: 190px;
+    border-radius: 20px 20px 0 0;
+    overflow: hidden;
+}
+
+.video-card h3 {
+    font-size: 1.2rem;
+    padding: 15px 20px 5px;
+}
+
+.video-card p {
+    font-size: 0.9rem;
+    color: #666;
+    padding: 0 20px 20px;
+}
+
+.channel-link {
+    text-align: center;
+    margin: 30px 0;
+}
+
+/* Decorative elements */
+.decorative-elements {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.deco {
+    position: absolute;
+    opacity: 0.8;
+    width: 60px;
+    height: auto;
+}
+
+.rocket {
+    top: 15%;
+    left: 10%;
+    transform: rotate(-15deg);
+}
+
+.crown {
+    top: 10%;
+    right: 15%;
+}
+
+.monitor {
+    top: 70%;
+    right: 10%;
+    transform: rotate(10deg);
+}
+
+.book {
+    bottom: 20%;
+    left: 15%;
+}
+
+.chess {
+    right: 25%;
+    bottom: 25%;
+    transform: rotate(-20deg);
+}
+
+/* Responsive adjustments for YouTube section */
+@media (max-width: 768px) {
+    .video-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .video-card {
+        width: 100%;
+        max-width: 400px;
+    }
+    
+    .deco {
+        width: 40px;
+    }
+}
