@@ -282,24 +282,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 100);
     });
 });
-
-// YouTube Section Animation
-document.addEventListener('DOMContentLoaded', function() {
-    // Animate decorative elements in YouTube section
-    const decorations = document.querySelectorAll('.deco');
-    
-    if (decorations.length > 0) {
-        window.addEventListener('scroll', function() {
-            decorations.forEach(item => {
-                // Get random float between -5 and 5 for a subtle floating effect
-                const randomX = (Math.random() - 0.5) * 10;
-                const randomY = (Math.random() - 0.5) * 10;
-                
-                // Apply subtle float effect
-                item.style.transform = `translate(${randomX}px, ${randomY}px) rotate(${item.dataset.rotation || '0deg'})`;
-            });
-        });
-    }
     
     // Add hover effects to video cards
     const videoCards = document.querySelectorAll('.video-card');
