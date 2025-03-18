@@ -1,76 +1,4 @@
-// Wait for DOM to fully load
-document.addEventListener('DOMContentLoaded', function () {
-    // Get all 3D shapes
-    const shapes = document.querySelectorAll('.shape');
-
-    // Add random initial positions to shapes
-    shapes.forEach(shape => {
-        const randomX = Math.random() * 20 - 10; // Random value between -10 and 10
-        const randomY = Math.random() * 20 - 10;
-        const randomRotate = Math.random() * 20 - 10;
-
-        shape.style.transform = `translate(${randomX}px, ${randomY}px) rotate(${randomRotate}deg)`;
-    });
-
-    // Animate shapes on mouse move
-    document.addEventListener('mousemove', function (e) {
-        const mouseX = e.clientX / window.innerWidth;
-        const mouseY = e.clientY / window.innerHeight;
-
-        shapes.forEach((shape, index) => {
-            // Make each shape react slightly differently
-            const moveX = (mouseX - 0.5) * (index + 1) * 15;
-            const moveY = (mouseY - 0.5) * (index + 1) * 15;
-            const rotate = (mouseX - 0.5) * 10 + (mouseY - 0.5) * 10;
-
-            // Apply smooth animation
-            shape.style.transition = 'transform 0.3s ease-out';
-            shape.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${rotate}deg)`;
-        });
-    });
-
-    // Add hover effect to CTA button
-    const ctaButton = document.querySelector('.cta-button');
-
-    ctaButton.addEventListener('mouseenter', function () {
-        this.style.transform = 'translateY(-5px)';
-        this.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.15)';
-    });
-
-    ctaButton.addEventListener('mouseleave', function () {
-        this.style.transform = 'translateY(0)';
-        this.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.05)';
-    });
-
-    // Add active class to nav links when clicked
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    navLinks.forEach(link => {
-        link.addEventListener('click', function (e) {
-            // Remove active class from all links
-            navLinks.forEach(navLink => {
-                navLink.classList.remove('active');
-            });
-
-            // Add active class to clicked link
-            this.classList.add('active');
-        });
-    });
-
-    // Simple parallax effect for shapes on scroll
-    window.addEventListener('scroll', function () {
-        const scrollY = window.scrollY;
-
-        shapes.forEach((shape, index) => {
-            const speed = 0.05 * (index + 1);
-            const yPos = -scrollY * speed;
-
-            shape.style.transform = `translateY(${yPos}px)`;
-        });
-    });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
     const burgerMenu = document.querySelector('.burger-menu');
     const navLinks = document.querySelector('.nav-links');
     const body = document.querySelector('body');
@@ -281,19 +209,4 @@ document.addEventListener("DOMContentLoaded", function () {
             form.reset(); // Clears all inputs and textarea after submission
         }, 100);
     });
-});
-    
-    // Add hover effects to video cards
-    const videoCards = document.querySelectorAll('.video-card');
-    if (videoCards.length > 0) {
-        videoCards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-            });
-        });
-    }
 });
