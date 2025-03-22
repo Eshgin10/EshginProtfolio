@@ -225,3 +225,15 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+  const navbar = document.querySelector('header'); // Or whatever selector identifies your navbar
+  
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 0) {
+      navbar.classList.add('sticky');
+    } else {
+      navbar.classList.remove('sticky');
+    }
+  });
+});
