@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog Posts</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div id="blog-posts">
+        <h1>Blog Posts</h1>
+        <% posts.forEach(post => { %>
+            <article>
+                <h2><%= post.title %></h2>
+                <p><%= post.content %></p>
+                <small><%= post.date %></small>
+                <a href="/blog/<%= post.id %>">Read more</a>
+            </article>
+        <% }); %>
+    </div>
+    <script src="/js/frontend.js"></script>
+</body>
+</html>

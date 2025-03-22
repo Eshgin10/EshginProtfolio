@@ -216,10 +216,15 @@ const express = require('express');
 const app = express();
 const blogRouter = require('./blog');
 
-app.use('/blog', blogRouter);
+// Add these new lines
+app.set('view engine', 'ejs');
+app.set('views', './views');
 
-// Serve static files from the 'public' directory
+// Your existing static files middleware
 app.use(express.static('public'));
+
+// Your existing blog router
+app.use('/blog', blogRouter);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
