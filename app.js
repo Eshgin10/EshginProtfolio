@@ -219,7 +219,7 @@ const blogRouter = require('./blog');
 app.use('/blog', blogRouter);
 
 // Serve static files from the 'public' directory
-app.use('/');
+app.use(express.static('public'));
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
