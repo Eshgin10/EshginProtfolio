@@ -212,33 +212,53 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-const express = require('express');
-const app = express();
-const blogRouter = require('./blog');
+// Blog posts data
+const blogPosts = [
+  {
+      title: "My First Blog Post",
+      date: "March 22, 2025",
+      summary: "A brief introduction to my journey as a web developer and what inspires me.",
+      content: "This is the full content of my first blog post. I started learning web development a few years ago and have since built projects using HTML, CSS, and JS. This blog will document my progress and share tips I’ve learned along the way!",
+      slug: "first-blog-post"
+  },
+  {
+      title: "Learning React: My Experience",
+      date: "March 20, 2025",
+      summary: "A summary of my experience diving into React.js and building my first app.",
+      content: "React has been a game-changer for me. In this post, I’ll walk you through my first React project, the challenges I faced, and how I overcame them. Stay tuned for more!",
+      slug: "learning-react"
+  }
+];
 
-// Add these new lines
-app.set('view engine', 'ejs');
-app.set('views', './views');
+// Check if we're on the blog page
+if (window.location.pathname.includes("blog.html")) {
+  const blogList = document.getElementById("blog-list");
 
-// Your existing static files middleware
-app.use(express.static('public'));
+  // Populate blog list
+  if (blogList) {
+      blogPosts.forEach(post => {
+          const article = document.createElement("article");
+          article.innerHTML = `
+              <h2><a href="#${post.slug}" onclick="showPost('${post.slug}', event)">${post.title}</a></h2>
+              <p class="date">${post.date}</p>
+              <p>${post.summary}</p>
+          `;
+          blogList.appendChild(article);
+      });
+  }
 
-// Your existing blog router
-app.use('/blog', blogRouter);
-
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-  const navbar = document.querySelector('header'); // Or whatever selector identifies your navbar
-  
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 0) {
-      navbar.classList.add('sticky');
-    } else {
-      navbar.classList.remove('sticky');
-    }
-  });
-});
+  // Function to show full post
+  window.showPost = function(slug, event) {
+      event.preventDefault(); // Prevent default anchor behavior
+      const post = blogPosts.find(p => p.slug === slug);
+      const main = document.querySelector("main");
+      main.innerHTML = `
+          <section class="blog-post">
+              <h1>${post.title}</h1>
+              <p class="date">${post.date}</p>
+              <p>${post.content}</p>
+              <a href="blog.html" class="back-link">Back to Blog</a>
+          </section>
+      `;
+  };
+}

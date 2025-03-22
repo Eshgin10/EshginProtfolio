@@ -1,59 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your existing CSS file -->
+    <title>Eshgin - Blog</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
-
 <body>
-    <header>
-        <h1>Blog</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="blog.html">Blog</a></li>
-            </ul>
-        </nav>
-    </header>
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="index.html#About" class="nav-link">About</a>
+            <a href="index.html#Stack" class="nav-link">Stack</a>
+            <a href="index.html#YouTube" class="nav-link">YouTube</a>
+            <a href="blog.html" class="nav-link active">Blog</a>
+            <a href="index.html#Contact" class="nav-link">Contact</a>
+        </div>
+        <div class="burger-menu">
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+        </div>
+    </nav>
+
     <main>
-        <div id="blog-posts"></div>
+        <h1>My Blog</h1>
+        <section class="blog-list" id="blog-list">
+            <!-- Blog posts will be dynamically inserted here -->
+        </section>
     </main>
-    <footer>
-        <p>&copy; 2025 My Website</p>
-    </footer>
-    <script>
-        fetch('/blog')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(posts => {
-                const blogPostsContainer = document.getElementById('blog-posts');
-                posts.forEach(post => {
-                    const postElement = document.createElement('div');
-                    postElement.className = 'blog-post';
-                    postElement.innerHTML = `
-        <h2>${post.title}</h2>
-        <p>${post.date}</p>
-        <p>${post.content}</p>
-      `;
-                    blogPostsContainer.appendChild(postElement);
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching blog posts:', error);
-                document.getElementById('blog-posts').innerHTML = '<p>Failed to load blog posts. Please try again later.</p>';
-            });
-    </script>
-    <script src="/blog.js"></script>
+
     <script src="/app.js"></script>
 </body>
-
 </html>
