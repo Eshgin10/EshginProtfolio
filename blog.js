@@ -1,27 +1,32 @@
 const express = require('express');
 const router = express.Router();
 
-// Sample blog data (replace with your database later)
+// Dummy blog posts data
 const blogPosts = [
-    {
-        id: 1,
-        title: "First Blog Post",
-        content: "This is my first blog post content",
-        date: new Date().toLocaleDateString()
-    }
-    // Add more posts as needed
+  {
+    id: 1,
+    title: 'First Blog Post',
+    content: 'This is the content of the first blog post.',
+    date: '2025-03-22'
+  },
+  {
+    id: 2,
+    title: 'Second Blog Post',
+    content: 'This is the content of the second blog post.',
+    date: '2025-03-23'
+  }
 ];
 
-// Route to display all blog posts
+// Get all blog posts
 router.get('/', (req, res) => {
-    res.render('blog/index', { posts: blogPosts });
+  res.json(blogPosts);
 });
 
-// Route to display a single blog post
+// Get a single blog post by ID
 router.get('/:id', (req, res) => {
-    const post = blogPosts.find(p => p.id === parseInt(req.params.id));
-    if (!post) return res.status(404).send('The blog post was not found.');
-    res.render('blog/post', { post: post });
+  const post = blogPosts.find(p => p.id === parseInt(req.params.id));
+  if (!post) return res.status(404).send('The blog post with the given ID was not found.');
+  res.json(post);
 });
 
-module.exports = router;
+module.exports = router; 
