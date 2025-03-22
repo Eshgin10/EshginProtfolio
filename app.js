@@ -214,12 +214,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const express = require('express');
 const app = express();
-const blogRouter = require('./routes/blog');
+const blogRouter = require('./blog');
 
 app.use('/blog', blogRouter);
 
 // Serve static files from the 'public' directory
-app.use(express.static('public'));
+app.use('/');
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
