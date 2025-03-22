@@ -210,3 +210,18 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 100);
   });
 });
+
+
+const express = require('express');
+const app = express();
+const blogRouter = require('./routes/blog');
+
+app.use('/blog', blogRouter);
+
+// Serve static files from the 'public' directory
+app.use(express.static('public'));
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
