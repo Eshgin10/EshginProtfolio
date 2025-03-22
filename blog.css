@@ -1,0 +1,389 @@
+/* Reset default styles for consistency */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+/* Body styling for a minimalist, dark theme */
+body {
+    font-family: 'Poppins', sans-serif; /* Switch to Poppins for consistency with the main page */
+    background: #121212; /* Deep black for a sleek look */
+    color: #e0e0e0; /* Soft off-white for readability */
+    line-height: 1.8;
+    overflow-x: hidden;
+}
+
+/* Main content styling */
+main {
+    padding: 120px 40px; /* Increased padding for more breathing room */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden; /* Ensure floating elements don’t overflow */
+}
+
+/* Styling for the Back to Home button */
+.back-home-btn {
+    position: absolute;
+    top: 30px; /* Adjusted for better positioning */
+    left: 30px;
+    padding: 12px 16px; /* Smaller padding for a more compact button */
+    background: #ffd700;
+    color: #121212;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem; /* Smaller font size */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px; /* Reduced letter spacing for Poppins */
+    border: none;
+    border-radius: 18px; /* Slightly smaller radius */
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+}
+
+/* Hover effect for the button */
+.back-home-btn:hover {
+    background: #e6c200;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Active state (when clicked) */
+.back-home-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling for the h1 (My Blog) */
+main h1 {
+    font-size: 3.6rem; /* Slightly larger for more impact with Poppins */
+    font-weight: 700; /* Poppins looks better with 700 for headings */
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 70px; /* More space below for balance */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease-out forwards;
+    position: relative;
+    z-index: 1;
+}
+
+/* Subtle underline effect with animation */
+main h1::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 3px;
+    background: #ffd700;
+    margin: 15px auto;
+    border-radius: 2px;
+    animation: expandLine 0.8s ease-out 0.5s forwards;
+}
+
+/* Blog list section styling */
+.blog-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); /* Slightly wider cards */
+    gap: 50px; /* More generous spacing */
+    max-width: 1300px; /* Slightly wider container */
+    width: 100%;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Styling for individual blog post cards */
+.blog-list article {
+    background: #1c1c1c;
+    border-radius: 12px;
+    padding: 35px; /* More padding for a premium feel */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: calc(0.2s * var(--index));
+}
+
+/* Hover effect for blog cards */
+.blog-list article:hover {
+    background: #222222;
+    transform: translateY(-5px);
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+/* Styling for blog post titles in the list */
+.blog-list article h2 {
+    font-size: 2rem; /* Larger with Poppins for better hierarchy */
+    font-weight: 600;
+    margin-bottom: 15px;
+    letter-spacing: -0.3px;
+}
+
+/* Styling for the title link */
+.blog-list article h2 a {
+    color: #ffd700;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.blog-list article h2 a:hover {
+    color: #ffffff;
+}
+
+/* Styling for the date in the list */
+.blog-list article .date {
+    font-size: 0.95rem; /* Slightly larger for Poppins */
+    color: #b0b0b0;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+/* Styling for blog post summaries */
+.blog-list article p {
+    font-size: 1.05rem; /* Adjusted for Poppins */
+    color: #b0b0b0;
+    margin-bottom: 0;
+    line-height: 1.7;
+}
+
+/* Styling for the individual blog post section */
+.blog-post {
+    max-width: 850px; /* Slightly wider for better readability */
+    width: 100%;
+    padding: 50px; /* More padding for a premium feel */
+    background: #1c1c1c;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease-out forwards;
+    position: relative;
+    z-index: 1;
+}
+
+/* Styling for the blog post title */
+.blog-post h1 {
+    font-size: 3rem; /* Larger with Poppins */
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+    margin-bottom: 25px;
+}
+
+/* Styling for the date in the blog post */
+.blog-post .date {
+    font-size: 1.1rem; /* Adjusted for Poppins */
+    color: #b0b0b0;
+    font-style: italic;
+    margin-bottom: 35px;
+}
+
+/* Styling for the blog post content */
+.blog-post p {
+    font-size: 1.15rem; /* Slightly larger for better readability with Poppins */
+    color: #e0e0e0;
+    margin-bottom: 35px;
+    line-height: 1.9;
+}
+
+/* Styling for the "Back to Blog" link */
+.blog-post .back-link {
+    display: inline-block;
+    font-size: 1.05rem; /* Adjusted for Poppins */
+    font-weight: 600;
+    color: #ffd700;
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.3s ease;
+}
+
+.blog-post .back-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: #ffd700;
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease;
+}
+
+.blog-post .back-link:hover {
+    color: #ffffff;
+}
+
+.blog-post .back-link:hover::after {
+    width: 100%;
+}
+
+/* Styling for the decorative floating images */
+.deco {
+    position: absolute;
+    width: 100px; /* Smaller size for a more subtle effect */
+    height: 100px;
+    opacity: 0.25; /* Slightly reduced opacity */
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Adjusted positions for better placement */
+.rocket {
+    top: 8%; 
+    left: 25%;
+    animation: float 6s ease-in-out infinite;
+}
+
+.crown {
+    top: 20%; /* Adjusted to avoid overlap with h1 */
+    right: 20%; /* Moved closer to the center */
+    animation: float 7s ease-in-out infinite 1s;
+}
+
+.chess {
+    top: 40%; /* Positioned to avoid overlapping with content */
+    left: 10%; /* Moved further from the center */
+    animation: float 7s ease-in-out infinite 2s;
+}
+
+/* Floating animation with easing */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(5deg);
+    }
+    50% {
+        transform: translateY(-25px) rotate(-5deg); /* Reduced movement for subtlety */
+    }
+}
+
+/* Animations for content */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes expandLine {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 80px;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    main {
+        padding: 100px 30px;
+    }
+
+    .back-home-btn {
+        top: 25px;
+        left: 25px;
+        padding: 5px 14px;
+        font-size: 0.8rem;
+        border-radius: 16px;
+    }
+
+    main h1 {
+        font-size: 3.5rem;
+    }
+
+    .blog-list {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .blog-list article {
+        padding: 30px;
+    }
+
+    .blog-post {
+        padding: 40px;
+    }
+
+    .blog-post h1 {
+        font-size: 3rem;
+    }
+
+    .deco {
+        width: 40px; /* Smaller on tablets */
+        height: 40px;
+    }
+
+    .rocket {
+        left: 10%;
+    }
+
+    .crown {
+        right: 15%;
+    }
+
+    .monitor {
+        left: 15%;
+    }
+
+    .book {
+        right: 10%;
+    }
+
+    .chess {
+        left: 5%;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 80px 20px;
+    }
+
+    .back-home-btn {
+        top: 20px;
+        left: 20px;
+        padding: 4px 12px;
+        font-size: 0.75rem;
+        border-radius: 14px;
+    }
+
+    main h1 {
+        font-size: 3rem;
+    }
+
+    .blog-list article h2 {
+        font-size: 1.75rem;
+    }
+
+    .blog-list article p {
+        font-size: 1rem;
+    }
+
+    .blog-post h1 {
+        font-size: 2.5rem;
+    }
+
+    .blog-post p {
+        font-size: 1.05rem;
+    }
+
+    .deco {
+        width: 35px; /* Even smaller on mobile */
+        height: 35px;
+    }
+
+    .chess {
+        display: none; /* Hide the chess piece on very small screens */
+    }
+}

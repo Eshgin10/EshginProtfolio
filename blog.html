@@ -4,30 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eshgin - Blog</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/blog.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
 </head>
-<body>
-    <nav class="navbar">
-        <div class="nav-links">
-            <a href="index.html" class="nav-link">Home</a>
-            <a href="index.html#About" class="nav-link">About</a>
-            <a href="index.html#Stack" class="nav-link">Stack</a>
-            <a href="index.html#YouTube" class="nav-link">YouTube</a>
-            <a href="blog.html" class="nav-link active">Blog</a>
-            <a href="index.html#Contact" class="nav-link">Contact</a>
-        </div>
-        <div class="burger-menu">
-            <div class="burger-line"></div>
-            <div class="burger-line"></div>
-            <div class="burger-line"></div>
-        </div>
-    </nav>    
-
+<body>    
     <main>
+        <button class="back-home-btn" onclick="window.location.href='index.html'">Exit From Blog</button>
         <h1>My Blog</h1>
         <section class="blog-list" id="blog-list">
             <!-- Blog posts will be dynamically inserted here -->
         </section>
+        <img src="/Images/camera.png" alt="Decorative camera" class="deco rocket">
+        <img src="/Images/microfone.png" alt="Decorative microphone" class="deco crown">
+        <img src="/Images/thumb.png" alt="Decorative thumb" class="deco chess">
     </main>
 
     <script src="/app.js"></script>
