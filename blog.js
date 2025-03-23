@@ -25,7 +25,7 @@ const blogPosts = [
   {
     title: "Studying at Riga Technical University: My Experience",
     date: "March 20, 2025",
-    summary: "This blog post provides an overview of the second-semester courses at Riga Technical University for Computer Science students. It covers subjects like Mathematics, Discrete Mathematics, Data Structures, Object-Oriented Programming, Physics, and IT Terminology, offering insights into course structure, grading, and real-world applications of the knowledge gained.",
+    summary: "An overview of second-semester Computer Science courses at Riga Technical University, covering Mathematics, Discrete Mathematics, Data Structures, Object-Oriented Programming, Physics, and IT Terminology, with insights into course structure, grading, and real-world applications.",
     content: `
       <p>Hello everyone, my name is Eşqin, and I’m studying Computer Science at Riga Technical University. Many of you have reached out to me on Instagram or email, asking about what it’s like to study abroad. So, I decided to create this blog post to give you a clear picture of how classes are structured and what to expect.</p>
   
