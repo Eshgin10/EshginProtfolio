@@ -1235,8 +1235,8 @@ h1 {
   }
   
   .social-icon {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     transition: filter 0.3s ease;
   }
   
@@ -1355,8 +1355,8 @@ h1 {
     }
   
     .social-icon {
-      width: 20px;
-      height: 20px;
+      width: 30px;
+      height: 30px;
     }
   }
 /* YouTube Section Styles */
