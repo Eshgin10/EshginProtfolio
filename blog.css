@@ -175,6 +175,7 @@ main h1::after {
     color: #ffffff;
     letter-spacing: -0.5px;
     margin-bottom: 25px;
+    text-align: left;
 }
 
 /* Styling for the date in the blog post */

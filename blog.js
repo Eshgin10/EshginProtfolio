@@ -20,7 +20,23 @@ const blogPosts = [
     title: "Learning React: My Experience",
     date: "March 20, 2025",
     summary: "A summary of my experience diving into React.js and building my first app.",
-    content: "React has been a game-changer for me. In this post, I’ll walk you through my first React project, the challenges I faced, and how I overcame them. Stay tuned for more!",
+    content: `
+      <p>React has been a game-changer for me. In this post, I’ll walk you through my first React project, the challenges I faced, and how I overcame them. Stay tuned for more!</p>
+  
+      <h3>Getting Started with React</h3>
+      <p>When I first started learning React, I was amazed by how intuitive and powerful it is. The component-based architecture made it easy to break down complex UIs into smaller, reusable pieces. My first project was a simple to-do list app, which helped me understand the basics of state management and props.</p>
+  
+      <h3>Challenges I Faced</h3>
+      <p>One of the biggest challenges was understanding how state and props work together. At first, I struggled with passing data between components, but after a few tutorials and practice projects, it started to click. Another challenge was setting up the development environment, but tools like Create React App made the process much smoother.</p>
+  
+      <h3>How I Overcame Them</h3>
+      <p>To overcome these challenges, I relied heavily on documentation and online tutorials. I also joined a few coding communities where I could ask questions and get feedback from more experienced developers. Building small projects and experimenting with different features helped solidify my understanding.</p>
+  
+      <h3>What’s Next?</h3>
+      <p>Now that I’ve built a few projects, I’m excited to dive deeper into React. I’m currently learning about hooks and context API, which are making my code even more efficient. I’m also exploring Next.js for server-side rendering and better performance.</p>
+  
+      <p>If you’re just starting with React, my advice is to be patient and keep practicing. It might seem overwhelming at first, but once you get the hang of it, React can be incredibly rewarding.</p>
+    `,
     slug: "learning-react"
   }
 ];
