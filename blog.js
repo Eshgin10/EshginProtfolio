@@ -17,27 +17,37 @@ const blogPosts = [
     slug: "first-blog-post"
   },
   {
-    title: "Learning React: My Experience",
+    title: "Studying at Riga Technical University: My Experience",
     date: "March 20, 2025",
-    summary: "A summary of my experience diving into React.js and building my first app.",
+    summary: "A detailed look at my experience studying Computer Science at Riga Technical University, including the courses and challenges.",
     content: `
-      <p>React has been a game-changer for me. In this post, I’ll walk you through my first React project, the challenges I faced, and how I overcame them. Stay tuned for more!</p>
+      <p>Hello everyone, my name is Eşqin, and I’m studying Computer Science at Riga Technical University. Many of you have reached out to me on Instagram or email, asking about what it’s like to study abroad. So, I decided to create this blog post to give you a clear picture of how classes are structured and what to expect.</p>
   
-      <h3>Getting Started with React</h3>
-      <p>When I first started learning React, I was amazed by how intuitive and powerful it is. The component-based architecture made it easy to break down complex UIs into smaller, reusable pieces. My first project was a simple to-do list app, which helped me understand the basics of state management and props.</p>
+      <h3>Courses in the Second Semester</h3>
+      <p>In the second semester, we have six main courses: Mathematics 2, Discrete Mathematics, Data Structures and Algorithms, Object-Oriented Programming, Physics, and IT Terminology in English. Let me break them down for you.</p>
   
-      <h3>Challenges I Faced</h3>
-      <p>One of the biggest challenges was understanding how state and props work together. At first, I struggled with passing data between components, but after a few tutorials and practice projects, it started to click. Another challenge was setting up the development environment, but tools like Create React App made the process much smoother.</p>
+      <h4>Mathematics 2</h4>
+      <p>This course is a continuation of Mathematics 1 from the first semester. It focuses heavily on integrals, and the topics are quite similar to what you’d study in Azerbaijan. The grading system is divided into labs, homework, midterm exams, and a final exam. Each component contributes to your final grade, and you need at least a 4 out of 10 to pass.</p>
   
-      <h3>How I Overcame Them</h3>
-      <p>To overcome these challenges, I relied heavily on documentation and online tutorials. I also joined a few coding communities where I could ask questions and get feedback from more experienced developers. Building small projects and experimenting with different features helped solidify my understanding.</p>
+      <h4>Discrete Mathematics</h4>
+      <p>Discrete Mathematics dives into the logic behind mathematical formulas. For example, instead of memorizing formulas like (a + b)^2, we learn how they are derived using concepts like Pascal’s Triangle. This course helps build a strong foundation for understanding algorithms and data structures.</p>
   
-      <h3>What’s Next?</h3>
-      <p>Now that I’ve built a few projects, I’m excited to dive deeper into React. I’m currently learning about hooks and context API, which are making my code even more efficient. I’m also exploring Next.js for server-side rendering and better performance.</p>
+      <h4>Data Structures and Algorithms</h4>
+      <p>This course teaches us how to write efficient and organized code for large-scale projects. We focus on JavaScript and Node.js, but the professor allows us to use any object-oriented programming language for assignments. The second part of the course introduces robotics, where we learn to program automated systems.</p>
   
-      <p>If you’re just starting with React, my advice is to be patient and keep practicing. It might seem overwhelming at first, but once you get the hang of it, React can be incredibly rewarding.</p>
+      <h4>Object-Oriented Programming</h4>
+      <p>Here, we work with C++ and explore the principles of object-oriented programming. The professor also shared insights into the job market, explaining which programming languages are in demand and what kind of projects they are used for.</p>
+  
+      <h4>Physics</h4>
+      <p>Physics is a challenging course, especially because it requires a strong foundation in mathematics. We cover topics like mechanics, kinematics, and Newton’s laws. The professor emphasized that while physics is tough, it’s essential for understanding the world around us.</p>
+  
+      <h4>IT Terminology in English</h4>
+      <p>This course focuses on IT-related terminology and its ethical implications. We discuss topics like AI’s impact on jobs and how to combat misinformation in technology. It’s a thought-provoking course that connects technology with real-world issues.</p>
+  
+      <h3>Final Thoughts</h3>
+      <p>Studying at Riga Technical University has been both challenging and rewarding. The courses are designed to push you to think critically and apply your knowledge practically. If you’re considering studying abroad, I highly recommend it. It’s a great opportunity to grow both academically and personally.</p>
     `,
-    slug: "learning-react"
+    slug: "studying-at-rtu"
   }
 ];
 
