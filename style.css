@@ -15,7 +15,8 @@
   --font-sans: 'Inter', sans-serif;
   --font-display: 'Inter Tight', 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-  --container-max: 1400px;
+  --container-max: 1100px;
+  /* Reduced further from 1200px */
 }
 
 html {
@@ -33,8 +34,8 @@ body {
   color: var(--text-secondary);
   font-family: var(--font-sans);
   line-height: 1.6;
-  font-size: 18px;
-  /* Increased from 15px */
+  font-size: 16px;
+  /* Reduced from 18px */
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -69,15 +70,15 @@ h4 {
 }
 
 h2 {
-  font-size: 48px;
-  /* Increased from 36px */
+  font-size: 36px;
+  /* Reduced from 48px */
   color: var(--text-primary);
   font-weight: 300;
 }
 
 .display-heading {
-  font-size: clamp(3.5rem, 8vw, 84px);
-  /* Increased from 64px */
+  font-size: clamp(2.5rem, 6vw, 64px);
+  /* Reduced from 3.5rem, 8vw, 84px */
   color: var(--text-primary);
   font-weight: 300;
 }
@@ -113,7 +114,8 @@ h2 {
 }
 
 section {
-  padding: 100px 0;
+  padding: 80px 0;
+  /* Reduced from 100px */
 }
 
 /* Buttons */
@@ -121,13 +123,13 @@ section {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
-  /* Increased from 6px */
+  border-radius: 6px;
+  /* Reduced from 8px */
   font-weight: 500;
-  font-size: 16px;
-  /* Increased from 13px */
-  padding: 8px 24px;
-  /* Reduced height from 12px */
+  font-size: 15px;
+  /* Reduced from 16px */
+  padding: 6px 20px;
+  /* Reduced from 8px 24px */
   transition: all 0.2s ease;
   cursor: pointer;
   border: 1px solid transparent;
@@ -149,10 +151,10 @@ section {
 }
 
 .btn-large {
-  padding: 10px 32px;
-  /* Reduced height from 16px */
-  font-size: 18px;
-  /* Increased from 14px */
+  padding: 8px 28px;
+  /* Reduced from 10px 32px */
+  font-size: 16px;
+  /* Reduced from 18px */
 }
 
 .btn-ghost {
@@ -181,8 +183,8 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 32px 32px;
-  /* Increased from 24px */
+  padding: 12px 24px;
+  /* Slimmer height */
   position: sticky;
   top: 0;
   background-color: var(--bg-primary);
@@ -194,8 +196,8 @@ section {
 .nav-logo {
   font-weight: 600;
   color: var(--text-primary);
-  font-size: 1.5rem;
-  /* Increased from 1.1rem */
+  font-size: 1.25rem;
+  /* Reduced from 1.5rem */
   display: flex;
   align-items: center;
 }
@@ -208,8 +210,8 @@ section {
 
 .nav-link {
   color: var(--text-secondary);
-  font-size: 18px;
-  /* Increased from 16px */
+  font-size: 16px;
+  /* Reduced from 18px */
   font-weight: 500;
 }
 
@@ -224,9 +226,10 @@ section {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding-top: 120px;
-  /* Increased top padding for better vertical balance with single button */
-  padding-bottom: 80px;
+  padding-top: 48px;
+  /* Added just a little place back as requested */
+  padding-bottom: 60px;
+  /* Reduced from 80px */
 }
 
 .hero-title {
@@ -235,12 +238,13 @@ section {
 }
 
 .hero-subtitle {
-  font-size: 20px;
-  /* Increased from 16px */
+  font-size: 18px;
+  /* Reduced from 20px */
   color: var(--text-secondary);
-  max-width: 600px;
-  /* Increased from 500px */
-  margin-bottom: 32px;
+  max-width: 550px;
+  /* Reduced from 600px */
+  margin-bottom: 24px;
+  /* Reduced from 32px */
 }
 
 .hero-actions {
@@ -368,18 +372,19 @@ section {
 }
 
 .logo-heading {
-  font-size: 28px;
-  /* Further increased from 20px */
+  font-size: 24px;
+  /* Reduced from 28px */
   color: var(--text-primary);
   font-weight: 500;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .logo-subheading {
-  font-size: 18px;
-  /* Further increased from 13px */
+  font-size: 16px;
+  /* Reduced from 18px */
   color: var(--text-muted);
-  margin-bottom: 48px;
+  margin-bottom: 32px;
+  /* Reduced from 48px */
 }
 
 .logo-grid {
@@ -432,20 +437,22 @@ section {
 .badge-pill {
   border: 1px solid var(--border-subtle);
   border-radius: 100px;
-  padding: 8px 20px;
-  /* Increased from 4px 12px */
-  font-size: 16px;
-  /* Increased from 12px */
+  padding: 6px 16px;
+  /* Reduced from 8px 20px */
+  font-size: 14px;
+  /* Reduced from 16px */
   color: var(--text-muted);
-  margin-bottom: 32px;
-  /* Increased from 24px */
+  margin-bottom: 24px;
+  /* Reduced from 32px */
 }
 
 .about-headline {
-  font-size: clamp(32px, 5vw, 54px);
-  /* Increased significantly */
-  margin-bottom: 48px;
-  max-width: 900px;
+  font-size: clamp(28px, 4vw, 44px);
+  /* Reduced from 32px, 5vw, 54px */
+  margin-bottom: 32px;
+  /* Reduced from 48px */
+  max-width: 800px;
+  /* Reduced from 900px */
   font-weight: 300;
   line-height: 1.2;
 }
@@ -484,15 +491,15 @@ section {
 .pill-tag {
   display: flex;
   align-items: center;
-  gap: 12px;
-  /* Increased from 6px */
-  padding: 12px 24px;
-  /* Increased from 6px 14px */
+  gap: 10px;
+  /* Reduced from 12px */
+  padding: 8px 20px;
+  /* Reduced from 12px 24px */
   border-radius: 100px;
   border: 1px solid var(--border-subtle);
   color: var(--text-primary);
-  font-size: 18px;
-  /* Increased from 13px */
+  font-size: 16px;
+  /* Reduced from 18px */
   background: var(--bg-surface);
 }
 
@@ -519,8 +526,8 @@ section {
 }
 
 .stat-number {
-  font-size: 64px;
-  /* Increased from 48px */
+  font-size: 48px;
+  /* Reduced from 64px */
   font-weight: 700;
   font-family: var(--font-display);
   color: var(--text-primary);
@@ -529,8 +536,8 @@ section {
 }
 
 .stat-label {
-  font-size: 16px;
-  /* Increased from 13px */
+  font-size: 14px;
+  /* Reduced from 16px */
   color: var(--text-muted);
 }
 
@@ -545,33 +552,51 @@ section {
 }
 
 .use-cases-heading {
-  margin-bottom: 32px;
-  font-size: 40px;
+  margin-bottom: 24px;
+  font-size: 32px;
+  /* Reduced from 40px */
 }
 
 .tab-bar {
   display: flex;
-  gap: 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  /* Clean container radius */
+  overflow: hidden;
+  width: fit-content;
+  gap: 0;
   margin-bottom: 32px;
 }
 
 .tab-btn {
   background: transparent;
   border: none;
-  border-radius: 100px;
-  padding: 12px 24px;
-  /* Increased from 8px 16px */
+  border-right: 1px solid var(--border-subtle);
+  border-radius: 0;
+  /* Square tabs */
+  padding: 14px 28px;
   color: var(--text-secondary);
-  font-size: 16px;
-  /* Increased from 13px */
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.tab-btn:last-child {
+  border-right: none;
+}
+
+.tab-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
 }
 
 .tab-btn.active {
   background: var(--text-primary);
-  color: var(--text-dark);
-  font-weight: 500;
+  color: var(--bg-primary);
+  font-weight: 600;
 }
 
 .project-viewer-container {
@@ -582,7 +607,10 @@ section {
 .project-display-box {
   width: 100%;
   aspect-ratio: 16/9;
-  background-color: #050505;
+  background-image: url('/Images/hero-bg.jpg');
+  /* Match hero bg */
+  background-size: cover;
+  background-position: center;
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -590,14 +618,22 @@ section {
   overflow: hidden;
   position: relative;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .project-media-wrapper {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  /* Match hero inner panel scale */
+  height: 80%;
+  background: rgba(15, 15, 15, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   transition: all 0.5s ease;
 }
 
@@ -644,8 +680,8 @@ section {
 }
 
 #viewer-title {
-  font-size: 28px;
-  /* Increased from 24px */
+  font-size: 24px;
+  /* Reduced from 28px */
   font-weight: 300;
   color: var(--text-primary);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -686,8 +722,8 @@ pre {
 }
 
 .projects-heading {
-  font-size: 48px;
-  /* Increased from 36px */
+  font-size: 36px;
+  /* Reduced from 48px */
   color: var(--text-primary);
   font-weight: 300;
   line-height: 1.2;
@@ -775,8 +811,8 @@ pre {
   left: 0;
   right: 0;
   background: var(--bg-surface);
-  padding: 24px;
-  /* Increased from 20px */
+  padding: 16px;
+  /* Reduced from 24px */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -784,16 +820,17 @@ pre {
 }
 
 .project-caption h3 {
-  font-size: 20px;
-  /* Increased from 16px */
+  font-size: 16px;
+  /* Reduced from 20px */
   font-weight: 600;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
+  /* Reduced from 6px */
   color: var(--text-primary);
 }
 
 .project-caption p {
-  font-size: 15px;
-  /* Increased from 13px */
+  font-size: 13px;
+  /* Reduced from 15px */
   color: var(--text-muted);
 }
 
@@ -826,16 +863,18 @@ pre {
 }
 
 .cta-text h2 {
-  font-size: 48px;
-  /* Increased from 32px */
-  margin-bottom: 24px;
+  font-size: 36px;
+  /* Reduced from 48px */
+  margin-bottom: 16px;
+  /* Reduced from 24px */
 }
 
 .cta-text p {
   color: var(--text-secondary);
-  font-size: 18px;
-  /* Increased from 14px */
-  margin-bottom: 32px;
+  font-size: 16px;
+  /* Reduced from 18px */
+  margin-bottom: 24px;
+  /* Reduced from 32px */
   line-height: 1.6;
 }
 
@@ -855,7 +894,6 @@ pre {
 /* Footer */
 .footer {
   background-color: var(--bg-primary);
-  border-top: 1px solid var(--border-subtle);
   padding: 80px 0 40px;
 }
 
@@ -869,16 +907,18 @@ pre {
 .footer-logo {
   color: var(--text-primary);
   font-weight: 600;
-  font-size: 24px;
-  /* Increased from 16px */
-  margin-bottom: 20px;
+  font-size: 20px;
+  /* Reduced from 24px */
+  margin-bottom: 12px;
+  /* Reduced from 20px */
 }
 
 .footer-tagline {
   color: var(--text-muted);
-  font-size: 16px;
-  /* Increased from 14px */
-  margin-bottom: 32px;
+  font-size: 14px;
+  /* Reduced from 16px */
+  margin-bottom: 24px;
+  /* Reduced from 32px */
   line-height: 1.5;
 }
 
@@ -906,9 +946,10 @@ pre {
 
 .nav-col-label {
   color: var(--text-muted);
-  font-size: 16px;
-  /* Increased from 13px */
-  margin-bottom: 24px;
+  font-size: 14px;
+  /* Reduced from 16px */
+  margin-bottom: 16px;
+  /* Reduced from 24px */
   font-weight: 500;
 }
 
@@ -923,15 +964,10 @@ pre {
 
 .footer-nav-list a {
   color: var(--text-primary);
-  font-size: 16px;
-  /* Increased from 14px */
+  font-size: 14px;
+  /* Reduced from 16px */
 }
 
-.footer-divider {
-  height: 1px;
-  background-color: var(--border-subtle);
-  margin-bottom: 32px;
-}
 
 .footer-attribution {
   color: var(--text-muted);
