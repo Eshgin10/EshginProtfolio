@@ -5,27 +5,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eshgin - Blog</title>
+    <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="/blog.css">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <main>
-        <button class="back-home-btn" onclick="window.location.href='index.html'">Exit From Blog</button>
-        <h1>My Blog</h1>
+    <nav class="navbar">
+        <div class="nav-logo" onclick="window.location.href='index.html'" style="cursor: pointer;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="margin-right: 8px; vertical-align: middle;">
+                <path d="M4 17L10 11L4 5M12 19H20"></path>
+            </svg>
+            Eshgin
+        </div>
+        <div class="nav-links">
+            <a href="index.html#Stack" class="nav-link">Stack</a>
+            <a href="index.html#About" class="nav-link">About</a>
+            <a href="index.html#FeaturedProjects" class="nav-link">Featured</a>
+            <a href="index.html#Projects" class="nav-link">Gallery</a>
+            <a href="index.html#Contact" class="nav-link">Contact</a>
+            <a href="blog.html" class="btn btn-primary active-btn" style="margin-left: 16px;">Blog</a>
+        </div>
+        <div class="burger-menu">
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+        </div>
+    </nav>
+
+    <main class="blog-container">
+        <header class="blog-header">
+            <span class="section-label">Notebook</span>
+            <h1 class="display-heading">Experiments, thoughts and digital discoveries.</h1>
+        </header>
+
         <section class="blog-list" id="blog-list">
             <!-- Blog posts will be dynamically inserted here -->
         </section>
-        <img src="/Images/camera.png" alt="Decorative camera" class="deco rocket">
-        <img src="/Images/microfone.png" alt="Decorative microphone" class="deco crown">
-        <img src="/Images/thumb.png" alt="Decorative thumb" class="deco chess">
+
     </main>
 
+    <script src="/app.js"></script>
+    <script src="/blog.js"></script>
     <script>
         (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "5xzmjVs78PqSqhvMI1_hK"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
     </script>
-    <script src="/app.js"></script>
-    <script src="/blog.js"></script>
 </body>
 
 </html>

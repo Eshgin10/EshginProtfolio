@@ -228,5 +228,107 @@ async function identifyChatbaseUser() {
   }
 }
 
+// Text reveal animation observer
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.reveal-text').forEach(el => revealObserver.observe(el));
+
+// Featured Projects Tab Logic
+const projectData = {
+  attendance: {
+    title: "Attendance Tracker",
+    img: "/Images/attendance-tracker.png",
+    link: "https://attendo-two.vercel.app/",
+    isMobile: false
+  },
+  stellar: {
+    title: "Stellar Game",
+    img: "/Images/stellar-game.png",
+    link: "https://quick-thrill-2.preview.emergentagent.com/",
+    isMobile: false
+  },
+  workflow: {
+    title: "Workflow Automation",
+    img: "/Images/workflow-automation.png",
+    link: "https://eu1.make.com/public/shared-scenario/uCMLRIhjqdF/integration-google-sheets-gmail-tools",
+    isMobile: false
+  },
+  mobile: {
+    title: "Mobile Work Tracker",
+    img: "/Images/mobile-tracker.jpg",
+    link: "https://eshgin10.github.io/Konkrete/",
+    isMobile: true
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  const tabs = document.querySelectorAll('.project-tabs .tab-btn');
+  const viewerImg = document.getElementById('viewer-img');
+  const viewerTitle = document.getElementById('viewer-title');
+  const viewerLink = document.getElementById('viewer-link');
+  const mediaWrapper = document.getElementById('project-media-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Remove active class from all tabs
+      tabs.forEach(t => t.classList.remove('active'));
+      // Add active class to clicked tab
+      tab.classList.add('active');
+
+      const project = projectData[tab.dataset.project];
+      if (project) {
+        // Fade out
+        viewerImg.style.opacity = '0';
+
+        setTimeout(() => {
+          viewerImg.src = project.img;
+          viewerTitle.textContent = project.title;
+          viewerLink.href = project.link;
+
+          if (project.isMobile) {
+            mediaWrapper.classList.add('mobile-frame');
+          } else {
+            mediaWrapper.classList.remove('mobile-frame');
+          }
+
+          // Fade in
+          viewerImg.style.opacity = '1';
+        }, 300);
+      }
+    });
+  });
+});
+
+// Gallery Scroller Logic
+document.addEventListener('DOMContentLoaded', () => {
+  const scroller = document.querySelector('.projects-scroller');
+  const prevBtn = document.getElementById('gallery-prev');
+  const nextBtn = document.getElementById('gallery-next');
+
+  if (scroller && prevBtn && nextBtn) {
+    const scrollAmount = 400; // Scroll by roughly the width of one card
+
+    nextBtn.addEventListener('click', () => {
+      scroller.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+      });
+    });
+
+    prevBtn.addEventListener('click', () => {
+      scroller.scrollBy({
+        left: -scrollAmount,
+        behavior: 'smooth'
+      });
+    });
+  }
+});
+
 // Automatically identify the user when the page loads
 identifyChatbaseUser();

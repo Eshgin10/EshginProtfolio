@@ -57,40 +57,58 @@ const blogPosts = [
   }
 ];
 
-// Check if we're on the blog page
-if (window.location.pathname.includes("blog.html")) {
-  const blogList = document.getElementById("blog-list");
-
-  // Populate blog list
-  if (blogList) {
-    blogPosts.forEach((post, index) => {
-      const article = document.createElement("article");
-      article.style.setProperty('--index', index + 1); // Set the --index variable for staggered animation
-      article.innerHTML = `
-              <h2><a href="#${post.slug}" onclick="showPost('${post.slug}', event)">${post.title}</a></h2>
-              <p class="date">${post.date}</p>
-              <p>${post.summary}</p>
-          `;
-      blogList.appendChild(article);
-    });
+// Initialize Blog
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.location.pathname.includes("blog.html")) {
+    renderBlogList();
   }
+});
 
-  // Function to show full post
-  window.showPost = function (slug, event) {
-    event.preventDefault(); // Prevent default anchor behavior
-    const post = blogPosts.find(p => p.slug === slug);
-    const main = document.querySelector("main");
-    main.innerHTML = `
-          <button class="back-home-btn" onclick="window.location.href='index.html'">Back to Home</button>
-          <section class="blog-post">
-              <h1>${post.title}</h1>
-              <p class="date">${post.date}</p>
-              <p>${post.content}</p>
-              <a href="blog.html" class="back-link">Back to Blog</a>
-          </section>
-          <img src="/Images/camera.png" alt="Decorative camera" class="deco rocket">
-          <img src="/Images/microfone.png" alt="Decorative microphone" class="deco crown">
-          <img src="/Images/play.png" alt="Decorative play button" class="deco monitor">
-      `;
-  };
+function renderBlogList() {
+  const blogList = document.getElementById("blog-list");
+  if (!blogList) return;
+
+  blogList.innerHTML = '';
+  blogPosts.forEach((post, index) => {
+    const article = document.createElement("article");
+    article.innerHTML = `
+            <span class="date">${post.date}</span>
+            <h2>${post.title}</h2>
+            <p>${post.summary}</p>
+            <a href="#${post.slug}" class="read-more" onclick="showPost('${post.slug}', event)">
+                Read post <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+            </a>
+        `;
+    blogList.appendChild(article);
+  });
+}
+
+function showPost(slug, event) {
+  if (event) event.preventDefault();
+  const post = blogPosts.find(p => p.slug === slug);
+  const container = document.querySelector(".blog-container");
+
+  if (!post || !container) return;
+
+  // Fade out current content
+  container.style.opacity = '0';
+
+  setTimeout(() => {
+    container.innerHTML = `
+      <section class="blog-post">
+          <a href="blog.html" class="back-link" onclick="location.reload(); return false;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+              back to notebook
+          </a>
+          <span class="date">${post.date}</span>
+          <h1>${post.title}</h1>
+          <div class="blog-content">
+              ${post.content}
+          </div>
+      </section>
+    `;
+
+    window.scrollTo(0, 0);
+    container.style.opacity = '1';
+  }, 300);
 }
