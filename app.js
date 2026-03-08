@@ -3,31 +3,33 @@ document.addEventListener('DOMContentLoaded', function () {
   const navLinks = document.querySelector('.nav-links');
   const body = document.querySelector('body');
 
-  burgerMenu.addEventListener('click', () => {
-    burgerMenu.classList.toggle('active');
-    navLinks.classList.toggle('active');
-    body.classList.toggle('no-scroll'); // Toggle scroll lock
-  });
+  if (burgerMenu && navLinks) {
+    burgerMenu.addEventListener('click', () => {
+      burgerMenu.classList.toggle('active');
+      navLinks.classList.toggle('active');
+      body.classList.toggle('no-scroll');
+    });
 
-  // Close mobile menu when a nav link is clicked
-  navLinks.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      if (window.innerWidth <= 768) {
-        burgerMenu.classList.remove('active');
+    navLinks.querySelectorAll('.nav-link, .btn').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          burgerMenu.classList.remove('active');
+          navLinks.classList.remove('active');
+          body.classList.remove('no-scroll');
+        }
+      });
+    });
+  }
+
+  if (navLinks) {
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
+        burgerMenu?.classList.remove('active');
         navLinks.classList.remove('active');
-        body.classList.remove('no-scroll'); // Re-enable scrolling
+        body?.classList.remove('no-scroll');
       }
     });
-  });
-
-  // Re-enable scrolling if window is resized to desktop view
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
-      burgerMenu.classList.remove('active');
-      navLinks.classList.remove('active');
-      body.classList.remove('no-scroll');
-    }
-  });
+  }
 });
 
 // Select all sections that have an ID defined
@@ -72,22 +74,26 @@ const observer = new IntersectionObserver(observerCallback, observerOptions);
 // Observe all sections
 sections.forEach(section => observer.observe(section));
 
-// Add inside document.addEventListener('DOMContentLoaded', () => { ... })
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 0) {
-    navbar.classList.add('sticky');
-  } else {
-    navbar.classList.remove('sticky');
+  const navbar = document.querySelector('.navbar');
+  if (navbar) {
+    if (window.scrollY > 0) {
+      navbar.classList.add('sticky');
+    } else {
+      navbar.classList.remove('sticky');
+    }
   }
 });
 
 // Add inside document.addEventListener('DOMContentLoaded', () => { ... })
 window.addEventListener('scroll', () => {
-  const navLinks = document.querySelector('.nav-links');
-  if (window.scrollY > 0) {
-    navLinks.classList.add('sticky');
-  } else {
-    navLinks.classList.remove('sticky');
+  const navLinksEl = document.querySelector('.nav-links');
+  if (navLinksEl) {
+    if (window.scrollY > 0) {
+      navLinksEl.classList.add('sticky');
+    } else {
+      navLinksEl.classList.remove('sticky');
+    }
   }
 });
 
@@ -99,6 +105,11 @@ document.addEventListener('DOMContentLoaded', function () {
   const nextButton = document.querySelector('.next-arrow');
   const prevButton = document.querySelector('.prev-arrow');
   const dots = document.querySelectorAll('.dot');
+
+  if (!track || !slides.length) return;
+
+  let touchStartX = 0;
+  let touchEndX = 0;
 
   // Initialize current slide index
   let currentSlide = 0;
@@ -126,12 +137,12 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Event listeners for navigation buttons
-  nextButton.addEventListener('click', function () {
+  if (nextButton) nextButton.addEventListener('click', function () {
     currentSlide = (currentSlide + 1) % slideCount;
     updateSlider();
   });
 
-  prevButton.addEventListener('click', function () {
+  if (prevButton) prevButton.addEventListener('click', function () {
     currentSlide = (currentSlide - 1 + slideCount) % slideCount;
     updateSlider();
   });
@@ -153,29 +164,28 @@ document.addEventListener('DOMContentLoaded', function () {
   // Pause auto-play on hover
   const sliderContainer = document.querySelector('.slider-container');
 
-  sliderContainer.addEventListener('mouseenter', function () {
-    clearInterval(slideInterval);
-  });
+  if (sliderContainer) {
+    sliderContainer.addEventListener('mouseenter', function () {
+      clearInterval(slideInterval);
+    });
 
-  sliderContainer.addEventListener('mouseleave', function () {
-    slideInterval = setInterval(function () {
-      currentSlide = (currentSlide + 1) % slideCount;
-      updateSlider();
-    }, 5000);
-  });
+    sliderContainer.addEventListener('mouseleave', function () {
+      slideInterval = setInterval(function () {
+        currentSlide = (currentSlide + 1) % slideCount;
+        updateSlider();
+      }, 5000);
+    });
 
-  // Touch swipe support for mobile
-  let touchStartX = 0;
-  let touchEndX = 0;
+    // Touch swipe support for mobile
+    sliderContainer.addEventListener('touchstart', function (e) {
+      touchStartX = e.changedTouches[0].screenX;
+    });
 
-  sliderContainer.addEventListener('touchstart', function (e) {
-    touchStartX = e.changedTouches[0].screenX;
-  });
-
-  sliderContainer.addEventListener('touchend', function (e) {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-  });
+    sliderContainer.addEventListener('touchend', function (e) {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+  }
 
   function handleSwipe() {
     // Detect swipe direction (50px threshold)
@@ -268,41 +278,63 @@ const projectData = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  const tabs = document.querySelectorAll('.project-tabs .tab-btn');
+  const dropdown = document.getElementById('project-dropdown');
+  const trigger = document.getElementById('dropdown-trigger');
+  const labelEl = document.getElementById('dropdown-label');
+  const options = document.querySelectorAll('.dropdown-option');
   const viewerImg = document.getElementById('viewer-img');
   const viewerTitle = document.getElementById('viewer-title');
   const viewerLink = document.getElementById('viewer-link');
   const mediaWrapper = document.getElementById('project-media-content');
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      // Remove active class from all tabs
-      tabs.forEach(t => t.classList.remove('active'));
-      // Add active class to clicked tab
-      tab.classList.add('active');
+  if (!dropdown || !trigger || !labelEl || !options.length) return;
 
-      const project = projectData[tab.dataset.project];
-      if (project) {
-        // Fade out
-        viewerImg.style.opacity = '0';
+  function setProject(projectKey) {
+    const project = projectData[projectKey];
+    if (!project) return;
 
-        setTimeout(() => {
-          viewerImg.src = project.img;
-          viewerTitle.textContent = project.title;
-          viewerLink.href = project.link;
-
-          if (project.isMobile) {
-            mediaWrapper.classList.add('mobile-frame');
-          } else {
-            mediaWrapper.classList.remove('mobile-frame');
-          }
-
-          // Fade in
-          viewerImg.style.opacity = '1';
-        }, 300);
+    viewerImg.style.opacity = '0';
+    setTimeout(() => {
+      viewerImg.src = project.img;
+      viewerTitle.textContent = project.title;
+      viewerLink.href = project.link;
+      if (project.isMobile) {
+        mediaWrapper.classList.add('mobile-frame');
+      } else {
+        mediaWrapper.classList.remove('mobile-frame');
       }
+      viewerImg.style.opacity = '1';
+    }, 300);
+
+    labelEl.textContent = project.title;
+    options.forEach(opt => {
+      const active = opt.dataset.project === projectKey;
+      opt.classList.toggle('active', active);
+      opt.setAttribute('aria-selected', active);
+    });
+    trigger.setAttribute('aria-expanded', 'false');
+    dropdown.classList.remove('is-open');
+  }
+
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = dropdown.classList.toggle('is-open');
+    trigger.setAttribute('aria-expanded', isOpen);
+  });
+
+  options.forEach(opt => {
+    opt.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setProject(opt.dataset.project);
     });
   });
+
+  document.addEventListener('click', () => {
+    dropdown.classList.remove('is-open');
+    trigger.setAttribute('aria-expanded', 'false');
+  });
+
+  dropdown.addEventListener('click', (e) => e.stopPropagation());
 });
 
 // Gallery Scroller Logic

@@ -157,11 +157,19 @@
                 <strong>Functional systems.</strong> <span class="light">Innovative interfaces.</span>
             </h2>
 
-            <div class="tab-bar project-tabs">
-                <button class="tab-btn active" data-project="workflow">Workflow Automation</button>
-                <button class="tab-btn" data-project="stellar">Stellar Game</button>
-                <button class="tab-btn" data-project="attendance">Attendance Tracker</button>
-                <button class="tab-btn" data-project="mobile">Mobile Work Tracker</button>
+            <div class="project-dropdown" id="project-dropdown">
+                <button type="button" class="dropdown-trigger" id="dropdown-trigger" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="dropdown-label">
+                    <span id="dropdown-label" class="dropdown-label">Workflow Automation</span>
+                    <svg class="dropdown-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </button>
+                <ul class="dropdown-list" role="listbox" id="dropdown-list" aria-label="Select featured project">
+                    <li role="option" data-project="workflow" class="dropdown-option active" aria-selected="true">Workflow Automation</li>
+                    <li role="option" data-project="stellar" class="dropdown-option">Stellar Game</li>
+                    <li role="option" data-project="attendance" class="dropdown-option">Attendance Tracker</li>
+                    <li role="option" data-project="mobile" class="dropdown-option">Mobile Work Tracker</li>
+                </ul>
             </div>
 
             <div class="project-viewer-container">
