@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="/Images/logo.svg">
+    <link rel="icon" type="image/jpeg" href="/Images/eshgin-logo.jpg">
     <title>Eshgin - Portfolio</title>
     <link rel="stylesheet" href="/style.css">
 </head>
@@ -12,11 +12,7 @@
 <body>
     <nav class="navbar">
         <a href="#Home" class="nav-logo">
-            <svg width="24" height="24" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="18"
-                style="margin-right: 8px; vertical-align: middle;">
-                <circle cx="70" cy="100" r="55" fill="none" stroke-dasharray="86 172" stroke-dashoffset="43"/>
-                <circle cx="130" cy="100" r="55" fill="none" stroke-dasharray="86 172" stroke-dashoffset="-43"/>
-            </svg>
+            <img class="brand-logo" src="/Images/eshgin-logo.jpg" width="44" height="44" alt="">
             Eshgin
         </a>
         <div class="nav-links">
@@ -160,13 +156,14 @@
 
             <div class="project-dropdown" id="project-dropdown">
                 <button type="button" class="dropdown-trigger" id="dropdown-trigger" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="dropdown-label">
-                    <span id="dropdown-label" class="dropdown-label">Workflow Automation</span>
+                    <span id="dropdown-label" class="dropdown-label">Payment Intelligence Dashboard</span>
                     <svg class="dropdown-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                         <path d="M6 9l6 6 6-6"/>
                     </svg>
                 </button>
                 <ul class="dropdown-list" role="listbox" id="dropdown-list" aria-label="Select featured project">
-                    <li role="option" data-project="workflow" class="dropdown-option active" aria-selected="true">Workflow Automation</li>
+                    <li role="option" data-project="payment" class="dropdown-option active" aria-selected="true">Payment Intelligence Dashboard</li>
+                    <li role="option" data-project="workflow" class="dropdown-option" aria-selected="false">Workflow Automation</li>
                     <li role="option" data-project="stellar" class="dropdown-option">Stellar Game</li>
                     <li role="option" data-project="attendance" class="dropdown-option">Attendance Tracker</li>
                     <li role="option" data-project="mobile" class="dropdown-option">Mobile Work Tracker</li>
@@ -175,12 +172,12 @@
 
             <div class="project-viewer-container">
                 <div class="project-display-box border-glow">
-                    <div id="project-media-content" class="project-media-wrapper">
-                        <img src="/Images/workflow-automation.png" id="viewer-img" alt="Project Preview">
+                    <div id="project-media-content" class="project-media-wrapper dashboard-preview">
+                        <img src="/Images/payment-intelligence-dashboard.png" id="viewer-img" alt="Payment Intelligence Dashboard preview">
                     </div>
                     <div class="project-info-overlay">
-                        <h3 id="viewer-title">Workflow Automation</h3>
-                        <a href="https://eu1.make.com/public/shared-scenario/uCMLRIhjqdF/integration-google-sheets-gmail-tools"
+                        <h3 id="viewer-title">Payment Intelligence Dashboard</h3>
+                        <a href="https://payment-intelligence-dashboard.onrender.com/"
                             id="viewer-link" target="_blank" class="btn btn-ghost">Visit Site <svg width="14"
                                 height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 style="margin-left: 8px;">

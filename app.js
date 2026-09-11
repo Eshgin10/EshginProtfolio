@@ -251,6 +251,12 @@ document.querySelectorAll('.reveal-text').forEach(el => revealObserver.observe(e
 
 // Featured Projects Tab Logic
 const projectData = {
+  payment: {
+    title: "Payment Intelligence Dashboard",
+    img: "/Images/payment-intelligence-dashboard.png",
+    link: "https://payment-intelligence-dashboard.onrender.com/",
+    isMobile: false
+  },
   attendance: {
     title: "Attendance Tracker",
     img: "/Images/attendance-tracker.png",
@@ -296,6 +302,8 @@ document.addEventListener('DOMContentLoaded', () => {
     viewerImg.style.opacity = '0';
     setTimeout(() => {
       viewerImg.src = project.img;
+      viewerImg.alt = `${project.title} preview`;
+      mediaWrapper.classList.toggle('dashboard-preview', projectKey === 'payment');
       viewerTitle.textContent = project.title;
       viewerLink.href = project.link;
       if (project.isMobile) {
