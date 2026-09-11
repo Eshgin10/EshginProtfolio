@@ -1,0 +1,6 @@
+<svg width="24" height="24" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Left circular bracket -->
+  <circle cx="70" cy="100" r="55" fill="none" stroke="currentColor" stroke-width="18" stroke-dasharray="86 172" stroke-dashoffset="43"/>
+  <!-- Right circular bracket -->
+  <circle cx="130" cy="100" r="55" fill="none" stroke="currentColor" stroke-width="18" stroke-dasharray="86 172" stroke-dashoffset="-43"/>
+</svg>
