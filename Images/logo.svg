@@ -1,6 +1,6 @@
 <svg width="24" height="24" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Left circular bracket -->
-  <circle cx="70" cy="100" r="55" fill="none" stroke="currentColor" stroke-width="18" stroke-dasharray="86 172" stroke-dashoffset="43"/>
-  <!-- Right circular bracket -->
-  <circle cx="130" cy="100" r="55" fill="none" stroke="currentColor" stroke-width="18" stroke-dasharray="86 172" stroke-dashoffset="-43"/>
+  <!-- Left semi-circle arc -->
+  <path d="M 50 100 A 50 50 0 0 0 150 100" stroke="currentColor" stroke-width="20" stroke-linecap="round" fill="none"/>
+  <!-- Right semi-circle arc -->
+  <path d="M 150 100 A 50 50 0 0 0 50 100" stroke="currentColor" stroke-width="20" stroke-linecap="round" fill="none"/>
 </svg>
