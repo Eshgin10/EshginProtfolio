@@ -97,7 +97,7 @@
             <div class="container about-container">
                 <div class="badge-pill mb-4">About me</div>
                 <h2 class="about-headline">
-                    <span class="reveal-text">I’m a Information Technologies student at Riga Nordic University
+                    <span class="reveal-text">I'm a Information Technologies student at Riga Nordic University
                         focused
                         on building modern web platforms and software systems.</span>
                     <span class="reveal-text">My work centers around developing clean, functional interfaces,
@@ -406,15 +406,31 @@
                     <a href="mailto:esqinmammadov0@gmail.com" class="btn btn-outline-white">Send an Email</a>
                 </div>
                 <div class="contact-form" style="display: flex; flex-direction: column; gap: 16px;">
-                    <form action="https://formspree.io/f/mvgkgojp" method="POST"
-                        style="display: flex; flex-direction: column; gap: 16px;">
-                        <input type="text" placeholder="Your Name" class="input" name="name" required
-                            style="background: var(--bg-surface); border: 1px solid var(--border-subtle); color: white; padding: 12px; border-radius: 6px;">
-                        <input type="email" placeholder="Your Email" class="input" name="email" required
-                            style="background: var(--bg-surface); border: 1px solid var(--border-subtle); color: white; padding: 12px; border-radius: 6px;">
-                        <textarea placeholder="Your Message" class="textarea" name="message" required
-                            style="background: var(--bg-surface); border: 1px solid var(--border-subtle); color: white; padding: 12px; border-radius: 6px; min-height: 100px;"></textarea>
-                        <button type="submit" class="btn btn-primary" style="padding: 12px;">Send Message</button>
+                    <div data-fs-success style="display: none; color: #4CAF50; padding: 12px; background: rgba(76, 175, 80, 0.1); border-radius: 6px; margin-bottom: 16px; text-align: center; font-weight: 500;">
+                        Thanks for reaching out! I'll get back to you soon.
+                    </div>
+                    <div data-fs-error style="display: none; color: #f44336; padding: 12px; background: rgba(244, 67, 54, 0.1); border-radius: 6px; margin-bottom: 16px; text-align: center; font-weight: 500;"></div>
+                    
+                    <form id="contact-form" style="display: flex; flex-direction: column; gap: 16px;">
+                        <div>
+                            <input type="text" placeholder="Your Name" class="input" name="name" data-fs-field required
+                                style="background: var(--bg-surface); border: 1px solid var(--border-subtle); color: white; padding: 12px; border-radius: 6px; width: 100%;">
+                            <span data-fs-error="name" style="color: #f44336; font-size: 12px; margin-top: 4px; display: block;"></span>
+                        </div>
+                        
+                        <div>
+                            <input type="email" placeholder="Your Email" class="input" name="email" data-fs-field required
+                                style="background: var(--bg-surface); border: 1px solid var(--border-subtle); color: white; padding: 12px; border-radius: 6px; width: 100%;">
+                            <span data-fs-error="email" style="color: #f44336; font-size: 12px; margin-top: 4px; display: block;"></span>
+                        </div>
+                        
+                        <div>
+                            <textarea placeholder="Your Message" class="textarea" name="message" data-fs-field required
+                                style="background: var(--bg-surface); border: 1px solid var(--border-subtle); color: white; padding: 12px; border-radius: 6px; min-height: 100px; width: 100%; font-family: inherit;"></textarea>
+                            <span data-fs-error="message" style="color: #f44336; font-size: 12px; margin-top: 4px; display: block;"></span>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" data-fs-submit-btn style="padding: 12px;">Send Message</button>
                     </form>
                 </div>
             </div>
@@ -435,7 +451,7 @@
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path
-                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 [...]
                                 </path>
                             </svg>
                         </a>
@@ -480,6 +496,11 @@
     </footer>
 
     <script src="/app.js"></script>
+    <script>
+        window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+        formspree('initForm', { formElement: '#contact-form', formId: 'mwlkzzzo' });
+    </script>
+    <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 </body>
 
 </html>
