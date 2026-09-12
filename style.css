@@ -755,6 +755,28 @@ section {
   border-bottom-right-radius: 12px;
 }
 
+.project-actions {
+  display: inline-flex;
+  align-items: stretch;
+  flex-shrink: 0;
+}
+
+.project-actions .btn {
+  border-radius: 0;
+  margin: 0;
+}
+
+.project-actions .btn:first-child {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.project-actions .btn:last-child {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  border-left-width: 0;
+}
+
 #viewer-title {
   font-size: 24px;
   /* Reduced from 28px */
@@ -1204,7 +1226,7 @@ body.no-scroll {
     font-size: 13px;
   }
 
-  /* Featured project overlay – one row: title left, Visit Site right */
+  /* Featured project overlay – one row: title left, actions right */
   .project-info-overlay {
     padding: 80px 16px 16px;
     flex-direction: row;
@@ -1224,6 +1246,10 @@ body.no-scroll {
     flex-shrink: 0;
     padding: 8px 14px;
     font-size: 13px;
+  }
+
+  .project-actions {
+    max-width: 58%;
   }
 
   /* Section padding */
