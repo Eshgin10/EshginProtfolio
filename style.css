@@ -749,6 +749,7 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
   z-index: 10;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;

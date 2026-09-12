@@ -255,6 +255,7 @@ const projectData = {
     title: "Payment Intelligence Dashboard",
     img: "/Images/payment-intelligence-dashboard.png",
     link: "https://payment-intelligence-dashboard.onrender.com/",
+    source: "https://github.com/Eshgin10/Payment-Intelligence-Dashboard",
     isMobile: false
   },
   attendance: {
@@ -291,6 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const viewerImg = document.getElementById('viewer-img');
   const viewerTitle = document.getElementById('viewer-title');
   const viewerLink = document.getElementById('viewer-link');
+  const viewerSourceLink = document.getElementById('viewer-source-link');
   const mediaWrapper = document.getElementById('project-media-content');
 
   if (!dropdown || !trigger || !labelEl || !options.length) return;
@@ -306,6 +308,12 @@ document.addEventListener('DOMContentLoaded', () => {
       mediaWrapper.classList.toggle('dashboard-preview', projectKey === 'payment');
       viewerTitle.textContent = project.title;
       viewerLink.href = project.link;
+      if (viewerSourceLink) {
+        viewerSourceLink.href = project.source || '#';
+        viewerSourceLink.hidden = !project.source;
+        viewerSourceLink.setAttribute('aria-hidden', String(!project.source));
+        viewerSourceLink.tabIndex = project.source ? 0 : -1;
+      }
       if (project.isMobile) {
         mediaWrapper.classList.add('mobile-frame');
       } else {
