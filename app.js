@@ -258,16 +258,17 @@ const projectData = {
     source: "https://github.com/Eshgin10/Payment-Intelligence-Dashboard",
     isMobile: false
   },
+  datahealth: {
+    title: "Data Health",
+    img: "/Images/data-health.png",
+    link: "https://datahealth-production.up.railway.app/",
+    source: "https://github.com/Eshgin10/DataHealth",
+    isMobile: false
+  },
   attendance: {
     title: "Attendance Tracker",
     img: "/Images/attendance-tracker.png",
     link: "https://attendo-two.vercel.app/",
-    isMobile: false
-  },
-  stellar: {
-    title: "Stellar Game",
-    img: "/Images/stellar-game.png",
-    link: "https://quick-thrill-2.preview.emergentagent.com/",
     isMobile: false
   },
   workflow: {
