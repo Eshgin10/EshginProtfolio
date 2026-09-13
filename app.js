@@ -276,6 +276,7 @@ const projectData = {
     title: "Attendance Tracker",
     img: "/Images/attendance-tracker.png",
     link: "https://attendo-two.vercel.app/",
+    source: "https://github.com/Eshgin10/Attendo",
     isMobile: false
   },
   workflow: {
