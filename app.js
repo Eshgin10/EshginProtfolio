@@ -265,6 +265,13 @@ const projectData = {
     source: "https://github.com/Eshgin10/DataHealth",
     isMobile: false
   },
+  insight: {
+    title: "Insight Desk",
+    img: "/Images/insight-desk.png",
+    link: "https://insight-desk-v35h.onrender.com/",
+    source: "https://github.com/Eshgin10/InsightDesk",
+    isMobile: false
+  },
   attendance: {
     title: "Attendance Tracker",
     img: "/Images/attendance-tracker.png",
@@ -276,12 +283,6 @@ const projectData = {
     img: "/Images/workflow-automation.png",
     link: "https://eu1.make.com/public/shared-scenario/uCMLRIhjqdF/integration-google-sheets-gmail-tools",
     isMobile: false
-  },
-  mobile: {
-    title: "Mobile Work Tracker",
-    img: "/Images/mobile-tracker.jpg",
-    link: "https://eshgin10.github.io/Konkrete/",
-    isMobile: true
   }
 };
 
