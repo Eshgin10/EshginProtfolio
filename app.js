@@ -265,6 +265,13 @@ const projectData = {
     source: "https://github.com/Eshgin10/DataHealth",
     isMobile: false
   },
+  nemesis: {
+    title: "Nemesis",
+    img: "/Images/nemesis.png",
+    link: "https://nemesis-lime-chi.vercel.app/",
+    source: "https://github.com/Eshgin10/Nemesis",
+    isMobile: false
+  },
   insight: {
     title: "Insight Desk",
     img: "/Images/insight-desk.png",
