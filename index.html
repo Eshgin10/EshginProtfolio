@@ -149,52 +149,34 @@
 
         <!-- Featured Projects Section -->
         <section class="use-cases-section container" id="FeaturedProjects">
-            <span class="section-label">// Featured Work</span>
-            <h2 class="section-heading use-cases-heading">
-                <strong>Functional systems.</strong> <span class="light">Innovative interfaces.</span>
-            </h2>
-
-            <div class="project-dropdown" id="project-dropdown">
-                <button type="button" class="dropdown-trigger" id="dropdown-trigger" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="dropdown-label">
-                    <span id="dropdown-label" class="dropdown-label">Payment Intelligence Dashboard</span>
-                    <svg class="dropdown-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                        <path d="M6 9l6 6 6-6"/>
-                    </svg>
-                </button>
-                <ul class="dropdown-list" role="listbox" id="dropdown-list" aria-label="Select featured project">
-                    <li role="option" data-project="payment" class="dropdown-option active" aria-selected="true">Payment Intelligence Dashboard</li>
-                    <li role="option" data-project="datahealth" class="dropdown-option">Data Health</li>
-                    <li role="option" data-project="nemesis" class="dropdown-option">Nemesis</li>
-                    <li role="option" data-project="insight" class="dropdown-option">Insight Desk</li>
-                    <li role="option" data-project="workflow" class="dropdown-option" aria-selected="false">Workflow Automation</li>
-                    <li role="option" data-project="attendance" class="dropdown-option">Attendance Tracker</li>
-                </ul>
+            <div class="featured-head">
+                <div>
+                    <span class="section-label">// Featured Work</span>
+                    <h2 class="section-heading use-cases-heading">
+                        <strong>Functional systems.</strong> <span class="light">Innovative interfaces.</span>
+                    </h2>
+                </div>
+                <div class="gallery-nav">
+                    <button class="nav-arrow" id="featured-prev" aria-label="Previous">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <button class="nav-arrow" id="featured-next" aria-label="Next">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
             </div>
 
-            <div class="project-viewer-container">
-                <div class="project-display-box border-glow">
-                    <div id="project-media-content" class="project-media-wrapper dashboard-preview">
-                        <img src="/Images/payment-intelligence-dashboard.png" id="viewer-img" alt="Payment Intelligence Dashboard preview">
-                    </div>
-                    <div class="project-info-overlay">
-                        <h3 id="viewer-title">Payment Intelligence Dashboard</h3>
-                        <div class="project-actions">
-                        <a href="https://payment-intelligence-dashboard.onrender.com/"
-                            id="viewer-link" target="_blank" class="btn btn-ghost">Live Preview <svg width="14"
-                                height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                style="margin-left: 8px;">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3">
-                                </path>
-                            </svg></a>
-                        <a href="https://github.com/Eshgin10/Payment-Intelligence-Dashboard"
-                            id="viewer-source-link" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Source Code <svg width="14"
-                                height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                style="margin-left: 8px;">
-                                <path d="M15 3h6v6M10 14L21 3"></path>
-                            </svg></a>
-                        </div>
-                    </div>
-                </div>
+            <div class="coverflow" id="featured-coverflow" aria-roledescription="carousel" aria-label="Featured projects" tabindex="0">
+                <div class="coverflow-stage" id="featured-stage"></div>
+            </div>
+            <div class="coverflow-meta" aria-live="polite">
+                <h3 id="featured-title"></h3>
+                <p id="featured-subtitle"></p>
+                <a href="#" id="featured-open" class="btn btn-ghost">View project</a>
             </div>
         </section>
 
@@ -222,177 +204,13 @@
                     </div>
                 </div>
 
-                <div class="projects-scroller">
-                    <!-- Military AI Ops -->
-                    <div class="project-card">
-                        <div class="project-img-placeholder">
-                            <img src="/Images/military-ai.png" alt="Military AI Ops"
-                                style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="project-caption">
-                            <div>
-                                <h3>Military AI Ops</h3>
-                                <p>AI Enterprise Solutions</p>
-                            </div>
-                            <a href="https://military-ai-ops.preview.emergentagent.com/" target="_blank"
-                                class="arrow-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2">
-                                    <path d="M5 19L19 5M19 5H8M19 5V16"></path>
-                                </svg></a>
-                        </div>
-                    </div>
-
-                    <!-- CodeFlow -->
-                    <div class="project-card">
-                        <div class="project-img-placeholder">
-                            <img src="/Images/codeflow.png" alt="CodeFlow"
-                                style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="project-caption">
-                            <div>
-                                <h3>CodeFlow</h3>
-                                <p>AI Coding Assistant</p>
-                            </div>
-                            <a href="https://eshgin10.github.io/CodeFlow/" target="_blank" class="arrow-btn"><svg
-                                    width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M5 19L19 5M19 5H8M19 5V16"></path>
-                                </svg></a>
-                        </div>
-                    </div>
-
-                    <!-- Aura NFT -->
-                    <div class="project-card">
-                        <div class="project-img-placeholder">
-                            <img src="/Images/aura-nft.png" alt="Aura NFT"
-                                style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="project-caption">
-                            <div>
-                                <h3>Aura NFT</h3>
-                                <p>NFT Art Display</p>
-                            </div>
-                            <a href="https://aura-nft-art-display.lovable.app/" target="_blank" class="arrow-btn"><svg
-                                    width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M5 19L19 5M19 5H8M19 5V16"></path>
-                                </svg></a>
-                        </div>
-                    </div>
-
-                    <!-- F1 Waitlist -->
-                    <div class="project-card">
-                        <div class="project-img-placeholder">
-                            <img src="/Images/f1-waitlist.png" alt="F1 Crew"
-                                style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="project-caption">
-                            <div>
-                                <h3>F1 Crew</h3>
-                                <p>Motorsport Community Waitlist</p>
-                            </div>
-                            <a href="https://eshgin10.github.io/F1-Waitlist/" target="_blank" class="arrow-btn"><svg
-                                    width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M5 19L19 5M19 5H8M19 5V16"></path>
-                                </svg></a>
-                        </div>
-                    </div>
-
-                    <!-- Horizon Waitlist -->
-                    <div class="project-card">
-                        <div class="project-img-placeholder">
-                            <img src="/Images/horizon-waitlist.png" alt="Horizon"
-                                style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="project-caption">
-                            <div>
-                                <h3>Horizon</h3>
-                                <p>Productivity Platform Waitlist</p>
-                            </div>
-                            <a href="https://eshgin10.github.io/Horizon-Waitlist/" target="_blank"
-                                class="arrow-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2">
-                                    <path d="M5 19L19 5M19 5H8M19 5V16"></path>
-                                </svg></a>
-                        </div>
-                    </div>
-
-                    <!-- Cortex -->
-                    <div class="project-card">
-                        <div class="project-img-placeholder">
-                            <img src="/Images/cortex.png" alt="Cortex"
-                                style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="project-caption">
-                            <div>
-                                <h3>Cortex</h3>
-                                <p>Neural Information System</p>
-                            </div>
-                            <a href="https://eshgin10.github.io/Cortex/" target="_blank" class="arrow-btn"><svg
-                                    width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M5 19L19 5M19 5H8M19 5V16"></path>
-                                </svg></a>
-                        </div>
-                    </div>
-
-                    <!-- Aether Robotics -->
-                    <div class="project-card">
-                        <div class="project-img-placeholder">
-                            <img src="/Images/aether.png" alt="Aether Robotics"
-                                style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="project-caption">
-                            <div>
-                                <h3>Aether Robotics</h3>
-                                <p>Humanoid Systems Landing Page</p>
-                            </div>
-                            <a href="https://aether-genesis-site-spark.lovable.app" target="_blank"
-                                class="arrow-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2">
-                                    <path d="M5 19L19 5M19 5H8M19 5V16"></path>
-                                </svg></a>
-                        </div>
-                    </div>
-
-                    <!-- ScribeX -->
-                    <div class="project-card">
-                        <div class="project-img-placeholder">
-                            <img src="/Images/scribex.png" alt="ScribeX"
-                                style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="project-caption">
-                            <div>
-                                <h3>ScribeX</h3>
-                                <p>Digital Solutions Platform</p>
-                            </div>
-                            <a href="https://eshgin10.github.io/ScribeX/" target="_blank" class="arrow-btn"><svg
-                                    width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M5 19L19 5M19 5H8M19 5V16"></path>
-                                </svg></a>
-                        </div>
-                    </div>
-
-                    <!-- Triarii Growth -->
-                    <div class="project-card">
-                        <div class="project-img-placeholder">
-                            <img src="/Images/triarii.png" alt="Triarii Growth"
-                                style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="project-caption">
-                            <div>
-                                <h3>Triarii Growth</h3>
-                                <p>Dynamic Agency Platform</p>
-                            </div>
-                            <a href="https://eshgin10.github.io/Triarii-Growth/" target="_blank" class="arrow-btn"><svg
-                                    width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M5 19L19 5M19 5H8M19 5V16"></path>
-                                </svg></a>
-                        </div>
-                    </div>
+                <div class="coverflow" id="coverflow" aria-roledescription="carousel" aria-label="Project gallery" tabindex="0">
+                    <div class="coverflow-stage" id="coverflow-stage"></div>
+                </div>
+                <div class="coverflow-meta" id="coverflow-meta" aria-live="polite">
+                    <h3 id="coverflow-title"></h3>
+                    <p id="coverflow-subtitle"></p>
+                    <a href="#" id="coverflow-open" class="btn btn-ghost">View project</a>
                 </div>
             </div>
         </section>
@@ -498,6 +316,7 @@
         </div>
     </footer>
 
+    <script src="/projects-data.js"></script>
     <script src="/app.js?v=20260912-portfolio"></script>
     <script>
         window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };

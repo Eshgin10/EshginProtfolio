@@ -249,143 +249,121 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal-text').forEach(el => revealObserver.observe(el));
 
-// Featured Projects Tab Logic
-const projectData = {
-  payment: {
-    title: "Payment Intelligence Dashboard",
-    img: "/Images/payment-intelligence-dashboard.png",
-    link: "https://payment-intelligence-dashboard.onrender.com/",
-    source: "https://github.com/Eshgin10/Payment-Intelligence-Dashboard",
-    isMobile: false
-  },
-  datahealth: {
-    title: "Data Health",
-    img: "/Images/data-health.png",
-    link: "https://datahealth-production.up.railway.app/",
-    source: "https://github.com/Eshgin10/DataHealth",
-    isMobile: false
-  },
-  nemesis: {
-    title: "Nemesis",
-    img: "/Images/nemesis.png",
-    link: "https://nemesis-lime-chi.vercel.app/",
-    source: "https://github.com/Eshgin10/Nemesis",
-    isMobile: false
-  },
-  insight: {
-    title: "Insight Desk",
-    img: "/Images/insight-desk.png",
-    link: "https://insight-desk-v35h.onrender.com/",
-    source: "https://github.com/Eshgin10/InsightDesk",
-    isMobile: false
-  },
-  attendance: {
-    title: "Attendance Tracker",
-    img: "/Images/attendance-tracker.png",
-    link: "https://attendo-two.vercel.app/",
-    source: "https://github.com/Eshgin10/Attendo",
-    isMobile: false
-  },
-  workflow: {
-    title: "Workflow Automation",
-    img: "/Images/workflow-automation.png",
-    link: "https://eu1.make.com/public/shared-scenario/uCMLRIhjqdF/integration-google-sheets-gmail-tools",
-    isMobile: false
+// Coverflow carousels (Featured Work + Gallery)
+function initCoverflow(opts) {
+  const root = document.getElementById(opts.root);
+  const stage = document.getElementById(opts.stage);
+  const titleEl = document.getElementById(opts.title);
+  const subtitleEl = document.getElementById(opts.subtitle);
+  const openEl = document.getElementById(opts.open);
+  const prevBtn = document.getElementById(opts.prev);
+  const nextBtn = document.getElementById(opts.next);
+  const projects = (window.PROJECTS || []).filter((p) => p.group === opts.group);
+  if (!root || !stage || !projects.length) return;
+
+  const projectUrl = (p) => 'project.html?p=' + encodeURIComponent(p.slug);
+  let active = 0;
+  let startX = null;
+  let dragMoved = false;
+
+  const cards = projects.map((p, i) => {
+    const card = document.createElement('a');
+    card.className = 'coverflow-card';
+    card.href = projectUrl(p);
+    card.setAttribute('aria-label', p.title + ' \u2013 ' + p.subtitle);
+    card.draggable = false;
+    const img = document.createElement('img');
+    img.src = p.image;
+    img.alt = p.title;
+    img.draggable = false;
+    img.loading = 'lazy';
+    card.appendChild(img);
+    card.addEventListener('click', (e) => {
+      if (dragMoved) { e.preventDefault(); return; }
+      if (i !== active) { e.preventDefault(); go(i); }
+    });
+    stage.appendChild(card);
+    return card;
+  });
+
+  function render() {
+    cards.forEach((card, i) => {
+      const d = Math.max(-3, Math.min(3, i - active));
+      card.style.setProperty('--d', d);
+      card.style.setProperty('--a', Math.abs(d));
+      card.classList.toggle('is-active', i === active);
+      card.classList.toggle('is-hidden', Math.abs(i - active) > 2);
+      card.tabIndex = i === active ? 0 : -1;
+    });
+    const p = projects[active];
+    titleEl.textContent = p.title;
+    subtitleEl.textContent = p.subtitle;
+    openEl.href = projectUrl(p);
   }
-};
+
+  function go(i) {
+    active = Math.max(0, Math.min(projects.length - 1, i));
+    render();
+  }
+
+  if (prevBtn) prevBtn.addEventListener('click', () => go(active - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => go(active + 1));
+
+  root.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); go(active - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(active + 1); }
+  });
+
+  // Drag / swipe
+  root.addEventListener('pointerdown', (e) => {
+    startX = e.clientX;
+    dragMoved = false;
+  });
+  root.addEventListener('pointermove', (e) => {
+    if (startX === null) return;
+    if (Math.abs(e.clientX - startX) > 8) {
+      dragMoved = true;
+      root.classList.add('is-dragging');
+    }
+  });
+  const endDrag = (e) => {
+    if (startX === null) return;
+    const dx = e.clientX - startX;
+    startX = null;
+    root.classList.remove('is-dragging');
+    if (Math.abs(dx) > 50) go(active + (dx < 0 ? 1 : -1));
+    setTimeout(() => { dragMoved = false; }, 0);
+  };
+  root.addEventListener('pointerup', endDrag);
+  root.addEventListener('pointercancel', endDrag);
+  root.addEventListener('pointerleave', endDrag);
+
+  // Horizontal wheel / trackpad
+  let wheelLock = false;
+  root.addEventListener('wheel', (e) => {
+    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY) || wheelLock) return;
+    e.preventDefault();
+    wheelLock = true;
+    go(active + (e.deltaX > 0 ? 1 : -1));
+    setTimeout(() => { wheelLock = false; }, 450);
+  }, { passive: false });
+
+  go(opts.start === undefined ? Math.floor(projects.length / 2) : opts.start);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-  const dropdown = document.getElementById('project-dropdown');
-  const trigger = document.getElementById('dropdown-trigger');
-  const labelEl = document.getElementById('dropdown-label');
-  const options = document.querySelectorAll('.dropdown-option');
-  const viewerImg = document.getElementById('viewer-img');
-  const viewerTitle = document.getElementById('viewer-title');
-  const viewerLink = document.getElementById('viewer-link');
-  const viewerSourceLink = document.getElementById('viewer-source-link');
-  const mediaWrapper = document.getElementById('project-media-content');
-
-  if (!dropdown || !trigger || !labelEl || !options.length) return;
-
-  function setProject(projectKey) {
-    const project = projectData[projectKey];
-    if (!project) return;
-
-    viewerImg.style.opacity = '0';
-    setTimeout(() => {
-      viewerImg.src = project.img;
-      viewerImg.alt = `${project.title} preview`;
-      mediaWrapper.classList.toggle('dashboard-preview', projectKey === 'payment');
-      viewerTitle.textContent = project.title;
-      viewerLink.href = project.link;
-      if (viewerSourceLink) {
-        viewerSourceLink.href = project.source || '#';
-        viewerSourceLink.hidden = !project.source;
-        viewerSourceLink.setAttribute('aria-hidden', String(!project.source));
-        viewerSourceLink.tabIndex = project.source ? 0 : -1;
-      }
-      if (project.isMobile) {
-        mediaWrapper.classList.add('mobile-frame');
-      } else {
-        mediaWrapper.classList.remove('mobile-frame');
-      }
-      viewerImg.style.opacity = '1';
-    }, 300);
-
-    labelEl.textContent = project.title;
-    options.forEach(opt => {
-      const active = opt.dataset.project === projectKey;
-      opt.classList.toggle('active', active);
-      opt.setAttribute('aria-selected', active);
-    });
-    trigger.setAttribute('aria-expanded', 'false');
-    dropdown.classList.remove('is-open');
-  }
-
-  trigger.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isOpen = dropdown.classList.toggle('is-open');
-    trigger.setAttribute('aria-expanded', isOpen);
+  initCoverflow({
+    group: 'featured', start: 0,
+    root: 'featured-coverflow', stage: 'featured-stage',
+    title: 'featured-title', subtitle: 'featured-subtitle', open: 'featured-open',
+    prev: 'featured-prev', next: 'featured-next'
   });
-
-  options.forEach(opt => {
-    opt.addEventListener('click', (e) => {
-      e.stopPropagation();
-      setProject(opt.dataset.project);
-    });
+  initCoverflow({
+    group: 'gallery',
+    root: 'coverflow', stage: 'coverflow-stage',
+    title: 'coverflow-title', subtitle: 'coverflow-subtitle', open: 'coverflow-open',
+    prev: 'gallery-prev', next: 'gallery-next'
   });
-
-  document.addEventListener('click', () => {
-    dropdown.classList.remove('is-open');
-    trigger.setAttribute('aria-expanded', 'false');
-  });
-
-  dropdown.addEventListener('click', (e) => e.stopPropagation());
-});
-
-// Gallery Scroller Logic
-document.addEventListener('DOMContentLoaded', () => {
-  const scroller = document.querySelector('.projects-scroller');
-  const prevBtn = document.getElementById('gallery-prev');
-  const nextBtn = document.getElementById('gallery-next');
-
-  if (scroller && prevBtn && nextBtn) {
-    const scrollAmount = 400; // Scroll by roughly the width of one card
-
-    nextBtn.addEventListener('click', () => {
-      scroller.scrollBy({
-        left: scrollAmount,
-        behavior: 'smooth'
-      });
-    });
-
-    prevBtn.addEventListener('click', () => {
-      scroller.scrollBy({
-        left: -scrollAmount,
-        behavior: 'smooth'
-      });
-    });
-  }
 });
 
 // Automatically identify the user when the page loads
