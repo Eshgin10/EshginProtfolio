@@ -993,6 +993,7 @@ pre {
 .footer {
   background-color: var(--bg-primary);
   padding: 80px 0 40px;
+  border-top: 1px solid var(--border-visible);
 }
 
 .footer-columns {
