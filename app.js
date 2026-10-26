@@ -214,6 +214,8 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector(".contact-form form");
 
+  if (!form) return;
+
   form.addEventListener("submit", function (event) {
     setTimeout(() => {
       form.reset(); // Clears all inputs and textarea after submission
@@ -249,6 +251,52 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal-text').forEach(el => revealObserver.observe(el));
 
+// Expand a card to full screen, then navigate to its project page.
+// project.js picks up the handoff and shrinks the image into the page layout.
+let projectOpening = false;
+function openProject(card, href) {
+  const img = card.querySelector('img');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (projectOpening) return;
+  if (reduceMotion || !img.animate) { window.location.href = href; return; }
+  projectOpening = true;
+
+  const r = card.getBoundingClientRect();
+  const fly = document.createElement('div');
+  fly.className = 'fly-overlay';
+  Object.assign(fly.style, {
+    left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px', borderRadius: '12px'
+  });
+  const flyImg = document.createElement('img');
+  flyImg.src = img.currentSrc || img.src;
+  fly.appendChild(flyImg);
+  document.body.appendChild(fly);
+  card.style.visibility = 'hidden';
+
+  const anim = fly.animate([
+    { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px', borderRadius: '12px' },
+    { left: '0px', top: '0px', width: window.innerWidth + 'px', height: window.innerHeight + 'px', borderRadius: '0px' }
+  ], { duration: 750, easing: 'cubic-bezier(0.76, 0, 0.24, 1)', fill: 'forwards' });
+
+  let left = false;
+  const leave = () => {
+    if (left) return;
+    left = true;
+    try { sessionStorage.setItem('pd-from', img.getAttribute('src')); } catch (e) { /* ignore */ }
+    window.location.href = href;
+  };
+  anim.onfinish = leave;
+  setTimeout(leave, 1500); // safety net if frames are throttled (background tab)
+}
+
+// Coming back via the browser's back button restores the page as it was left; reset it.
+window.addEventListener('pageshow', (e) => {
+  if (!e.persisted) return;
+  projectOpening = false;
+  document.querySelectorAll('.fly-overlay').forEach((el) => el.remove());
+  document.querySelectorAll('.coverflow-card').forEach((c) => { c.style.visibility = ''; });
+});
+
 // Coverflow carousels (Featured Work + Gallery)
 function initCoverflow(opts) {
   const root = document.getElementById(opts.root);
@@ -280,7 +328,9 @@ function initCoverflow(opts) {
     card.appendChild(img);
     card.addEventListener('click', (e) => {
       if (dragMoved) { e.preventDefault(); return; }
-      if (i !== active) { e.preventDefault(); go(i); }
+      if (i !== active) { e.preventDefault(); go(i); return; }
+      e.preventDefault();
+      openProject(card, card.href);
     });
     stage.appendChild(card);
     return card;
@@ -305,6 +355,11 @@ function initCoverflow(opts) {
     active = Math.max(0, Math.min(projects.length - 1, i));
     render();
   }
+
+  openEl.addEventListener('click', (e) => {
+    e.preventDefault();
+    openProject(cards[active], openEl.href);
+  });
 
   if (prevBtn) prevBtn.addEventListener('click', () => go(active - 1));
   if (nextBtn) nextBtn.addEventListener('click', () => go(active + 1));
