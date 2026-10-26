@@ -660,13 +660,33 @@ function initCoverflow(opts) {
     return card;
   });
 
+  const n = projects.length;
+  const prevOffset = new Array(n).fill(null);
+
   function render() {
     cards.forEach((card, i) => {
-      const d = Math.max(-3, Math.min(3, i - active));
-      card.style.setProperty('--d', d);
-      card.style.setProperty('--a', Math.abs(d));
+      // Shortest circular distance from the active card, so the carousel loops.
+      let d = (((i - active) % n) + n) % n;
+      if (d > n / 2) d -= n;
+      const hidden = Math.abs(d) > 2;
+      const wrapped = prevOffset[i] !== null && Math.abs(d - prevOffset[i]) > 1;
+      prevOffset[i] = d;
+
+      if (wrapped) {
+        // This card jumps from one end to the other: move it unseen instead of sweeping across.
+        card.style.transition = 'none';
+        card.classList.add('is-hidden');
+        card.style.setProperty('--d', Math.max(-3, Math.min(3, d)));
+        card.style.setProperty('--a', Math.min(3, Math.abs(d)));
+        void card.offsetWidth;
+        card.style.transition = '';
+        if (!hidden) requestAnimationFrame(() => card.classList.remove('is-hidden'));
+      } else {
+        card.style.setProperty('--d', Math.max(-3, Math.min(3, d)));
+        card.style.setProperty('--a', Math.min(3, Math.abs(d)));
+        card.classList.toggle('is-hidden', hidden);
+      }
       card.classList.toggle('is-active', i === active);
-      card.classList.toggle('is-hidden', Math.abs(i - active) > 2);
       card.tabIndex = i === active ? 0 : -1;
     });
     const p = projects[active];
@@ -676,7 +696,7 @@ function initCoverflow(opts) {
   }
 
   function go(i) {
-    active = Math.max(0, Math.min(projects.length - 1, i));
+    active = ((i % n) + n) % n;
     render();
   }
 
