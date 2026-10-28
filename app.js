@@ -762,3 +762,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Automatically identify the user when the page loads
 identifyChatbaseUser();
+
+// About: world map with visited countries highlighted
+document.addEventListener('DOMContentLoaded', () => {
+  const host = document.getElementById('travel-map');
+  const tip = document.getElementById('travel-tooltip');
+  if (!host) return;
+  const card = host.closest('.travel-map');
+
+  fetch('/world-map.svg')
+    .then((r) => (r.ok ? r.text() : Promise.reject(new Error('map ' + r.status))))
+    .then((svg) => {
+      host.innerHTML = svg;
+      const main = host.querySelector('svg');
+
+      // Zoomed inset on the visited countries (without Russia, which would dwarf the rest).
+      const near = [...main.querySelectorAll('path.visited')].filter((p) => p.dataset.name !== 'Russia');
+      const boxes = near.map((p) => p.getBBox());
+      const x0 = Math.min(...boxes.map((b) => b.x));
+      const y0 = Math.min(...boxes.map((b) => b.y));
+      const x1 = Math.max(...boxes.map((b) => b.x + b.width));
+      const y1 = Math.max(...boxes.map((b) => b.y + b.height));
+      const pad = 12;
+      const inset = main.cloneNode(true);
+      inset.setAttribute('viewBox', [x0 - pad, y0 - pad, x1 - x0 + pad * 2, y1 - y0 + pad * 2].join(' '));
+      inset.setAttribute('aria-hidden', 'true');
+      const wrap = document.createElement('div');
+      wrap.className = 'travel-inset';
+      const cap = document.createElement('span');
+      cap.textContent = 'Europe & Caucasus';
+      wrap.append(cap, inset);
+      host.appendChild(wrap);
+
+      host.querySelectorAll('path.visited').forEach((p, i) => {
+        p.style.setProperty('--i', i % 9);
+        p.addEventListener('mousemove', (e) => {
+          const r = card.getBoundingClientRect();
+          tip.textContent = p.dataset.name;
+          tip.style.left = e.clientX - r.left + 'px';
+          tip.style.top = e.clientY - r.top + 'px';
+          tip.hidden = false;
+        });
+        p.addEventListener('mouseleave', () => { tip.hidden = true; });
+      });
+    })
+    .then(() => {
+      if (!('IntersectionObserver' in window)) { host.classList.add('in-view'); return; }
+      const io = new IntersectionObserver((entries) => {
+        if (entries.some((en) => en.isIntersecting)) { host.classList.add('in-view'); io.disconnect(); }
+      }, { threshold: 0.3 });
+      io.observe(host);
+    })
+    .catch(() => { host.textContent = ''; });
+});
