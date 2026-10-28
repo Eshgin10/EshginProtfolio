@@ -777,7 +777,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const main = host.querySelector('svg');
 
       // Zoomed inset on the visited countries (without Russia, which would dwarf the rest).
-      const near = [...main.querySelectorAll('path.visited')].filter((p) => p.dataset.name !== 'Russia');
+      const near = [...main.querySelectorAll('path.visited, path.lived')].filter((p) => p.dataset.name !== 'Russia');
       const boxes = near.map((p) => p.getBBox());
       const x0 = Math.min(...boxes.map((b) => b.x));
       const y0 = Math.min(...boxes.map((b) => b.y));
@@ -794,8 +794,8 @@ document.addEventListener('DOMContentLoaded', () => {
       wrap.append(cap, inset);
       host.appendChild(wrap);
 
-      host.querySelectorAll('path.visited').forEach((p, i) => {
-        p.style.setProperty('--i', i % 9);
+      host.querySelectorAll('path.visited, path.lived').forEach((p, i) => {
+        p.style.setProperty('--i', i % 13);
         p.addEventListener('mousemove', (e) => {
           const r = card.getBoundingClientRect();
           tip.textContent = p.dataset.name;
