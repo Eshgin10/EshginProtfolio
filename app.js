@@ -763,7 +763,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Automatically identify the user when the page loads
 identifyChatbaseUser();
 
-// About: world map with visited countries highlighted; click a country to zoom in and see its cities
+// About: interactive world map. Pan and zoom freely; click a country to focus it and see its cities.
 document.addEventListener('DOMContentLoaded', () => {
   const host = document.getElementById('travel-map');
   const tip = document.getElementById('travel-tooltip');
@@ -775,7 +775,51 @@ document.addEventListener('DOMContentLoaded', () => {
   let world = null;
   let focused = null;
   let focusPanel = null;
-  let curScale = 1;
+  let view = { s: 1, tx: 0, ty: 0 };
+  let home = { cx: 550, cy: 125 };
+  let dragMoved = false;
+
+  // The part of the map that is on screen, in map units. The svg uses "slice", so a short box crops the sides.
+  function vp() {
+    const r = main.getBoundingClientRect();
+    const k = Math.max(r.width / VW, r.height / VH) || 1;
+    const w = r.width / k;
+    const h = r.height / k;
+    return { r, k, w, h, ox: (VW - w) / 2, oy: (VH - h) / 2 };
+  }
+
+  function clampView(s, tx, ty) {
+    const v = vp();
+    const min = Math.max(v.w / VW, v.h / VH);
+    s = Math.max(min, Math.min(40, s));
+    tx = Math.min(v.ox, Math.max(v.ox + v.w - VW * s, tx));
+    ty = Math.min(v.oy, Math.max(v.oy + v.h - VH * s, ty));
+    return { s, tx, ty };
+  }
+
+  function setView(s, tx, ty, animate) {
+    view = clampView(s, tx, ty);
+    world.classList.toggle('no-anim', !animate);
+    world.style.transform = 'translate(' + view.tx + 'px,' + view.ty + 'px) scale(' + view.s + ')';
+    if (focused) showCities(focused.dataset.name, view.s);
+  }
+
+  function toUser(clientX, clientY) {
+    const v = vp();
+    return { x: v.ox + (clientX - v.r.left) / v.k, y: v.oy + (clientY - v.r.top) / v.k };
+  }
+
+  function zoomAt(factor, ux, uy, animate) {
+    const next = clampView(view.s * factor, 0, 0).s;
+    const k = next / view.s;
+    setView(next, ux - (ux - view.tx) * k, uy - (uy - view.ty) * k, animate);
+  }
+
+  function goHome(animate) {
+    const v = vp();
+    const s = v.w < 700 ? 2.8 : 2.2;
+    setView(s, v.ox + v.w / 2 - s * home.cx, v.oy + v.h / 2 - s * home.cy, animate);
+  }
 
   // A path's bounding box; for countries split across the antimeridian (Russia) use the largest piece.
   function countryBox(path) {
@@ -833,6 +877,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function zoomTo(path) {
     const name = path.dataset.name;
+    const v = vp();
     let b = countryBox(path);
     // Huge countries (Russia): frame the visited cities instead of the whole country.
     if (b.width > 150) {
@@ -844,16 +889,16 @@ document.addEventListener('DOMContentLoaded', () => {
         b = { x: Math.min(...xs) - pad, y: Math.min(...ys) - pad, width: Math.max(...xs) - Math.min(...xs) + pad * 2, height: Math.max(...ys) - Math.min(...ys) + pad * 2 };
       }
     }
-    const s = Math.min((VW * 0.62) / b.width, (VH * 0.62) / b.height, 30);
-    const tx = VW * 0.56 - s * (b.x + b.width / 2);
-    const ty = VH / 2 - s * (b.y + b.height / 2);
-    world.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + s + ')';
+    const s = Math.min((v.w * 0.62) / b.width, (v.h * 0.62) / b.height, 30);
+    const narrow = v.w < 700;
+    const tx = v.ox + v.w * (narrow ? 0.5 : 0.58) - s * (b.x + b.width / 2);
+    const ty = v.oy + v.h * (narrow ? 0.58 : 0.5) - s * (b.y + b.height / 2);
+
     main.querySelectorAll('path.is-focus').forEach((p) => p.classList.remove('is-focus'));
     path.classList.add('is-focus');
     focused = path;
-    curScale = s;
-    host.classList.add('is-zoomed');
-    showCities(name, s);
+    host.classList.add('is-zoomed', 'is-focused');
+    setView(s, tx, ty, true);
 
     const cities = [...world.querySelectorAll('.cities g[data-country="' + name + '"] circle')].map((c) => c.dataset.city);
     focusPanel.querySelector('h4').textContent = name;
@@ -868,14 +913,14 @@ document.addEventListener('DOMContentLoaded', () => {
     focusPanel.hidden = false;
   }
 
+  // Leave country focus (if any) and return to the default Europe view.
   function reset() {
-    if (!focused) return;
-    focused.classList.remove('is-focus');
+    if (focused) focused.classList.remove('is-focus');
     focused = null;
-    world.style.transform = '';
-    host.classList.remove('is-zoomed');
+    host.classList.remove('is-zoomed', 'is-focused');
     world.querySelectorAll('.cities g').forEach((g) => g.classList.remove('active'));
     focusPanel.hidden = true;
+    goHome(true);
   }
 
   // City labels (hidden until their country is in focus).
@@ -892,6 +937,7 @@ document.addEventListener('DOMContentLoaded', () => {
     main.querySelectorAll('path.visited, path.lived').forEach((p, i) => {
       p.style.setProperty('--i', i % 13);
       p.addEventListener('mousemove', (e) => {
+        if (dragMoved) { tip.hidden = true; return; }
         const r = card.getBoundingClientRect();
         tip.textContent = p.dataset.name;
         tip.style.left = e.clientX - r.left + 'px';
@@ -901,6 +947,7 @@ document.addEventListener('DOMContentLoaded', () => {
       p.addEventListener('mouseleave', () => { tip.hidden = true; });
       p.addEventListener('click', (e) => {
         e.stopPropagation();
+        if (dragMoved) return;
         tip.hidden = true;
         openCountry(p.dataset.name);
       });
@@ -929,15 +976,96 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function openCountry(name) {
     const find = () => [...main.querySelectorAll('path.visited, path.lived')].find((p) => p.dataset.name === name);
-    if (host.classList.contains('is-hd')) { zoomTo(find()); return; }
-    // Zoom right away; if the detailed outlines arrive mid-flight, keep the same country in focus.
     zoomTo(find());
+    if (host.classList.contains('is-hd')) return;
+    // If the detailed outlines arrive mid-flight, keep the same country in focus.
     loadHD().then(() => {
       if (focused && focused.dataset.name === name) {
         const p = find();
-        if (p) { p.classList.add('is-focus'); focused = p; showCities(name, curScale); }
+        if (p) { p.classList.add('is-focus'); focused = p; showCities(name, view.s); }
       }
     });
+  }
+
+  function buildControls() {
+    const box = document.createElement('div');
+    box.className = 'travel-controls';
+    const mk = (label, aria, fn) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = label;
+      b.setAttribute('aria-label', aria);
+      b.addEventListener('click', (e) => { e.stopPropagation(); fn(); });
+      box.appendChild(b);
+    };
+    const mid = () => { const v = vp(); return { x: v.ox + v.w / 2, y: v.oy + v.h / 2 }; };
+    mk('+', 'Zoom in', () => { const c = mid(); zoomAt(1.6, c.x, c.y, true); });
+    mk('−', 'Zoom out', () => { const c = mid(); zoomAt(1 / 1.6, c.x, c.y, true); });
+    mk('⌂', 'Back to Europe', reset);
+    host.appendChild(box);
+  }
+
+  function enableGestures() {
+    const pts = new Map();
+    let pan = null;
+    let pinch = null;
+    const dist = () => { const [a, b] = [...pts.values()]; return Math.hypot(a.x - b.x, a.y - b.y); };
+
+    host.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('.travel-focus, .travel-controls')) return;
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      dragMoved = false;
+      if (pts.size === 1) pan = { x: e.clientX, y: e.clientY, tx: view.tx, ty: view.ty };
+      if (pts.size === 2) pinch = { d: dist() || 1, s: view.s };
+    });
+
+    host.addEventListener('pointermove', (e) => {
+      if (!pts.has(e.pointerId)) return;
+      pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pts.size === 2 && pinch) {
+        const [a, b] = [...pts.values()];
+        const m = toUser((a.x + b.x) / 2, (a.y + b.y) / 2);
+        dragMoved = true;
+        zoomAt((pinch.s * dist()) / pinch.d / view.s, m.x, m.y, false);
+        return;
+      }
+      if (pts.size === 1 && pan) {
+        const dx = e.clientX - pan.x;
+        const dy = e.clientY - pan.y;
+        if (!dragMoved && Math.hypot(dx, dy) < 5) return;
+        if (!dragMoved) {
+          dragMoved = true;
+          tip.hidden = true;
+          host.classList.add('is-dragging');
+          try { host.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+        }
+        setView(view.s, pan.tx + dx / vp().k, pan.ty + dy / vp().k, false);
+      }
+    });
+
+    const end = (e) => {
+      pts.delete(e.pointerId);
+      if (pts.size < 2) pinch = null;
+      if (pts.size === 0) {
+        pan = null;
+        host.classList.remove('is-dragging');
+        setTimeout(() => { dragMoved = false; }, 0);
+      } else if (pts.size === 1) {
+        const [p] = [...pts.values()];
+        pan = { x: p.x, y: p.y, tx: view.tx, ty: view.ty };
+      }
+    };
+    host.addEventListener('pointerup', end);
+    host.addEventListener('pointercancel', end);
+
+    // Ctrl/Cmd + scroll (and trackpad pinch) zooms; plain scroll still scrolls the page.
+    host.addEventListener('wheel', (e) => {
+      if (!(e.ctrlKey || e.metaKey)) return;
+      e.preventDefault();
+      const u = toUser(e.clientX, e.clientY);
+      zoomAt(Math.exp(-e.deltaY * 0.01), u.x, u.y, false);
+    }, { passive: false });
   }
 
   fetch('/world-map.svg')
@@ -945,42 +1073,35 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((svg) => {
       host.innerHTML = svg;
       main = host.querySelector('svg');
+      main.setAttribute('preserveAspectRatio', 'xMidYMid slice');
       world = main.querySelector('g.world');
-
       prepareCities();
 
-      // Zoomed inset on the visited countries (without Russia, which would dwarf the rest).
+      // Default view is centred on the countries around Europe (Russia would drag it north-east).
       const near = [...main.querySelectorAll('path.visited, path.lived')].filter((p) => p.dataset.name !== 'Russia');
       const boxes = near.map((p) => p.getBBox());
-      const x0 = Math.min(...boxes.map((b) => b.x));
-      const y0 = Math.min(...boxes.map((b) => b.y));
-      const x1 = Math.max(...boxes.map((b) => b.x + b.width));
-      const y1 = Math.max(...boxes.map((b) => b.y + b.height));
-      const pad = 12;
-      const inset = main.cloneNode(true);
-      inset.querySelectorAll('.cities').forEach((g) => g.remove());
-      inset.setAttribute('viewBox', [x0 - pad, y0 - pad, x1 - x0 + pad * 2, y1 - y0 + pad * 2].join(' '));
-      inset.setAttribute('aria-hidden', 'true');
-      const wrap = document.createElement('div');
-      wrap.className = 'travel-inset';
-      const cap = document.createElement('span');
-      cap.textContent = 'Europe & Caucasus';
-      wrap.append(cap, inset);
-      host.appendChild(wrap);
+      home = {
+        cx: (Math.min(...boxes.map((b) => b.x)) + Math.max(...boxes.map((b) => b.x + b.width))) / 2,
+        cy: (Math.min(...boxes.map((b) => b.y)) + Math.max(...boxes.map((b) => b.y + b.height))) / 2
+      };
 
-      // Panel shown while zoomed.
       focusPanel = document.createElement('div');
       focusPanel.className = 'travel-focus';
       focusPanel.hidden = true;
       focusPanel.innerHTML =
-        '<button type="button" class="travel-back">← World map</button>' +
+        '<button type="button" class="travel-back">← Back</button>' +
         '<h4></h4><span class="travel-status"></span><ul></ul>';
       host.appendChild(focusPanel);
       focusPanel.querySelector('.travel-back').addEventListener('click', reset);
 
+      buildControls();
+      enableGestures();
       wire();
-      main.addEventListener('click', reset);
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') reset(); });
+      goHome(false);
+
+      main.addEventListener('click', () => { if (!dragMoved && focused) reset(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && focused) reset(); });
+      window.addEventListener('resize', () => setView(view.s, view.tx, view.ty, false));
     })
     .then(() => {
       if (!('IntersectionObserver' in window)) { host.classList.add('in-view'); return; }
