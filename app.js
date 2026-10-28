@@ -763,18 +763,162 @@ document.addEventListener('DOMContentLoaded', () => {
 // Automatically identify the user when the page loads
 identifyChatbaseUser();
 
-// About: world map with visited countries highlighted
+// About: world map with visited countries highlighted; click a country to zoom in and see its cities
 document.addEventListener('DOMContentLoaded', () => {
   const host = document.getElementById('travel-map');
   const tip = document.getElementById('travel-tooltip');
   if (!host) return;
   const card = host.closest('.travel-map');
+  const VW = 1000;
+  const VH = 520;
+  let main = null;
+  let world = null;
+  let focused = null;
+  let focusPanel = null;
+  let curScale = 1;
+
+  // A path's bounding box; for countries split across the antimeridian (Russia) use the largest piece.
+  function countryBox(path) {
+    const whole = path.getBBox();
+    if (whole.width < VW * 0.5) return whole;
+    let best = null;
+    path.getAttribute('d').split(/(?=M)/).forEach((sub) => {
+      const tmp = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      tmp.setAttribute('d', sub);
+      main.appendChild(tmp);
+      const b = tmp.getBBox();
+      tmp.remove();
+      if (!best || b.width * b.height > best.width * best.height) best = b;
+    });
+    return best;
+  }
+
+  function showCities(name, s) {
+    world.querySelectorAll('.cities g').forEach((g) => {
+      const on = g.dataset.country === name;
+      g.classList.toggle('active', on);
+      if (!on) return;
+      g.querySelectorAll('circle').forEach((c) => {
+        c.setAttribute('r', 5 / s);
+        c.setAttribute('stroke-width', 1.6 / s);
+      });
+      g.querySelectorAll('text').forEach((t) => {
+        const c = g.querySelector('circle[data-city="' + t.dataset.city + '"]');
+        t.setAttribute('x', parseFloat(c.getAttribute('cx')) + 9 / s);
+        t.setAttribute('y', parseFloat(c.getAttribute('cy')) + 4 / s);
+        t.style.fontSize = 13 / s + 'px';
+        t.setAttribute('stroke-width', 3.5 / s);
+      });
+    });
+  }
+
+  function zoomTo(path) {
+    const name = path.dataset.name;
+    const b = countryBox(path);
+    const s = Math.min((VW * 0.62) / b.width, (VH * 0.62) / b.height, 14);
+    const tx = VW * 0.56 - s * (b.x + b.width / 2);
+    const ty = VH / 2 - s * (b.y + b.height / 2);
+    world.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + s + ')';
+    main.querySelectorAll('path.is-focus').forEach((p) => p.classList.remove('is-focus'));
+    path.classList.add('is-focus');
+    focused = path;
+    curScale = s;
+    host.classList.add('is-zoomed');
+    showCities(name, s);
+
+    const cities = [...world.querySelectorAll('.cities g[data-country="' + name + '"] circle')].map((c) => c.dataset.city);
+    focusPanel.querySelector('h4').textContent = name;
+    focusPanel.querySelector('.travel-status').textContent = path.classList.contains('lived') ? 'Lived in' : 'Visited';
+    const list = focusPanel.querySelector('ul');
+    list.innerHTML = '';
+    cities.forEach((c) => {
+      const li = document.createElement('li');
+      li.textContent = c;
+      list.appendChild(li);
+    });
+    focusPanel.hidden = false;
+  }
+
+  function reset() {
+    if (!focused) return;
+    focused.classList.remove('is-focus');
+    focused = null;
+    world.style.transform = '';
+    host.classList.remove('is-zoomed');
+    world.querySelectorAll('.cities g').forEach((g) => g.classList.remove('active'));
+    focusPanel.hidden = true;
+  }
+
+  // City labels (hidden until their country is in focus).
+  function prepareCities() {
+    world.querySelectorAll('.cities circle').forEach((c) => {
+      const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      t.dataset.city = c.dataset.city;
+      t.textContent = c.dataset.city;
+      c.parentNode.appendChild(t);
+    });
+  }
+
+  function wire() {
+    main.querySelectorAll('path.visited, path.lived').forEach((p, i) => {
+      p.style.setProperty('--i', i % 13);
+      p.addEventListener('mousemove', (e) => {
+        const r = card.getBoundingClientRect();
+        tip.textContent = p.dataset.name;
+        tip.style.left = e.clientX - r.left + 'px';
+        tip.style.top = e.clientY - r.top + 'px';
+        tip.hidden = false;
+      });
+      p.addEventListener('mouseleave', () => { tip.hidden = true; });
+      p.addEventListener('click', (e) => {
+        e.stopPropagation();
+        tip.hidden = true;
+        openCountry(p.dataset.name);
+      });
+    });
+  }
+
+  // Detailed (50m) outlines load lazily and replace the light ones, so zoomed-in views stay sharp.
+  let hdPromise = null;
+  function loadHD() {
+    if (!hdPromise) {
+      hdPromise = fetch('/world-map-hd.svg')
+        .then((r) => (r.ok ? r.text() : Promise.reject(new Error('hd ' + r.status))))
+        .then((text) => {
+          const doc = new DOMParser().parseFromString(text, 'image/svg+xml');
+          const hdWorld = doc.querySelector('g.world');
+          if (!hdWorld) throw new Error('hd parse');
+          world.replaceChildren(...[...hdWorld.childNodes].map((n) => document.importNode(n, true)));
+          host.classList.add('is-hd');
+          prepareCities();
+          wire();
+        })
+        .catch(() => {});
+    }
+    return hdPromise;
+  }
+
+  function openCountry(name) {
+    const find = () => [...main.querySelectorAll('path.visited, path.lived')].find((p) => p.dataset.name === name);
+    if (host.classList.contains('is-hd')) { zoomTo(find()); return; }
+    // Zoom right away; if the detailed outlines arrive mid-flight, keep the same country in focus.
+    zoomTo(find());
+    loadHD().then(() => {
+      if (focused && focused.dataset.name === name) {
+        const p = find();
+        if (p) { p.classList.add('is-focus'); focused = p; showCities(name, curScale); }
+      }
+    });
+  }
 
   fetch('/world-map.svg')
     .then((r) => (r.ok ? r.text() : Promise.reject(new Error('map ' + r.status))))
     .then((svg) => {
       host.innerHTML = svg;
-      const main = host.querySelector('svg');
+      main = host.querySelector('svg');
+      world = main.querySelector('g.world');
+
+      prepareCities();
 
       // Zoomed inset on the visited countries (without Russia, which would dwarf the rest).
       const near = [...main.querySelectorAll('path.visited, path.lived')].filter((p) => p.dataset.name !== 'Russia');
@@ -785,6 +929,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const y1 = Math.max(...boxes.map((b) => b.y + b.height));
       const pad = 12;
       const inset = main.cloneNode(true);
+      inset.querySelectorAll('.cities').forEach((g) => g.remove());
       inset.setAttribute('viewBox', [x0 - pad, y0 - pad, x1 - x0 + pad * 2, y1 - y0 + pad * 2].join(' '));
       inset.setAttribute('aria-hidden', 'true');
       const wrap = document.createElement('div');
@@ -794,22 +939,28 @@ document.addEventListener('DOMContentLoaded', () => {
       wrap.append(cap, inset);
       host.appendChild(wrap);
 
-      host.querySelectorAll('path.visited, path.lived').forEach((p, i) => {
-        p.style.setProperty('--i', i % 13);
-        p.addEventListener('mousemove', (e) => {
-          const r = card.getBoundingClientRect();
-          tip.textContent = p.dataset.name;
-          tip.style.left = e.clientX - r.left + 'px';
-          tip.style.top = e.clientY - r.top + 'px';
-          tip.hidden = false;
-        });
-        p.addEventListener('mouseleave', () => { tip.hidden = true; });
-      });
+      // Panel shown while zoomed.
+      focusPanel = document.createElement('div');
+      focusPanel.className = 'travel-focus';
+      focusPanel.hidden = true;
+      focusPanel.innerHTML =
+        '<button type="button" class="travel-back">← World map</button>' +
+        '<h4></h4><span class="travel-status"></span><ul></ul>';
+      host.appendChild(focusPanel);
+      focusPanel.querySelector('.travel-back').addEventListener('click', reset);
+
+      wire();
+      main.addEventListener('click', reset);
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') reset(); });
     })
     .then(() => {
       if (!('IntersectionObserver' in window)) { host.classList.add('in-view'); return; }
       const io = new IntersectionObserver((entries) => {
-        if (entries.some((en) => en.isIntersecting)) { host.classList.add('in-view'); io.disconnect(); }
+        if (entries.some((en) => en.isIntersecting)) {
+          host.classList.add('in-view');
+          io.disconnect();
+          setTimeout(loadHD, 1500);
+        }
       }, { threshold: 0.3 });
       io.observe(host);
     })
