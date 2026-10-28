@@ -185,6 +185,36 @@
 <circle class="city" data-city="Helsinki" cx="557.3" cy="103.8" r="3"/>
 <circle class="city" data-city="Tampere" cx="554.1" cy="99.8" r="3"/>
 </g>
+<g data-country="Georgia">
+<circle class="city" data-city="Tbilisi" cx="615.4" cy="161.4" r="3"/>
+<circle class="city" data-city="Rustavi" cx="615.9" cy="161.9" r="3"/>
+<circle class="city" data-city="Batumi" cx="607.2" cy="161.7" r="3"/>
+</g>
+<g data-country="Russia">
+<circle class="city" data-city="Vladikavkaz" cx="614.3" cy="157.2" r="3"/>
+<circle class="city" data-city="Prokhladny" cx="612.2" cy="154.8" r="3"/>
+</g>
+<g data-country="Germany">
+<circle class="city" data-city="Munich" cx="528.8" cy="140.8" r="3"/>
+</g>
+<g data-country="Sweden">
+<circle class="city" data-city="Stockholm" cx="541.8" cy="106.3" r="3"/>
+</g>
+<g data-country="Austria">
+<circle class="city" data-city="Vienna" cx="540.8" cy="140.6" r="3"/>
+</g>
+<g data-country="Hungary">
+<circle class="city" data-city="Budapest" cx="547.6" cy="142.8" r="3"/>
+</g>
+<g data-country="France">
+<circle class="city" data-city="Paris" cx="505.8" cy="138.5" r="3"/>
+</g>
+<g data-country="Czechia">
+<circle class="city" data-city="Prague" cx="535.6" cy="134.7" r="3"/>
+</g>
+<g data-country="Estonia">
+<circle class="city" data-city="Tallinn" cx="557.2" cy="105.9" r="3"/>
+</g>
 </g>
 </g>
 </svg>

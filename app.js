@@ -798,14 +798,33 @@ document.addEventListener('DOMContentLoaded', () => {
       const on = g.dataset.country === name;
       g.classList.toggle('active', on);
       if (!on) return;
-      g.querySelectorAll('circle').forEach((c) => {
-        c.setAttribute('r', 5 / s);
-        c.setAttribute('stroke-width', 1.6 / s);
+      const dots = [...g.querySelectorAll('circle')];
+      dots.forEach((c) => {
+        c.setAttribute('r', 4 / s);
+        c.setAttribute('stroke-width', 1.4 / s);
       });
-      g.querySelectorAll('text').forEach((t) => {
-        const c = g.querySelector('circle[data-city="' + t.dataset.city + '"]');
-        t.setAttribute('x', parseFloat(c.getAttribute('cx')) + 9 / s);
-        t.setAttribute('y', parseFloat(c.getAttribute('cy')) + 4 / s);
+
+      // Place each label where it does not collide with other labels or markers (screen-pixel maths).
+      const pts = dots.map((c) => ({ name: c.dataset.city, x: parseFloat(c.getAttribute('cx')) * s, y: parseFloat(c.getAttribute('cy')) * s }));
+      const placed = [];
+      const spots = [[9, 4, 'start'], [-9, 4, 'end'], [9, 20, 'start'], [9, -11, 'start'], [-9, 20, 'end'], [-9, -11, 'end']];
+      const hits = (a, b) => a.x0 < b.x1 && a.x1 > b.x0 && a.y0 < b.y1 && a.y1 > b.y0;
+      pts.forEach((pt) => {
+        const w = pt.name.length * 7.6;
+        let chosen = spots[0];
+        for (const sp of spots) {
+          const x0 = sp[2] === 'start' ? pt.x + sp[0] : pt.x + sp[0] - w;
+          const box = { x0, x1: x0 + w, y0: pt.y + sp[1] - 11, y1: pt.y + sp[1] + 3 };
+          const clashLabel = placed.some((o) => hits(box, o));
+          const clashDot = pts.some((o) => o !== pt && o.x > box.x0 - 5 && o.x < box.x1 + 5 && o.y > box.y0 - 5 && o.y < box.y1 + 5);
+          if (!clashLabel && !clashDot) { chosen = sp; break; }
+        }
+        const x0 = chosen[2] === 'start' ? pt.x + chosen[0] : pt.x + chosen[0] - w;
+        placed.push({ x0, x1: x0 + w, y0: pt.y + chosen[1] - 11, y1: pt.y + chosen[1] + 3 });
+        const t = g.querySelector('text[data-city="' + pt.name + '"]');
+        t.setAttribute('x', (pt.x + chosen[0]) / s);
+        t.setAttribute('y', (pt.y + chosen[1]) / s);
+        t.setAttribute('text-anchor', chosen[2]);
         t.style.fontSize = 13 / s + 'px';
         t.setAttribute('stroke-width', 3.5 / s);
       });
@@ -814,8 +833,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function zoomTo(path) {
     const name = path.dataset.name;
-    const b = countryBox(path);
-    const s = Math.min((VW * 0.62) / b.width, (VH * 0.62) / b.height, 14);
+    let b = countryBox(path);
+    // Huge countries (Russia): frame the visited cities instead of the whole country.
+    if (b.width > 150) {
+      const dots = [...world.querySelectorAll('.cities g[data-country="' + name + '"] circle')];
+      if (dots.length) {
+        const xs = dots.map((c) => parseFloat(c.getAttribute('cx')));
+        const ys = dots.map((c) => parseFloat(c.getAttribute('cy')));
+        const pad = 14;
+        b = { x: Math.min(...xs) - pad, y: Math.min(...ys) - pad, width: Math.max(...xs) - Math.min(...xs) + pad * 2, height: Math.max(...ys) - Math.min(...ys) + pad * 2 };
+      }
+    }
+    const s = Math.min((VW * 0.62) / b.width, (VH * 0.62) / b.height, 30);
     const tx = VW * 0.56 - s * (b.x + b.width / 2);
     const ty = VH / 2 - s * (b.y + b.height / 2);
     world.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + s + ')';
