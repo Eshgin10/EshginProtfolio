@@ -288,6 +288,8 @@ function initGallery() {
     cap.className = 'slide-caption';
     const h = document.createElement('h3');
     h.textContent = p.title;
+    const sub = document.createElement('p');
+    sub.textContent = p.subtitle;
     cap.append(h, sub);
     a.append(frame, cap);
     track.appendChild(a);
@@ -394,8 +396,6 @@ function initFeatured() {
 
     const h = document.createElement('h3');
     h.textContent = p.title;
-    const sub = document.createElement('p');
-    sub.textContent = p.subtitle;
     const tags = document.createElement('div');
     tags.className = 'work-card-tags';
     p.tags.forEach((t) => {
