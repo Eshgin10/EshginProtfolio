@@ -181,8 +181,8 @@ window.PROJECTS.unshift(
       {
         heading: 'The pitch',
         text: [
-          'On Sunday afternoon every team demoed to the jury. We finished 2nd in the Junction category and also took home the Best Pitch award.',
-          'The pitch was the part I enjoyed most, because it is where the design, the build and the story of the product had to come together in one clear demo.'
+          'On Sunday afternoon the teams chosen for the final demoed to the jury. We finished 2nd in the Junction category and also took home the Best Pitch award.',
+          'It was a great experience and taught us a lot about creating a working solution.'
         ],
         images: [
           { src: '/Images/junction-pitching.jpg', alt: 'Presenting the app to the jury', caption: 'Pitching the app' },
