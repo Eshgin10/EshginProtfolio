@@ -16,8 +16,6 @@
             Eshgin
         </a>
         <div class="nav-links">
-            <a href="#Stack" class="nav-link">Stack</a>
-            <a href="#About" class="nav-link">About</a>
             <a href="#FeaturedProjects" class="nav-link">Featured</a>
             <a href="#Projects" class="nav-link">Gallery</a>
             <a href="#Contact" class="nav-link">Contact</a>
@@ -73,94 +71,6 @@
             </div>
         </section>
 
-        <!-- Tech Stack (Logo Strip) -->
-        <section class="logo-strip container" id="Stack">
-            <p class="logo-heading">Passionate Software Engineer</p>
-            <p class="logo-subheading">Continuously learning and exploring new technologies</p>
-            <div class="logo-grid">
-                <div class="logo-item" title="JavaScript"><img src="/Images/js.webp" alt="JS"></div>
-                <div class="logo-item" title="React.js"><img src="/Images/react.webp" alt="React"></div>
-                <div class="logo-item" title="Java"><img src="/Images/java.webp" alt="Java"></div>
-                <div class="logo-item" title="Figma"><img src="/Images/figma.png" alt="Figma"></div>
-                <div class="logo-item" title="Zapier"><img src="/Images/zapier.svg" alt="Zapier"></div>
-                <div class="logo-item" title="HTML5"><img src="/Images/html.webp" alt="HTML"></div>
-                <div class="logo-item" title="CSS3"><img src="/Images/css.webp" alt="CSS"></div>
-                <div class="logo-item" title="AI Tools"><img src="/Images/ai.webp" alt="AI"></div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section class="about-section" id="About">
-            <div class="container about-container">
-                <div class="badge-pill mb-4">About me</div>
-                <h2 class="about-headline">
-                    <span class="reveal-text">I'm a Information Technologies student at Riga Nordic University
-                        focused
-                        on building modern web platforms and software systems.</span>
-                    <span class="reveal-text">My work centers around developing clean, functional interfaces,
-                        implementing frontend and backend logic, and experimenting with AI-powered tools and
-                        automations.</span>
-                </h2>
-
-                <div class="pill-tags-row mb-8">
-                    <div class="pill-tag">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                        </svg>
-                        <em>Development</em>
-                    </div>
-                    <div class="pill-tag">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path
-                                d="M9 21H15M12 17V21M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3Z">
-                            </path>
-                        </svg>
-                        <em>Design</em>
-                    </div>
-                    <div class="pill-tag">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                        </svg>
-                        <em>Automation</em>
-                    </div>
-                </div>
-
-                <div class="stats-row">
-                    <div class="stat-col">
-                        <div class="stat-number">3K+</div>
-                        <div class="stat-label">Hours of Building</div>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat-col">
-                        <div class="stat-number">100+</div>
-                        <div class="stat-label">Projects Built</div>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat-col">
-                        <div class="stat-number">5+</div>
-                        <div class="stat-label">Years Experience</div>
-                    </div>
-                </div>
-
-                <div class="travel-map">
-                    <div class="travel-head">
-                        <span class="section-label">// Places I've been</span>
-                        <span class="travel-count">13 countries</span>
-                    </div>
-                    <div class="travel-map-svg" id="travel-map" aria-live="polite"></div>
-                    <div class="travel-tooltip" id="travel-tooltip" hidden></div>
-                    <div class="travel-legend">
-                        <span class="legend-item"><i class="dot dot-lived"></i>Lived in</span>
-                        <span class="legend-item"><i class="dot dot-visited"></i>Visited</span>
-                        <span class="travel-hint">Drag to pan · Ctrl + scroll to zoom · Click a country</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- Featured Projects Section -->
         <section class="use-cases-section container" id="FeaturedProjects">
             <div class="featured-head">
@@ -170,28 +80,9 @@
                         <strong>Functional systems.</strong> <span class="light">Innovative interfaces.</span>
                     </h2>
                 </div>
-                <div class="gallery-nav">
-                    <button class="nav-arrow" id="featured-prev" aria-label="Previous">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 12H5M12 19l-7-7 7-7"></path>
-                        </svg>
-                    </button>
-                    <button class="nav-arrow" id="featured-next" aria-label="Next">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"></path>
-                        </svg>
-                    </button>
-                </div>
             </div>
 
-            <div class="coverflow" id="featured-coverflow" aria-roledescription="carousel" aria-label="Featured projects" tabindex="0">
-                <div class="coverflow-stage" id="featured-stage"></div>
-            </div>
-            <div class="coverflow-meta" aria-live="polite">
-                <h3 id="featured-title"></h3>
-                <p id="featured-subtitle"></p>
-                <a href="#" id="featured-open" class="btn btn-ghost">View project</a>
-            </div>
+            <div class="work-grid" id="work-grid"></div>
         </section>
 
         <!-- Projects Section -->
@@ -298,8 +189,6 @@
                 <div class="nav-col">
                     <p class="nav-col-label">Navigation</p>
                     <ul class="footer-nav-list">
-                        <li><a href="#Stack">Stack</a></li>
-                        <li><a href="#About">About</a></li>
                         <li><a href="#FeaturedProjects">Featured Work</a></li>
                         <li><a href="#Projects">Gallery</a></li>
                         <li><a href="#Contact">Contact</a></li>
@@ -313,6 +202,36 @@
             </div>
         </div>
     </footer>
+
+    <div class="project-sheet" id="project-sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" aria-hidden="true">
+        <div class="sheet-scroll" id="sheet-scroll">
+            <div class="sheet-inner">
+                <div class="sheet-bar">
+                    <span class="sheet-year" id="sheet-year"></span>
+                    <button type="button" class="sheet-close" id="sheet-close">Close <span aria-hidden="true">&times;</span></button>
+                </div>
+                <h2 class="sheet-title" id="sheet-title"></h2>
+                <div class="sheet-tags" id="sheet-tags"></div>
+                <p class="sheet-summary" id="sheet-summary"></p>
+                <a class="sheet-media" id="sheet-media" target="_blank" rel="noopener"><img id="sheet-img" alt=""></a>
+                <div class="sheet-cols">
+                    <div>
+                        <h3>What I did</h3>
+                        <ul id="sheet-did"></ul>
+                    </div>
+                    <div>
+                        <h3>Details</h3>
+                        <ul id="sheet-details"></ul>
+                    </div>
+                </div>
+                <div class="sheet-actions" id="sheet-actions"></div>
+                <div class="sheet-pager">
+                    <button type="button" id="sheet-prev"><span>Previous</span><strong id="sheet-prev-title"></strong></button>
+                    <button type="button" id="sheet-next"><span>Next</span><strong id="sheet-next-title"></strong></button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="/projects-data.js"></script>
     <script src="/app.js?v=20260912-portfolio"></script>

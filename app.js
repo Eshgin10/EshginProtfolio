@@ -251,52 +251,6 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal-text').forEach(el => revealObserver.observe(el));
 
-// Expand a card to full screen, then navigate to its project page.
-// project.js picks up the handoff and shrinks the image into the page layout.
-let projectOpening = false;
-function openProject(card, href) {
-  const img = card.querySelector('img');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (projectOpening) return;
-  if (reduceMotion || !img.animate) { window.location.href = href; return; }
-  projectOpening = true;
-
-  const r = card.getBoundingClientRect();
-  const fly = document.createElement('div');
-  fly.className = 'fly-overlay';
-  Object.assign(fly.style, {
-    left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px', borderRadius: '12px'
-  });
-  const flyImg = document.createElement('img');
-  flyImg.src = img.currentSrc || img.src;
-  fly.appendChild(flyImg);
-  document.body.appendChild(fly);
-  card.style.visibility = 'hidden';
-
-  const anim = fly.animate([
-    { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px', borderRadius: '12px' },
-    { left: '0px', top: '0px', width: window.innerWidth + 'px', height: window.innerHeight + 'px', borderRadius: '0px' }
-  ], { duration: 750, easing: 'cubic-bezier(0.76, 0, 0.24, 1)', fill: 'forwards' });
-
-  let left = false;
-  const leave = () => {
-    if (left) return;
-    left = true;
-    try { sessionStorage.setItem('pd-from', img.getAttribute('src')); } catch (e) { /* ignore */ }
-    window.location.href = href;
-  };
-  anim.onfinish = leave;
-  setTimeout(leave, 1500); // safety net if frames are throttled (background tab)
-}
-
-// Coming back via the browser's back button restores the page as it was left; reset it.
-window.addEventListener('pageshow', (e) => {
-  if (!e.persisted) return;
-  projectOpening = false;
-  document.querySelectorAll('.fly-overlay').forEach((el) => el.remove());
-  document.querySelectorAll('.coverflow-card').forEach((c) => { c.style.visibility = ''; });
-});
-
 // Gallery: floating project cards on a canvas; drag one under the lens to preview it.
 function initLensGallery() {
   const canvas = document.getElementById('lens-canvas');
@@ -621,498 +575,141 @@ function initLensGallery() {
   window.addEventListener('resize', measure);
 }
 
-// Coverflow carousel (Featured Work)
-function initCoverflow(opts) {
-  const root = document.getElementById(opts.root);
-  const stage = document.getElementById(opts.stage);
-  const titleEl = document.getElementById(opts.title);
-  const subtitleEl = document.getElementById(opts.subtitle);
-  const openEl = document.getElementById(opts.open);
-  const prevBtn = document.getElementById(opts.prev);
-  const nextBtn = document.getElementById(opts.next);
-  const projects = (window.PROJECTS || []).filter((p) => p.group === opts.group);
-  if (!root || !stage || !projects.length) return;
+// Featured Work: grid of cards; clicking one slides a detail sheet over the page.
+function initFeatured() {
+  const grid = document.getElementById('work-grid');
+  const sheet = document.getElementById('project-sheet');
+  const projects = (window.PROJECTS || []).filter((p) => p.group === 'featured');
+  if (!grid || !sheet || !projects.length) return;
 
-  const projectUrl = (p) => 'project.html?p=' + encodeURIComponent(p.slug);
-  let active = 0;
-  let startX = null;
-  let dragMoved = false;
+  const $ = (id) => document.getElementById(id);
+  const scroller = $('sheet-scroll');
+  let current = -1;
+  let lastTrigger = null;
 
-  const cards = projects.map((p, i) => {
-    const card = document.createElement('a');
-    card.className = 'coverflow-card';
-    card.href = projectUrl(p);
-    card.setAttribute('aria-label', p.title + ' \u2013 ' + p.subtitle);
-    card.draggable = false;
-    const img = document.createElement('img');
+  const pad = (n) => String(n + 1).padStart(2, '0');
+
+  projects.forEach((p, i) => {
+    const card = document.createElement('button');
+    card.type = 'button';
+    card.className = 'work-card';
+    card.setAttribute('aria-label', 'Open ' + p.title);
+
+    const bg = document.createElement('img');
+    bg.className = 'work-card-bg';
+    bg.src = p.image;
+    bg.alt = '';
+    bg.loading = 'lazy';
+
+    const top = document.createElement('div');
+    top.className = 'work-card-top';
+    const num = document.createElement('span');
+    num.textContent = pad(i);
+    const arrow = document.createElement('span');
+    arrow.className = 'work-card-arrow';
+    arrow.setAttribute('aria-hidden', 'true');
+    arrow.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9"></path></svg>';
+    top.append(num, arrow);
+
+    const body = document.createElement('div');
+    body.className = 'work-card-body';
+    const h = document.createElement('h3');
+    h.textContent = p.title;
+    const sub = document.createElement('p');
+    sub.textContent = p.subtitle;
+    const tags = document.createElement('div');
+    tags.className = 'work-card-tags';
+    p.tags.forEach((t) => {
+      const chip = document.createElement('span');
+      chip.textContent = t;
+      tags.appendChild(chip);
+    });
+    body.append(h, sub, tags);
+
+    card.append(bg, top, body);
+    card.addEventListener('click', () => open(i, card));
+    grid.appendChild(card);
+  });
+
+  function fill(list, items) {
+    list.replaceChildren(...items.map((t) => {
+      const li = document.createElement('li');
+      li.textContent = t;
+      return li;
+    }));
+  }
+
+  function render(i) {
+    const p = projects[i];
+    current = i;
+    $('sheet-year').textContent = p.year + ' · ' + p.subtitle;
+    $('sheet-title').textContent = p.title;
+    $('sheet-summary').textContent = p.summary;
+    $('sheet-tags').replaceChildren(...p.tags.map((t) => {
+      const chip = document.createElement('span');
+      chip.textContent = t;
+      return chip;
+    }));
+    const img = $('sheet-img');
     img.src = p.image;
-    img.alt = p.title;
-    img.draggable = false;
-    img.loading = 'lazy';
-    card.appendChild(img);
-    card.addEventListener('click', (e) => {
-      if (dragMoved) { e.preventDefault(); return; }
-      if (i !== active) { e.preventDefault(); go(i); return; }
-      e.preventDefault();
-      openProject(card, card.href);
+    img.alt = p.title + ' preview';
+    const media = $('sheet-media');
+    if (p.live) { media.href = p.live; media.removeAttribute('aria-disabled'); } else { media.removeAttribute('href'); }
+    fill($('sheet-did'), p.did || []);
+    fill($('sheet-details'), p.details || []);
+
+    const actions = $('sheet-actions');
+    actions.replaceChildren();
+    [['Live preview', p.live, 'btn btn-primary'], ['Source code', p.source, 'btn btn-ghost']].forEach(([label, href, cls]) => {
+      if (!href) return;
+      const a = document.createElement('a');
+      a.href = href;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.className = cls;
+      a.textContent = label;
+      actions.appendChild(a);
     });
-    stage.appendChild(card);
-    return card;
-  });
 
-  const n = projects.length;
-  const prevOffset = new Array(n).fill(null);
-
-  function render() {
-    cards.forEach((card, i) => {
-      // Shortest circular distance from the active card, so the carousel loops.
-      let d = (((i - active) % n) + n) % n;
-      if (d > n / 2) d -= n;
-      const hidden = Math.abs(d) > 2;
-      const wrapped = prevOffset[i] !== null && Math.abs(d - prevOffset[i]) > 1;
-      prevOffset[i] = d;
-
-      if (wrapped) {
-        // This card jumps from one end to the other: move it unseen instead of sweeping across.
-        card.style.transition = 'none';
-        card.classList.add('is-hidden');
-        card.style.setProperty('--d', Math.max(-3, Math.min(3, d)));
-        card.style.setProperty('--a', Math.min(3, Math.abs(d)));
-        void card.offsetWidth;
-        card.style.transition = '';
-        if (!hidden) requestAnimationFrame(() => card.classList.remove('is-hidden'));
-      } else {
-        card.style.setProperty('--d', Math.max(-3, Math.min(3, d)));
-        card.style.setProperty('--a', Math.min(3, Math.abs(d)));
-        card.classList.toggle('is-hidden', hidden);
-      }
-      card.classList.toggle('is-active', i === active);
-      card.tabIndex = i === active ? 0 : -1;
-    });
-    const p = projects[active];
-    titleEl.textContent = p.title;
-    subtitleEl.textContent = p.subtitle;
-    openEl.href = projectUrl(p);
+    const prev = projects[(i - 1 + projects.length) % projects.length];
+    const next = projects[(i + 1) % projects.length];
+    $('sheet-prev-title').textContent = prev.title;
+    $('sheet-next-title').textContent = next.title;
+    scroller.scrollTop = 0;
   }
 
-  function go(i) {
-    active = ((i % n) + n) % n;
-    render();
+  function open(i, trigger) {
+    lastTrigger = trigger || lastTrigger;
+    render(i);
+    sheet.classList.add('is-open');
+    sheet.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('sheet-locked');
+    setTimeout(() => $('sheet-close').focus({ preventScroll: true }), 50);
   }
 
-  openEl.addEventListener('click', (e) => {
-    e.preventDefault();
-    openProject(cards[active], openEl.href);
+  function close() {
+    if (!sheet.classList.contains('is-open')) return;
+    sheet.classList.remove('is-open');
+    sheet.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('sheet-locked');
+    if (lastTrigger) lastTrigger.focus({ preventScroll: true });
+  }
+
+  const step = (d) => render((current + d + projects.length) % projects.length);
+
+  $('sheet-close').addEventListener('click', close);
+  $('sheet-prev').addEventListener('click', () => step(-1));
+  $('sheet-next').addEventListener('click', () => step(1));
+  document.addEventListener('keydown', (e) => {
+    if (!sheet.classList.contains('is-open')) return;
+    if (e.key === 'Escape') close();
   });
-
-  if (prevBtn) prevBtn.addEventListener('click', () => go(active - 1));
-  if (nextBtn) nextBtn.addEventListener('click', () => go(active + 1));
-
-  root.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') { e.preventDefault(); go(active - 1); }
-    if (e.key === 'ArrowRight') { e.preventDefault(); go(active + 1); }
-  });
-
-  // Drag / swipe
-  root.addEventListener('pointerdown', (e) => {
-    startX = e.clientX;
-    dragMoved = false;
-  });
-  root.addEventListener('pointermove', (e) => {
-    if (startX === null) return;
-    if (Math.abs(e.clientX - startX) > 8) {
-      dragMoved = true;
-      root.classList.add('is-dragging');
-    }
-  });
-  const endDrag = (e) => {
-    if (startX === null) return;
-    const dx = e.clientX - startX;
-    startX = null;
-    root.classList.remove('is-dragging');
-    if (Math.abs(dx) > 50) go(active + (dx < 0 ? 1 : -1));
-    setTimeout(() => { dragMoved = false; }, 0);
-  };
-  root.addEventListener('pointerup', endDrag);
-  root.addEventListener('pointercancel', endDrag);
-  root.addEventListener('pointerleave', endDrag);
-
-  // Horizontal wheel / trackpad
-  let wheelLock = false;
-  root.addEventListener('wheel', (e) => {
-    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY) || wheelLock) return;
-    e.preventDefault();
-    wheelLock = true;
-    go(active + (e.deltaX > 0 ? 1 : -1));
-    setTimeout(() => { wheelLock = false; }, 450);
-  }, { passive: false });
-
-  go(opts.start === undefined ? Math.floor(projects.length / 2) : opts.start);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  initCoverflow({
-    group: 'featured', start: 0,
-    root: 'featured-coverflow', stage: 'featured-stage',
-    title: 'featured-title', subtitle: 'featured-subtitle', open: 'featured-open',
-    prev: 'featured-prev', next: 'featured-next'
-  });
+  initFeatured();
   initLensGallery();
 });
 
 // Automatically identify the user when the page loads
 identifyChatbaseUser();
-
-// About: interactive world map. Pan and zoom freely; click a country to focus it and see its cities.
-document.addEventListener('DOMContentLoaded', () => {
-  const host = document.getElementById('travel-map');
-  const tip = document.getElementById('travel-tooltip');
-  if (!host) return;
-  const card = host.closest('.travel-map');
-  const VW = 1000;
-  const VH = 520;
-  let main = null;
-  let world = null;
-  let focused = null;
-  let focusPanel = null;
-  let view = { s: 1, tx: 0, ty: 0 };
-  let home = { cx: 550, cy: 125 };
-  let dragMoved = false;
-
-  // The part of the map that is on screen, in map units. The svg uses "slice", so a short box crops the sides.
-  function vp() {
-    const r = main.getBoundingClientRect();
-    const k = Math.max(r.width / VW, r.height / VH) || 1;
-    const w = r.width / k;
-    const h = r.height / k;
-    return { r, k, w, h, ox: (VW - w) / 2, oy: (VH - h) / 2 };
-  }
-
-  function clampView(s, tx, ty) {
-    const v = vp();
-    const min = Math.max(v.w / VW, v.h / VH);
-    s = Math.max(min, Math.min(40, s));
-    tx = Math.min(v.ox, Math.max(v.ox + v.w - VW * s, tx));
-    ty = Math.min(v.oy, Math.max(v.oy + v.h - VH * s, ty));
-    return { s, tx, ty };
-  }
-
-  function setView(s, tx, ty, animate) {
-    view = clampView(s, tx, ty);
-    world.classList.toggle('no-anim', !animate);
-    world.style.transform = 'translate(' + view.tx + 'px,' + view.ty + 'px) scale(' + view.s + ')';
-    if (focused) showCities(focused.dataset.name, view.s);
-  }
-
-  function toUser(clientX, clientY) {
-    const v = vp();
-    return { x: v.ox + (clientX - v.r.left) / v.k, y: v.oy + (clientY - v.r.top) / v.k };
-  }
-
-  function zoomAt(factor, ux, uy, animate) {
-    const next = clampView(view.s * factor, 0, 0).s;
-    const k = next / view.s;
-    setView(next, ux - (ux - view.tx) * k, uy - (uy - view.ty) * k, animate);
-  }
-
-  function goHome(animate) {
-    const v = vp();
-    const s = v.w < 700 ? 2.8 : 2.2;
-    setView(s, v.ox + v.w / 2 - s * home.cx, v.oy + v.h / 2 - s * home.cy, animate);
-  }
-
-  // A path's bounding box; for countries split across the antimeridian (Russia) use the largest piece.
-  function countryBox(path) {
-    const whole = path.getBBox();
-    if (whole.width < VW * 0.5) return whole;
-    let best = null;
-    path.getAttribute('d').split(/(?=M)/).forEach((sub) => {
-      const tmp = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      tmp.setAttribute('d', sub);
-      main.appendChild(tmp);
-      const b = tmp.getBBox();
-      tmp.remove();
-      if (!best || b.width * b.height > best.width * best.height) best = b;
-    });
-    return best;
-  }
-
-  function showCities(name, s) {
-    world.querySelectorAll('.cities g').forEach((g) => {
-      const on = g.dataset.country === name;
-      g.classList.toggle('active', on);
-      if (!on) return;
-      const dots = [...g.querySelectorAll('circle')];
-      dots.forEach((c) => {
-        c.setAttribute('r', 4 / s);
-        c.setAttribute('stroke-width', 1.4 / s);
-      });
-
-      // Place each label where it does not collide with other labels or markers (screen-pixel maths).
-      const pts = dots.map((c) => ({ name: c.dataset.city, x: parseFloat(c.getAttribute('cx')) * s, y: parseFloat(c.getAttribute('cy')) * s }));
-      const placed = [];
-      const spots = [[9, 4, 'start'], [-9, 4, 'end'], [9, 20, 'start'], [9, -11, 'start'], [-9, 20, 'end'], [-9, -11, 'end']];
-      const hits = (a, b) => a.x0 < b.x1 && a.x1 > b.x0 && a.y0 < b.y1 && a.y1 > b.y0;
-      pts.forEach((pt) => {
-        const w = pt.name.length * 7.6;
-        let chosen = spots[0];
-        for (const sp of spots) {
-          const x0 = sp[2] === 'start' ? pt.x + sp[0] : pt.x + sp[0] - w;
-          const box = { x0, x1: x0 + w, y0: pt.y + sp[1] - 11, y1: pt.y + sp[1] + 3 };
-          const clashLabel = placed.some((o) => hits(box, o));
-          const clashDot = pts.some((o) => o !== pt && o.x > box.x0 - 5 && o.x < box.x1 + 5 && o.y > box.y0 - 5 && o.y < box.y1 + 5);
-          if (!clashLabel && !clashDot) { chosen = sp; break; }
-        }
-        const x0 = chosen[2] === 'start' ? pt.x + chosen[0] : pt.x + chosen[0] - w;
-        placed.push({ x0, x1: x0 + w, y0: pt.y + chosen[1] - 11, y1: pt.y + chosen[1] + 3 });
-        const t = g.querySelector('text[data-city="' + pt.name + '"]');
-        t.setAttribute('x', (pt.x + chosen[0]) / s);
-        t.setAttribute('y', (pt.y + chosen[1]) / s);
-        t.setAttribute('text-anchor', chosen[2]);
-        t.style.fontSize = 13 / s + 'px';
-        t.setAttribute('stroke-width', 3.5 / s);
-      });
-    });
-  }
-
-  function zoomTo(path) {
-    const name = path.dataset.name;
-    const v = vp();
-    let b = countryBox(path);
-    // Huge countries (Russia): frame the visited cities instead of the whole country.
-    if (b.width > 150) {
-      const dots = [...world.querySelectorAll('.cities g[data-country="' + name + '"] circle')];
-      if (dots.length) {
-        const xs = dots.map((c) => parseFloat(c.getAttribute('cx')));
-        const ys = dots.map((c) => parseFloat(c.getAttribute('cy')));
-        const pad = 14;
-        b = { x: Math.min(...xs) - pad, y: Math.min(...ys) - pad, width: Math.max(...xs) - Math.min(...xs) + pad * 2, height: Math.max(...ys) - Math.min(...ys) + pad * 2 };
-      }
-    }
-    const s = Math.min((v.w * 0.62) / b.width, (v.h * 0.62) / b.height, 30);
-    const narrow = v.w < 700;
-    const tx = v.ox + v.w * (narrow ? 0.5 : 0.58) - s * (b.x + b.width / 2);
-    const ty = v.oy + v.h * (narrow ? 0.58 : 0.5) - s * (b.y + b.height / 2);
-
-    main.querySelectorAll('path.is-focus').forEach((p) => p.classList.remove('is-focus'));
-    path.classList.add('is-focus');
-    focused = path;
-    host.classList.add('is-zoomed', 'is-focused');
-    setView(s, tx, ty, true);
-
-    const cities = [...world.querySelectorAll('.cities g[data-country="' + name + '"] circle')].map((c) => c.dataset.city);
-    focusPanel.querySelector('h4').textContent = name;
-    focusPanel.querySelector('.travel-status').textContent = path.classList.contains('lived') ? 'Lived in' : 'Visited';
-    const list = focusPanel.querySelector('ul');
-    list.innerHTML = '';
-    cities.forEach((c) => {
-      const li = document.createElement('li');
-      li.textContent = c;
-      list.appendChild(li);
-    });
-    focusPanel.hidden = false;
-  }
-
-  // Leave country focus (if any) and return to the default Europe view.
-  function reset() {
-    if (focused) focused.classList.remove('is-focus');
-    focused = null;
-    host.classList.remove('is-zoomed', 'is-focused');
-    world.querySelectorAll('.cities g').forEach((g) => g.classList.remove('active'));
-    focusPanel.hidden = true;
-    goHome(true);
-  }
-
-  // City labels (hidden until their country is in focus).
-  function prepareCities() {
-    world.querySelectorAll('.cities circle').forEach((c) => {
-      const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      t.dataset.city = c.dataset.city;
-      t.textContent = c.dataset.city;
-      c.parentNode.appendChild(t);
-    });
-  }
-
-  function wire() {
-    main.querySelectorAll('path.visited, path.lived').forEach((p, i) => {
-      p.style.setProperty('--i', i % 13);
-      p.addEventListener('mousemove', (e) => {
-        if (dragMoved) { tip.hidden = true; return; }
-        const r = card.getBoundingClientRect();
-        tip.textContent = p.dataset.name;
-        tip.style.left = e.clientX - r.left + 'px';
-        tip.style.top = e.clientY - r.top + 'px';
-        tip.hidden = false;
-      });
-      p.addEventListener('mouseleave', () => { tip.hidden = true; });
-      p.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (dragMoved) return;
-        tip.hidden = true;
-        openCountry(p.dataset.name);
-      });
-    });
-  }
-
-  // Detailed (50m) outlines load lazily and replace the light ones, so zoomed-in views stay sharp.
-  let hdPromise = null;
-  function loadHD() {
-    if (!hdPromise) {
-      hdPromise = fetch('/world-map-hd.svg')
-        .then((r) => (r.ok ? r.text() : Promise.reject(new Error('hd ' + r.status))))
-        .then((text) => {
-          const doc = new DOMParser().parseFromString(text, 'image/svg+xml');
-          const hdWorld = doc.querySelector('g.world');
-          if (!hdWorld) throw new Error('hd parse');
-          world.replaceChildren(...[...hdWorld.childNodes].map((n) => document.importNode(n, true)));
-          host.classList.add('is-hd');
-          prepareCities();
-          wire();
-        })
-        .catch(() => {});
-    }
-    return hdPromise;
-  }
-
-  function openCountry(name) {
-    const find = () => [...main.querySelectorAll('path.visited, path.lived')].find((p) => p.dataset.name === name);
-    zoomTo(find());
-    if (host.classList.contains('is-hd')) return;
-    // If the detailed outlines arrive mid-flight, keep the same country in focus.
-    loadHD().then(() => {
-      if (focused && focused.dataset.name === name) {
-        const p = find();
-        if (p) { p.classList.add('is-focus'); focused = p; showCities(name, view.s); }
-      }
-    });
-  }
-
-  function buildControls() {
-    const box = document.createElement('div');
-    box.className = 'travel-controls';
-    const mk = (label, aria, fn) => {
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.textContent = label;
-      b.setAttribute('aria-label', aria);
-      b.addEventListener('click', (e) => { e.stopPropagation(); fn(); });
-      box.appendChild(b);
-    };
-    const mid = () => { const v = vp(); return { x: v.ox + v.w / 2, y: v.oy + v.h / 2 }; };
-    mk('+', 'Zoom in', () => { const c = mid(); zoomAt(1.6, c.x, c.y, true); });
-    mk('−', 'Zoom out', () => { const c = mid(); zoomAt(1 / 1.6, c.x, c.y, true); });
-    mk('⌂', 'Back to Europe', reset);
-    host.appendChild(box);
-  }
-
-  function enableGestures() {
-    const pts = new Map();
-    let pan = null;
-    let pinch = null;
-    const dist = () => { const [a, b] = [...pts.values()]; return Math.hypot(a.x - b.x, a.y - b.y); };
-
-    host.addEventListener('pointerdown', (e) => {
-      if (e.target.closest('.travel-focus, .travel-controls')) return;
-      if (e.pointerType === 'mouse' && e.button !== 0) return;
-      pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      dragMoved = false;
-      if (pts.size === 1) pan = { x: e.clientX, y: e.clientY, tx: view.tx, ty: view.ty };
-      if (pts.size === 2) pinch = { d: dist() || 1, s: view.s };
-    });
-
-    host.addEventListener('pointermove', (e) => {
-      if (!pts.has(e.pointerId)) return;
-      pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      if (pts.size === 2 && pinch) {
-        const [a, b] = [...pts.values()];
-        const m = toUser((a.x + b.x) / 2, (a.y + b.y) / 2);
-        dragMoved = true;
-        zoomAt((pinch.s * dist()) / pinch.d / view.s, m.x, m.y, false);
-        return;
-      }
-      if (pts.size === 1 && pan) {
-        const dx = e.clientX - pan.x;
-        const dy = e.clientY - pan.y;
-        if (!dragMoved && Math.hypot(dx, dy) < 5) return;
-        if (!dragMoved) {
-          dragMoved = true;
-          tip.hidden = true;
-          host.classList.add('is-dragging');
-          try { host.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
-        }
-        setView(view.s, pan.tx + dx / vp().k, pan.ty + dy / vp().k, false);
-      }
-    });
-
-    const end = (e) => {
-      pts.delete(e.pointerId);
-      if (pts.size < 2) pinch = null;
-      if (pts.size === 0) {
-        pan = null;
-        host.classList.remove('is-dragging');
-        setTimeout(() => { dragMoved = false; }, 0);
-      } else if (pts.size === 1) {
-        const [p] = [...pts.values()];
-        pan = { x: p.x, y: p.y, tx: view.tx, ty: view.ty };
-      }
-    };
-    host.addEventListener('pointerup', end);
-    host.addEventListener('pointercancel', end);
-
-    // Ctrl/Cmd + scroll (and trackpad pinch) zooms; plain scroll still scrolls the page.
-    host.addEventListener('wheel', (e) => {
-      if (!(e.ctrlKey || e.metaKey)) return;
-      e.preventDefault();
-      const u = toUser(e.clientX, e.clientY);
-      zoomAt(Math.exp(-e.deltaY * 0.01), u.x, u.y, false);
-    }, { passive: false });
-  }
-
-  fetch('/world-map.svg')
-    .then((r) => (r.ok ? r.text() : Promise.reject(new Error('map ' + r.status))))
-    .then((svg) => {
-      host.innerHTML = svg;
-      main = host.querySelector('svg');
-      main.setAttribute('preserveAspectRatio', 'xMidYMid slice');
-      world = main.querySelector('g.world');
-      prepareCities();
-
-      // Default view is centred on the countries around Europe (Russia would drag it north-east).
-      const near = [...main.querySelectorAll('path.visited, path.lived')].filter((p) => p.dataset.name !== 'Russia');
-      const boxes = near.map((p) => p.getBBox());
-      home = {
-        cx: (Math.min(...boxes.map((b) => b.x)) + Math.max(...boxes.map((b) => b.x + b.width))) / 2,
-        cy: (Math.min(...boxes.map((b) => b.y)) + Math.max(...boxes.map((b) => b.y + b.height))) / 2
-      };
-
-      focusPanel = document.createElement('div');
-      focusPanel.className = 'travel-focus';
-      focusPanel.hidden = true;
-      focusPanel.innerHTML =
-        '<button type="button" class="travel-back">← Back</button>' +
-        '<h4></h4><span class="travel-status"></span><ul></ul>';
-      host.appendChild(focusPanel);
-      focusPanel.querySelector('.travel-back').addEventListener('click', reset);
-
-      buildControls();
-      enableGestures();
-      wire();
-      goHome(false);
-
-      main.addEventListener('click', () => { if (!dragMoved && focused) reset(); });
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && focused) reset(); });
-      window.addEventListener('resize', () => setView(view.s, view.tx, view.ty, false));
-    })
-    .then(() => {
-      if (!('IntersectionObserver' in window)) { host.classList.add('in-view'); return; }
-      const io = new IntersectionObserver((entries) => {
-        if (entries.some((en) => en.isIntersecting)) {
-          host.classList.add('in-view');
-          io.disconnect();
-          setTimeout(loadHD, 1500);
-        }
-      }, { threshold: 0.3 });
-      io.observe(host);
-    })
-    .catch(() => { host.textContent = ''; });
-});
