@@ -93,18 +93,22 @@
                         <span class="section-label dark-label">Gallery</span>
                         <h2 class="projects-heading">Look at my landing pages<br>and creative work.</h2>
                     </div>
+                    <div class="gallery-nav">
+                        <button class="nav-arrow" id="gallery-prev" aria-label="Previous">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+                        </button>
+                        <button class="nav-arrow" id="gallery-next" aria-label="Next">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="lens-canvas" id="lens-canvas" aria-label="Project canvas. Drag a project onto the lens to preview it.">
-                    <p class="lens-hint">Drag a project onto the lens</p>
-                    <div class="lens" id="lens" aria-hidden="true">
-                        <span class="lens-label" id="lens-label">Drop to preview</span>
-                    </div>
+                <div class="slider" id="gallery-slider" aria-roledescription="carousel" aria-label="Gallery" tabindex="0">
+                    <div class="slider-track" id="gallery-track"></div>
                 </div>
             </div>
         </section>
 
-        <!-- CTA Section -->
         <!-- Travel map -->
         <section class="container travel-section" id="Map">
                 <div class="travel-map">
