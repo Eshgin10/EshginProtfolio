@@ -175,19 +175,15 @@ window.PROJECTS.unshift(
         images: [{ src: '/Images/junction-pitching.jpg', alt: 'Working on the app during the hackathon', caption: 'Building the app' }]
       },
       {
-        heading: 'The pitch',
+        heading: 'The final and the team',
         text: [
           'On Sunday afternoon the teams chosen for the final demoed to the jury. We finished 2nd in the Junction category and also took home the Best Pitch award.',
-          'It was a great experience and taught us a lot about creating a working solution.'
+          'A hackathon is a team sport. Sharing the work, the late decisions and the result with these people is the part I will remember. It was a great experience and taught us a lot about creating a working solution.'
         ],
-        images: [{ src: '/Images/junction-best-pitch.jpg', alt: 'Holding the Best Pitch certificate', caption: 'Best Pitch award' }]
-      },
-      {
-        heading: 'The team',
-        text: [
-          'A hackathon is a team sport. Sharing the work, the late decisions and the result with these people is the part I will remember.'
-        ],
-        images: [{ src: '/Images/junction-teammates-night.jpg', alt: 'Teammates by the water at night', caption: 'Teammates' }]
+        images: [
+          { src: '/Images/junction-best-pitch.jpg', alt: 'Holding the Best Pitch certificate', caption: 'Best Pitch award' },
+          { src: '/Images/junction-teammates-night.jpg', alt: 'Teammates by the water at night', caption: 'Teammates' }
+        ]
       }
     ],
     qr: '/Images/junction-app-qr.png',
