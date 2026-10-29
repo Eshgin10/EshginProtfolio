@@ -1831,9 +1831,3 @@ body.sheet-locked {
   .work-card:hover { padding-top: 20px; padding-bottom: 20px; }
   .work-grid:hover .work-card:not(:hover) { opacity: 1; }
 }
-
-.projects-header .nav-arrow {
-  width: 40px;
-  height: 40px;
-  background: none;
-}
