@@ -2130,3 +2130,21 @@ body.sheet-locked {
   .bento-photo-b { aspect-ratio: 4 / 3; }
   .bento-text-a { padding-left: 0 !important; }
 }
+
+/* Live preview button and QR code sit above the screenshots */
+.sheet-launch {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px 32px;
+  margin-top: 36px;
+}
+
+.sheet-launch .sheet-actions,
+.sheet-launch .sheet-qr {
+  margin-top: 0;
+}
+
+.sheet-launch .sheet-qr {
+  margin-left: 0;
+}
