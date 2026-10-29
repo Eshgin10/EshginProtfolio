@@ -288,8 +288,6 @@ function initGallery() {
     cap.className = 'slide-caption';
     const h = document.createElement('h3');
     h.textContent = p.title;
-    const sub = document.createElement('p');
-    sub.textContent = p.subtitle;
     cap.append(h, sub);
     a.append(frame, cap);
     track.appendChild(a);
@@ -411,7 +409,7 @@ function initFeatured() {
     arrow.setAttribute('aria-hidden', 'true');
     arrow.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9"></path></svg>';
 
-    card.append(num, h, sub, tags, arrow);
+    card.append(num, h, tags, arrow);
     card.addEventListener('click', () => open(i, card));
     grid.appendChild(card);
   });
@@ -463,18 +461,43 @@ function initFeatured() {
       if (p.live) media.href = p.live; else media.removeAttribute('href');
     }
 
-    const photos = $('sheet-photos');
-    photos.hidden = !(p.photos && p.photos.length);
-    $('sheet-photo-row').replaceChildren(...(p.photos || []).map((ph) => {
-      const fig = document.createElement('figure');
-      const im = document.createElement('img');
-      im.src = ph.src;
-      im.alt = ph.alt || '';
-      im.loading = 'lazy';
-      const cap = document.createElement('figcaption');
-      cap.textContent = ph.caption || '';
-      fig.append(im, cap);
-      return fig;
+    const story = $('sheet-story');
+    story.hidden = !(p.story && p.story.length);
+    story.replaceChildren(...(p.story || []).map((blk) => {
+      const sec = document.createElement('section');
+      sec.className = 'story-block' + (blk.images && blk.images.length ? ' has-media' : '');
+      const copy = document.createElement('div');
+      copy.className = 'story-copy';
+      const h = document.createElement('h3');
+      h.textContent = blk.heading;
+      copy.appendChild(h);
+      (blk.text || []).forEach((t) => {
+        const para = document.createElement('p');
+        para.textContent = t;
+        copy.appendChild(para);
+      });
+      sec.appendChild(copy);
+      if (blk.images && blk.images.length) {
+        const media = document.createElement('div');
+        media.className = 'story-media';
+        blk.images.forEach((ph) => {
+          const fig = document.createElement('figure');
+          const im = document.createElement('img');
+          im.src = ph.src;
+          im.alt = ph.alt || '';
+          im.loading = 'lazy';
+          im.draggable = false;
+          fig.appendChild(im);
+          if (ph.caption) {
+            const cap = document.createElement('figcaption');
+            cap.textContent = ph.caption;
+            fig.appendChild(cap);
+          }
+          media.appendChild(fig);
+        });
+        sec.appendChild(media);
+      }
+      return sec;
     }));
 
     const qr = $('sheet-qr');
@@ -519,6 +542,21 @@ function initFeatured() {
     document.body.classList.remove('sheet-locked');
     if (lastTrigger) lastTrigger.focus({ preventScroll: true });
   }
+
+  // Mouse drag-to-scroll for the sideways row (touch and trackpads already scroll natively).
+  const dragScroll = (el) => {
+    let down = false, sx = 0, sl = 0;
+    el.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      down = true; sx = e.clientX; sl = el.scrollLeft;
+      el.classList.add('is-dragging');
+    });
+    window.addEventListener('pointermove', (e) => { if (down) el.scrollLeft = sl - (e.clientX - sx); });
+    const up = () => { down = false; el.classList.remove('is-dragging'); };
+    window.addEventListener('pointerup', up);
+    window.addEventListener('pointercancel', up);
+  };
+  dragScroll($('sheet-screens'));
 
   const step = (d) => render((current + d + projects.length) % projects.length);
 

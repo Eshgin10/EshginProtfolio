@@ -155,11 +155,47 @@ window.PROJECTS.unshift(
       { src: '/Images/junction-app-chats.png', alt: 'Chats list' },
       { src: '/Images/junction-app-profile.png', alt: 'Profile screen' }
     ],
-    photos: [
-      { src: '/Images/junction-pitching.jpg', alt: 'Presenting the app to the jury', caption: 'Pitching the app' },
-      { src: '/Images/junction-best-pitch.jpg', alt: 'Holding the Best Pitch certificate', caption: 'Best Pitch award' },
-      { src: '/Images/junction-team.jpg', alt: 'The team at the venue', caption: 'The team' },
-      { src: '/Images/junction-teammates-night.jpg', alt: 'Teammates by the water at night', caption: 'Teammates' }
+    story: [
+      {
+        heading: 'The challenge',
+        text: [
+          'The STUHI \u00d7 Tampere Hackathon ran for 48 hours at Tampere University\u2019s Hervanta campus. On Saturday morning the partner companies presented real problems and every team picked one to solve.',
+          'Our team went for the Junction challenge. From there it was a weekend of deciding what to build, building it, and learning how to explain it in a few minutes.'
+        ],
+        images: [{ src: '/Images/junction-team.jpg', alt: 'The team at the venue', caption: 'The team at the venue' }]
+      },
+      {
+        heading: 'The idea',
+        text: [
+          'The app helps people across the Nordics and Baltics find the right people to build with. You can look for teammates or mentors, swipe through profiles, and see a short \u201cwhy you match\u201d note that explains the connection, such as shared interests or free time.',
+          'Once two people match they can chat, and groups give teams a shared place to start. The home screen shows the region as a globe, so the whole idea feels bigger than one city.'
+        ]
+      },
+      {
+        heading: 'Design and engineering',
+        text: [
+          'I handled most of the engineering and the design. I kept the interface calm and dark with one bright accent, and put everything behind five tabs (Home, Swipe, Groups, Chats and Profile) so it works with one thumb.',
+          'The goal was a working app people could open on their phone, not just a slide deck. That is why the live preview and the QR code above go to the real thing.'
+        ]
+      },
+      {
+        heading: 'The pitch',
+        text: [
+          'On Sunday afternoon every team demoed to the jury. We finished 2nd in the Junction category and also took home the Best Pitch award.',
+          'The pitch was the part I enjoyed most, because it is where the design, the build and the story of the product had to come together in one clear demo.'
+        ],
+        images: [
+          { src: '/Images/junction-pitching.jpg', alt: 'Presenting the app to the jury', caption: 'Pitching the app' },
+          { src: '/Images/junction-best-pitch.jpg', alt: 'Holding the Best Pitch certificate', caption: 'Best Pitch award' }
+        ]
+      },
+      {
+        heading: 'The team',
+        text: [
+          'A hackathon is a team sport. Sharing the work, the late decisions and the result with these people is the part I will remember.'
+        ],
+        images: [{ src: '/Images/junction-teammates-night.jpg', alt: 'Teammates by the water at night', caption: 'Teammates' }]
+      }
     ],
     qr: '/Images/junction-app-qr.png',
     live: 'https://c49d465b-202a-452c-8eb7-126ee7a81d6c.web.bilt.me',
