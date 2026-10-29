@@ -595,24 +595,10 @@ function initFeatured() {
     card.className = 'work-card';
     card.setAttribute('aria-label', 'Open ' + p.title);
 
-    const bg = document.createElement('img');
-    bg.className = 'work-card-bg';
-    bg.src = p.image;
-    bg.alt = '';
-    bg.loading = 'lazy';
-
-    const top = document.createElement('div');
-    top.className = 'work-card-top';
     const num = document.createElement('span');
+    num.className = 'work-card-num';
     num.textContent = pad(i);
-    const arrow = document.createElement('span');
-    arrow.className = 'work-card-arrow';
-    arrow.setAttribute('aria-hidden', 'true');
-    arrow.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9"></path></svg>';
-    top.append(num, arrow);
 
-    const body = document.createElement('div');
-    body.className = 'work-card-body';
     const h = document.createElement('h3');
     h.textContent = p.title;
     const sub = document.createElement('p');
@@ -624,9 +610,13 @@ function initFeatured() {
       chip.textContent = t;
       tags.appendChild(chip);
     });
-    body.append(h, sub, tags);
 
-    card.append(bg, top, body);
+    const arrow = document.createElement('span');
+    arrow.className = 'work-card-arrow';
+    arrow.setAttribute('aria-hidden', 'true');
+    arrow.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9"></path></svg>';
+
+    card.append(num, h, sub, tags, arrow);
     card.addEventListener('click', () => open(i, card));
     grid.appendChild(card);
   });
