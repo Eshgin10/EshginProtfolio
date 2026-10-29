@@ -155,6 +155,12 @@ window.PROJECTS.unshift(
       { src: '/Images/junction-app-chats.png', alt: 'Chats list' },
       { src: '/Images/junction-app-profile.png', alt: 'Profile screen' }
     ],
+    photos: [
+      { src: '/Images/junction-pitching.jpg', alt: 'Presenting the app to the jury', caption: 'Pitching the app' },
+      { src: '/Images/junction-best-pitch.jpg', alt: 'Holding the Best Pitch certificate', caption: 'Best Pitch award' },
+      { src: '/Images/junction-team.jpg', alt: 'The team at the venue', caption: 'The team' },
+      { src: '/Images/junction-teammates-night.jpg', alt: 'Teammates by the water at night', caption: 'Teammates' }
+    ],
     qr: '/Images/junction-app-qr.png',
     live: 'https://c49d465b-202a-452c-8eb7-126ee7a81d6c.web.bilt.me',
     source: ''

@@ -463,6 +463,20 @@ function initFeatured() {
       if (p.live) media.href = p.live; else media.removeAttribute('href');
     }
 
+    const photos = $('sheet-photos');
+    photos.hidden = !(p.photos && p.photos.length);
+    $('sheet-photo-row').replaceChildren(...(p.photos || []).map((ph) => {
+      const fig = document.createElement('figure');
+      const im = document.createElement('img');
+      im.src = ph.src;
+      im.alt = ph.alt || '';
+      im.loading = 'lazy';
+      const cap = document.createElement('figcaption');
+      cap.textContent = ph.caption || '';
+      fig.append(im, cap);
+      return fig;
+    }));
+
     const qr = $('sheet-qr');
     qr.hidden = !p.qr;
     if (p.qr) $('sheet-qr-img').src = p.qr;
