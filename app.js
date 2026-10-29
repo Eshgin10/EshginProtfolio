@@ -260,14 +260,16 @@ function initGallery() {
   const projects = (window.PROJECTS || []).filter((p) => p.group === 'gallery');
   if (!slider || !track || !projects.length) return;
 
-  let active = 0;
+  const N = projects.length;
+  let active = N; // start on the first slide of the middle copy
   let startX = null;
-  let startOffset = 0;
   let dragDx = 0;
   let dragged = false;
 
-  const slides = projects.map((p) => {
+  // Three copies side by side; after each move we hop back to the middle copy so it never runs out.
+  const slides = [0, 1, 2].flatMap((copy) => projects.map((p) => {
     const a = document.createElement('a');
+    if (copy !== 1) { a.setAttribute('aria-hidden', 'true'); a.tabIndex = -1; }
     a.className = 'slide';
     a.href = p.live || '#';
     a.target = '_blank';
@@ -292,7 +294,7 @@ function initGallery() {
     a.append(frame, cap);
     track.appendChild(a);
     return a;
-  });
+  }));
 
   // Distance from the viewport's left edge to where slide i should sit so it is centred.
   const offsetFor = (i) => {
@@ -304,14 +306,24 @@ function initGallery() {
     track.style.transition = animate ? '' : 'none';
     track.style.transform = 'translate3d(' + (offsetFor(active) + (extra || 0)) + 'px,0,0)';
     slides.forEach((s, i) => s.classList.toggle('is-active', i === active));
-    prevBtn.disabled = active === 0;
-    nextBtn.disabled = active === slides.length - 1;
+  }
+
+  let settle = null;
+  function recentre() {
+    clearTimeout(settle);
+    if (active >= N && active < 2 * N) return;
+    active = ((active % N) + N) % N + N;
+    apply(0, false);
   }
 
   function go(i) {
-    active = Math.max(0, Math.min(slides.length - 1, i));
+    active = i;
     apply(0, true);
+    clearTimeout(settle);
+    settle = setTimeout(recentre, 800); // also covers throttled frames where transitionend never fires
   }
+
+  track.addEventListener('transitionend', (e) => { if (e.target === track) recentre(); });
 
   prevBtn.addEventListener('click', () => go(active - 1));
   nextBtn.addEventListener('click', () => go(active + 1));
