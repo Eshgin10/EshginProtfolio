@@ -57,6 +57,14 @@ const blogPosts = [
   }
 ];
 
+// The post as it should be shown in the current language.
+function localPost(post) {
+  const az = window.BLOG_AZ && window.BLOG_AZ[post.slug];
+  return LNG.lang === 'az' && az ? Object.assign({}, post, az) : post;
+}
+
+let viewingSlug = null;
+
 // Initialize Blog
 document.addEventListener('DOMContentLoaded', () => {
   if (window.location.pathname.includes("blog.html")) {
@@ -69,36 +77,27 @@ function renderBlogList() {
   if (!blogList) return;
 
   blogList.innerHTML = '';
-  blogPosts.forEach((post, index) => {
+  blogPosts.forEach((raw, index) => {
+    const post = localPost(raw);
     const article = document.createElement("article");
     article.innerHTML = `
             <span class="date">${post.date}</span>
             <h2>${post.title}</h2>
             <p>${post.summary}</p>
             <a href="#${post.slug}" class="read-more" onclick="showPost('${post.slug}', event)">
-                Read post <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+                ${LNG.t('blog.read')} <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
             </a>
         `;
     blogList.appendChild(article);
   });
 }
 
-function showPost(slug, event) {
-  if (event) event.preventDefault();
-  const post = blogPosts.find(p => p.slug === slug);
-  const container = document.querySelector(".blog-container");
-
-  if (!post || !container) return;
-
-  // Fade out current content
-  container.style.opacity = '0';
-
-  setTimeout(() => {
-    container.innerHTML = `
+function postMarkup(post) {
+  return `
       <section class="blog-post">
           <a href="blog.html" class="back-link" onclick="location.reload(); return false;">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
-              back to notebook
+              ${LNG.t('blog.back')}
           </a>
           <span class="date">${post.date}</span>
           <h1>${post.title}</h1>
@@ -107,6 +106,33 @@ function showPost(slug, event) {
           </div>
       </section>
     `;
+}
+
+window.addEventListener('langchange', () => {
+  const container = document.querySelector(".blog-container");
+  if (!container) return;
+  if (viewingSlug) {
+    const post = blogPosts.find(p => p.slug === viewingSlug);
+    if (post) container.innerHTML = postMarkup(localPost(post));
+  } else {
+    renderBlogList();
+  }
+});
+
+function showPost(slug, event) {
+  if (event) event.preventDefault();
+  const found = blogPosts.find(p => p.slug === slug);
+  const post = found && localPost(found);
+  const container = document.querySelector(".blog-container");
+
+  if (!post || !container) return;
+  viewingSlug = slug;
+
+  // Fade out current content
+  container.style.opacity = '0';
+
+  setTimeout(() => {
+    container.innerHTML = postMarkup(post);
 
     window.scrollTo(0, 0);
     container.style.opacity = '1';

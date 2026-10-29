@@ -1,3 +1,6 @@
+// Language helpers come from i18n.js; fall back to plain English if it is missing.
+const LNG = window.I18N || { lang: 'en', t: (k) => k, place: (n) => n, s: (x) => x, project: (p) => p };
+
 document.addEventListener('DOMContentLoaded', function () {
   const burgerMenu = document.querySelector('.burger-menu');
   const navLinks = document.querySelector('.nav-links');
@@ -290,11 +293,20 @@ function initGallery() {
     h.textContent = p.title;
     const sub = document.createElement('p');
     sub.textContent = p.subtitle;
+    a._sub = sub;
     cap.append(h, sub);
     a.append(frame, cap);
     track.appendChild(a);
     return a;
   }));
+
+  const labelSlides = () => slides.forEach((a, i) => {
+    const p = LNG.project(projects[i % N]);
+    a._sub.textContent = p.subtitle;
+    a.setAttribute('aria-label', p.title + ' \u2013 ' + p.subtitle);
+  });
+  labelSlides();
+  window.addEventListener('langchange', labelSlides);
 
   // Distance from the viewport's left edge to where slide i should sit so it is centred.
   const offsetFor = (i) => {
@@ -384,11 +396,14 @@ function initFeatured() {
 
   const pad = (n) => String(n + 1).padStart(2, '0');
 
-  projects.forEach((p, i) => {
+  function renderRows() {
+  grid.replaceChildren();
+  projects.forEach((raw, i) => {
+    const p = LNG.project(raw);
     const card = document.createElement('button');
     card.type = 'button';
     card.className = 'work-card';
-    card.setAttribute('aria-label', 'Open ' + p.title);
+    card.setAttribute('aria-label', LNG.t('sheet.open') + ' ' + p.title);
 
     const num = document.createElement('span');
     num.className = 'work-card-num';
@@ -413,6 +428,8 @@ function initFeatured() {
     card.addEventListener('click', () => open(i, card));
     grid.appendChild(card);
   });
+  }
+  renderRows();
 
   function fill(list, items) {
     list.replaceChildren(...items.map((t) => {
@@ -423,7 +440,7 @@ function initFeatured() {
   }
 
   function render(i) {
-    const p = projects[i];
+    const p = LNG.project(projects[i]);
     current = i;
     $('sheet-year').textContent = p.year + ' · ' + p.subtitle;
     $('sheet-title').textContent = p.title;
@@ -567,7 +584,7 @@ function initFeatured() {
 
     const actions = $('sheet-actions');
     actions.replaceChildren();
-    [['Live preview', p.live, 'btn btn-primary'], ['Source code', p.source, 'btn btn-ghost']].forEach(([label, href, cls]) => {
+    [[LNG.t('sheet.live'), p.live, 'btn btn-primary'], [LNG.t('sheet.source'), p.source, 'btn btn-ghost']].forEach(([label, href, cls]) => {
       if (!href) return;
       const a = document.createElement('a');
       a.href = href;
@@ -625,6 +642,15 @@ function initFeatured() {
   document.addEventListener('keydown', (e) => {
     if (!sheet.classList.contains('is-open')) return;
     if (e.key === 'Escape') close();
+  });
+
+  window.addEventListener('langchange', () => {
+    renderRows();
+    if (sheet.classList.contains('is-open') && current >= 0) {
+      const top = scroller.scrollTop;
+      render(current);
+      scroller.scrollTop = top;
+    }
   });
 }
 
@@ -773,17 +799,22 @@ document.addEventListener('DOMContentLoaded', () => {
     host.classList.add('is-zoomed', 'is-focused');
     setView(s, tx, ty, true);
 
+    fillFocus(path, name);
+    focusPanel.hidden = false;
+  }
+
+  // Title, status and city list of the focus panel, in the current language.
+  function fillFocus(path, name) {
     const cities = [...world.querySelectorAll('.cities g[data-country="' + name + '"] circle')].map((c) => c.dataset.city);
-    focusPanel.querySelector('h4').textContent = name;
-    focusPanel.querySelector('.travel-status').textContent = path.classList.contains('lived') ? 'Lived in' : 'Visited';
+    focusPanel.querySelector('h4').textContent = LNG.place(name);
+    focusPanel.querySelector('.travel-status').textContent = LNG.t(path.classList.contains('lived') ? 'map.lived' : 'map.visited');
     const list = focusPanel.querySelector('ul');
     list.innerHTML = '';
     cities.forEach((c) => {
       const li = document.createElement('li');
-      li.textContent = c;
+      li.textContent = LNG.place(c);
       list.appendChild(li);
     });
-    focusPanel.hidden = false;
   }
 
   // Leave country focus (if any) and return to the default Europe view.
@@ -801,7 +832,7 @@ document.addEventListener('DOMContentLoaded', () => {
     world.querySelectorAll('.cities circle').forEach((c) => {
       const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       t.dataset.city = c.dataset.city;
-      t.textContent = c.dataset.city;
+      t.textContent = LNG.place(c.dataset.city);
       c.parentNode.appendChild(t);
     });
   }
@@ -812,7 +843,7 @@ document.addEventListener('DOMContentLoaded', () => {
       p.addEventListener('mousemove', (e) => {
         if (dragMoved) { tip.hidden = true; return; }
         const r = card.getBoundingClientRect();
-        tip.textContent = p.dataset.name;
+        tip.textContent = LNG.place(p.dataset.name);
         tip.style.left = e.clientX - r.left + 'px';
         tip.style.top = e.clientY - r.top + 'px';
         tip.hidden = false;
@@ -863,18 +894,19 @@ document.addEventListener('DOMContentLoaded', () => {
   function buildControls() {
     const box = document.createElement('div');
     box.className = 'travel-controls';
-    const mk = (label, aria, fn) => {
+    const mk = (label, key, fn) => {
       const b = document.createElement('button');
       b.type = 'button';
       b.textContent = label;
-      b.setAttribute('aria-label', aria);
+      b.setAttribute('data-i18n-aria', key);
+      b.setAttribute('aria-label', LNG.t(key));
       b.addEventListener('click', (e) => { e.stopPropagation(); fn(); });
       box.appendChild(b);
     };
     const mid = () => { const v = vp(); return { x: v.ox + v.w / 2, y: v.oy + v.h / 2 }; };
-    mk('+', 'Zoom in', () => { const c = mid(); zoomAt(1.6, c.x, c.y, true); });
-    mk('−', 'Zoom out', () => { const c = mid(); zoomAt(1 / 1.6, c.x, c.y, true); });
-    mk('⌂', 'Back to Europe', reset);
+    mk('+', 'map.zoomIn', () => { const c = mid(); zoomAt(1.6, c.x, c.y, true); });
+    mk('−', 'map.zoomOut', () => { const c = mid(); zoomAt(1 / 1.6, c.x, c.y, true); });
+    mk('⌂', 'map.home', reset);
     host.appendChild(box);
   }
 
@@ -962,7 +994,7 @@ document.addEventListener('DOMContentLoaded', () => {
       focusPanel.className = 'travel-focus';
       focusPanel.hidden = true;
       focusPanel.innerHTML =
-        '<button type="button" class="travel-back">← Back</button>' +
+        '<button type="button" class="travel-back" data-i18n="map.back">' + LNG.t('map.back') + '</button>' +
         '<h4></h4><span class="travel-status"></span><ul></ul>';
       host.appendChild(focusPanel);
       focusPanel.querySelector('.travel-back').addEventListener('click', reset);
@@ -975,6 +1007,13 @@ document.addEventListener('DOMContentLoaded', () => {
       main.addEventListener('click', () => { if (!dragMoved && focused) reset(); });
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && focused) reset(); });
       window.addEventListener('resize', () => setView(view.s, view.tx, view.ty, false));
+      window.addEventListener('langchange', () => {
+        world.querySelectorAll('.cities text').forEach((t) => { t.textContent = LNG.place(t.dataset.city); });
+        if (focused) {
+          fillFocus(focused, focused.dataset.name);
+          showCities(focused.dataset.name, view.s);
+        }
+      });
     })
     .then(() => {
       if (!('IntersectionObserver' in window)) { host.classList.add('in-view'); return; }

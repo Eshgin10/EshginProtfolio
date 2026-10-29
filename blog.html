@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eshgin - Blog</title>
+    <title data-i18n="doc.blog">Eshgin - Blog</title>
     <link rel="icon" type="image/jpeg" href="/Images/eshgin-logo.jpg">
-    <link rel="stylesheet" href="/style.css?v=20260912-portfolio">
+    <link rel="stylesheet" href="/style.css?v=20261030">
     <link rel="stylesheet" href="/blog.css">
 </head>
 
@@ -17,12 +17,10 @@
             Eshgin
         </div>
         <div class="nav-links">
-            <a href="index.html#Stack" class="nav-link">Stack</a>
-            <a href="index.html#About" class="nav-link">About</a>
-            <a href="index.html#FeaturedProjects" class="nav-link">Featured</a>
-            <a href="index.html#Projects" class="nav-link">Gallery</a>
-            <a href="index.html#Contact" class="nav-link">Contact</a>
-            <a href="blog.html" class="btn btn-primary active-btn" style="margin-left: 16px;">Blog</a>
+            <a href="index.html#FeaturedProjects" class="nav-link" data-i18n="nav.featured">Featured</a>
+            <a href="index.html#Projects" class="nav-link" data-i18n="nav.gallery">Gallery</a>
+            <a href="index.html#Contact" class="nav-link" data-i18n="nav.contact">Contact</a>
+            <a href="blog.html" class="btn btn-primary active-btn" style="margin-left: 16px;" data-i18n="nav.blog">Blog</a>
         </div>
         <div class="burger-menu">
             <div class="burger-line"></div>
@@ -33,8 +31,8 @@
 
     <main class="blog-container">
         <header class="blog-header">
-            <span class="section-label">Notebook</span>
-            <h1 class="display-heading">Experiments, thoughts and digital discoveries.</h1>
+            <span class="section-label" data-i18n="blog.label">Notebook</span>
+            <h1 class="display-heading" data-i18n="blog.heading">Experiments, thoughts and digital discoveries.</h1>
         </header>
 
         <section class="blog-list" id="blog-list">
@@ -43,8 +41,10 @@
 
     </main>
 
-    <script src="/app.js?v=20260912-portfolio"></script>
-    <script src="/blog.js"></script>
+    <script src="/i18n.js?v=20261030"></script>
+    <script src="/app.js?v=20261030"></script>
+    <script src="/blog-az.js?v=20261030"></script>
+    <script src="/blog.js?v=20261030"></script>
     <script>
         (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "5xzmjVs78PqSqhvMI1_hK"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
     </script>

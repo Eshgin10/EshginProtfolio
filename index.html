@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/jpeg" href="/Images/eshgin-logo.jpg">
-    <title>Eshgin - Portfolio</title>
-    <link rel="stylesheet" href="/style.css?v=20261029n">
+    <title data-i18n="doc.title">Eshgin - Portfolio</title>
+    <link rel="stylesheet" href="/style.css?v=20261030">
 </head>
 
 <body>
@@ -16,10 +16,10 @@
             Eshgin
         </a>
         <div class="nav-links">
-            <a href="#FeaturedProjects" class="nav-link">Featured</a>
-            <a href="#Projects" class="nav-link">Gallery</a>
-            <a href="#Contact" class="nav-link">Contact</a>
-            <a href="blog.html" class="btn btn-primary" style="margin-left: 16px;">Blog</a>
+            <a href="#FeaturedProjects" class="nav-link" data-i18n="nav.featured">Featured</a>
+            <a href="#Projects" class="nav-link" data-i18n="nav.gallery">Gallery</a>
+            <a href="#Contact" class="nav-link" data-i18n="nav.contact">Contact</a>
+            <a href="blog.html" class="btn btn-primary" style="margin-left: 16px;" data-i18n="nav.blog">Blog</a>
         </div>
         <div class="burger-menu">
             <div class="burger-line"></div>
@@ -31,14 +31,14 @@
     <main>
         <!-- Hero Section -->
         <section class="hero container" id="Home">
-            <h1 class="display-heading hero-title">
+            <h1 class="display-heading hero-title" data-i18n="hero.title">
                 A digital space for my work and experiments.
             </h1>
-            <p class="subtitle hero-subtitle">
+            <p class="subtitle hero-subtitle" data-i18n="hero.sub">
                 Portfolio Website of Eshgin Shikhmammadov.
             </p>
             <div class="hero-actions">
-                <a href="#FeaturedProjects" class="btn btn-primary btn-large">Discover my work</a>
+                <a href="#FeaturedProjects" class="btn btn-primary btn-large" data-i18n="hero.cta">Discover my work</a>
             </div>
 
             <div class="hero-mockup-placeholder border-glow"
@@ -75,8 +75,8 @@
         <section class="use-cases-section container" id="FeaturedProjects">
             <div class="featured-head">
                 <div>
-                    <span class="section-label">// Featured Work</span>
-                    <h2 class="section-heading use-cases-heading">
+                    <span class="section-label" data-i18n="feat.label">// Featured Work</span>
+                    <h2 class="section-heading use-cases-heading" data-i18n-html="feat.heading">
                         <strong>Functional systems.</strong> <span class="light">Innovative interfaces.</span>
                     </h2>
                 </div>
@@ -90,14 +90,14 @@
             <div class="projects-container">
                 <div class="projects-header">
                     <div>
-                        <span class="section-label dark-label">Gallery</span>
-                        <h2 class="projects-heading">Landing pages and creative work.</h2>
+                        <span class="section-label dark-label" data-i18n="gal.label">Gallery</span>
+                        <h2 class="projects-heading" data-i18n="gal.heading">Landing pages and creative work.</h2>
                     </div>
                     <div class="gallery-nav">
-                        <button class="nav-arrow" id="gallery-prev" aria-label="Previous">
+                        <button class="nav-arrow" id="gallery-prev" aria-label="Previous" data-i18n-aria="gal.prev">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
                         </button>
-                        <button class="nav-arrow" id="gallery-next" aria-label="Next">
+                        <button class="nav-arrow" id="gallery-next" aria-label="Next" data-i18n-aria="gal.next">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
                         </button>
                     </div>
@@ -113,15 +113,15 @@
         <section class="container travel-section" id="Map">
                 <div class="travel-map">
                     <div class="travel-head">
-                        <span class="section-label">// Places I've been</span>
-                        <span class="travel-count">13 countries</span>
+                        <span class="section-label" data-i18n="map.label">// Places I've been</span>
+                        <span class="travel-count" data-i18n="map.count">13 countries</span>
                     </div>
                     <div class="travel-map-svg" id="travel-map" aria-live="polite"></div>
                     <div class="travel-tooltip" id="travel-tooltip" hidden></div>
                     <div class="travel-legend">
-                        <span class="legend-item"><i class="dot dot-lived"></i>Lived in</span>
-                        <span class="legend-item"><i class="dot dot-visited"></i>Visited</span>
-                        <span class="travel-hint">Drag to pan · Ctrl + scroll to zoom · Click a country</span>
+                        <span class="legend-item"><i class="dot dot-lived"></i><span data-i18n="map.lived">Lived in</span></span>
+                        <span class="legend-item"><i class="dot dot-visited"></i><span data-i18n="map.visited">Visited</span></span>
+                        <span class="travel-hint" data-i18n="map.hint">Drag to pan · Ctrl + scroll to zoom · Click a country</span>
                     </div>
                 </div>
         </section>
@@ -129,43 +129,43 @@
         <section class="cta-section container" id="Contact">
             <div class="cta-split">
                 <div class="cta-text">
-                    <h2>Get in Touch.</h2>
-                    <p>Feel free to reach out for collaborations or just to say hi. I'm always open to new
+                    <h2 data-i18n="contact.title">Get in Touch.</h2>
+                    <p data-i18n="contact.text">Feel free to reach out for collaborations or just to say hi. I'm always open to new
                         opportunities.</p>
                     <div style="margin-bottom: 24px;">
-                        <p style="color: #ffffff; font-size: 16px; margin-bottom: 8px;">Email: <span
+                        <p style="color: #ffffff; font-size: 16px; margin-bottom: 8px;"><span data-i18n="contact.email">Email:</span> <span
                                 style="color: #888888;">eshginpersonal@gmail.com</span></p>
-                        <p style="color: #ffffff; font-size: 16px;">Location: <span style="color: #888888;">Riga,
+                        <p style="color: #ffffff; font-size: 16px;"><span data-i18n="contact.location">Location:</span> <span style="color: #888888;" data-i18n="contact.locval">Riga,
                                 Latvia</span></p>
                     </div>
-                    <a href="mailto:eshginpersonal@gmail.com" class="btn btn-outline-white">Send an Email</a>
+                    <a href="mailto:eshginpersonal@gmail.com" class="btn btn-outline-white" data-i18n="contact.send">Send an Email</a>
                 </div>
                 <div class="contact-form" style="display: flex; flex-direction: column; gap: 16px;">
-                    <div data-fs-success style="display: none; color: #4CAF50; padding: 12px; background: rgba(76, 175, 80, 0.1); border-radius: 6px; margin-bottom: 16px; text-align: center; font-weight: 500;">
+                    <div data-fs-success data-i18n="contact.success" style="display: none; color: #4CAF50; padding: 12px; background: rgba(76, 175, 80, 0.1); border-radius: 6px; margin-bottom: 16px; text-align: center; font-weight: 500;">
                         Thanks for reaching out! I'll get back to you soon.
                     </div>
                     <div data-fs-error style="display: none; color: #f44336; padding: 12px; background: rgba(244, 67, 54, 0.1); border-radius: 6px; margin-bottom: 16px; text-align: center; font-weight: 500;"></div>
                     
                     <form id="contact-form" style="display: flex; flex-direction: column; gap: 16px;">
                         <div>
-                            <input type="text" placeholder="Your Name" class="input" name="name" data-fs-field required
+                            <input type="text" placeholder="Your Name" data-i18n-ph="form.name" class="input" name="name" data-fs-field required
                                 style="background: var(--bg-surface); border: 1px solid var(--border-subtle); color: white; padding: 12px; border-radius: 6px; width: 100%;">
                             <span data-fs-error="name" style="color: #f44336; font-size: 12px; margin-top: 4px; display: block;"></span>
                         </div>
                         
                         <div>
-                            <input type="email" placeholder="Your Email" class="input" name="email" data-fs-field required
+                            <input type="email" placeholder="Your Email" data-i18n-ph="form.email" class="input" name="email" data-fs-field required
                                 style="background: var(--bg-surface); border: 1px solid var(--border-subtle); color: white; padding: 12px; border-radius: 6px; width: 100%;">
                             <span data-fs-error="email" style="color: #f44336; font-size: 12px; margin-top: 4px; display: block;"></span>
                         </div>
                         
                         <div>
-                            <textarea placeholder="Your Message" class="textarea" name="message" data-fs-field required
+                            <textarea placeholder="Your Message" data-i18n-ph="form.message" class="textarea" name="message" data-fs-field required
                                 style="background: var(--bg-surface); border: 1px solid var(--border-subtle); color: white; padding: 12px; border-radius: 6px; min-height: 100px; width: 100%; font-family: inherit;"></textarea>
                             <span data-fs-error="message" style="color: #f44336; font-size: 12px; margin-top: 4px; display: block;"></span>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary" data-fs-submit-btn style="padding: 12px;">Send Message</button>
+                        <button type="submit" class="btn btn-primary" data-fs-submit-btn style="padding: 12px;" data-i18n="form.submit">Send Message</button>
                     </form>
                 </div>
             </div>
@@ -178,7 +178,7 @@
             <div class="footer-columns">
                 <div class="brand-col">
                     <div class="footer-logo">Eshgin</div>
-                    <p class="footer-tagline">Software Engineer based in Riga, Latvia.<br>Building the future
+                    <p class="footer-tagline" data-i18n-html="footer.tag">Software Engineer based in Riga, Latvia.<br>Building the future
                         of
                         the web.</p>
                     <div class="footer-socials">
@@ -208,17 +208,17 @@
                     </div>
                 </div>
                 <div class="nav-col">
-                    <p class="nav-col-label">Navigation</p>
+                    <p class="nav-col-label" data-i18n="footer.nav">Navigation</p>
                     <ul class="footer-nav-list">
-                        <li><a href="#FeaturedProjects">Featured Work</a></li>
-                        <li><a href="#Projects">Gallery</a></li>
-                        <li><a href="#Contact">Contact</a></li>
-                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#FeaturedProjects" data-i18n="footer.featured">Featured Work</a></li>
+                        <li><a href="#Projects" data-i18n="footer.gallery">Gallery</a></li>
+                        <li><a href="#Contact" data-i18n="footer.contact">Contact</a></li>
+                        <li><a href="blog.html" data-i18n="footer.blog">Blog</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="footer-attribution">
+            <div class="footer-attribution" data-i18n="footer.credit">
                 Created by Eshgin Shikhmammadov
             </div>
         </div>
@@ -229,15 +229,15 @@
             <div class="sheet-inner">
                 <div class="sheet-bar">
                     <span class="sheet-year" id="sheet-year"></span>
-                    <button type="button" class="sheet-close" id="sheet-close">Close <span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="sheet-close" id="sheet-close"><span data-i18n="sheet.close">Close</span> <span aria-hidden="true">&times;</span></button>
                 </div>
                 <h2 class="sheet-title" id="sheet-title"></h2>
                 <div class="sheet-tags" id="sheet-tags"></div>
                 <div class="sheet-badges-row">
                     <div class="sheet-awards" id="sheet-awards" hidden></div>
                 <figure class="sheet-qr" id="sheet-qr" hidden>
-                    <img id="sheet-qr-img" alt="QR code to open the app on your phone" width="120" height="120">
-                    <figcaption>Scan to open the live app on your phone</figcaption>
+                    <img id="sheet-qr-img" alt="QR code to open the app on your phone" data-i18n-alt="sheet.qrAlt" width="120" height="120">
+                    <figcaption data-i18n="sheet.qr">Scan to open the live app on your phone</figcaption>
                 </figure>
                 </div>
                 <p class="sheet-summary" id="sheet-summary"></p>
@@ -248,25 +248,27 @@
                 <div class="sheet-screens" id="sheet-screens" hidden></div>
                 <div class="sheet-cols">
                     <div>
-                        <h3>What I did</h3>
+                        <h3 data-i18n="sheet.did">What I did</h3>
                         <ul id="sheet-did"></ul>
                     </div>
                     <div>
-                        <h3>Details</h3>
+                        <h3 data-i18n="sheet.details">Details</h3>
                         <ul id="sheet-details"></ul>
                     </div>
                 </div>
                 <div class="sheet-story" id="sheet-story" hidden></div>
                 <div class="sheet-pager">
-                    <button type="button" id="sheet-prev"><span>Previous</span><strong id="sheet-prev-title"></strong></button>
-                    <button type="button" id="sheet-next"><span>Next</span><strong id="sheet-next-title"></strong></button>
+                    <button type="button" id="sheet-prev"><span data-i18n="sheet.prev">Previous</span><strong id="sheet-prev-title"></strong></button>
+                    <button type="button" id="sheet-next"><span data-i18n="sheet.next">Next</span><strong id="sheet-next-title"></strong></button>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="/projects-data.js?v=20261029n"></script>
-    <script src="/app.js?v=20261029n"></script>
+    <script src="/i18n.js?v=20261030"></script>
+    <script src="/projects-data.js?v=20261030"></script>
+    <script src="/i18n-projects.js?v=20261030"></script>
+    <script src="/app.js?v=20261030"></script>
     <script>
         window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
         formspree('initForm', { formElement: '#contact-form', formId: 'mwlkzzzo' });
