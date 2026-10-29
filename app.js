@@ -463,7 +463,7 @@ function initFeatured() {
 
     const story = $('sheet-story');
     story.hidden = !(p.story && p.story.length);
-    story.replaceChildren(...(p.story || []).map((blk) => {
+    const buildBlock = (blk) => {
       const sec = document.createElement('section');
       sec.className = 'story-block' + (blk.images && blk.images.length ? ' has-media' : '');
       const copy = document.createElement('div');
@@ -498,7 +498,23 @@ function initFeatured() {
         sec.appendChild(media);
       }
       return sec;
-    }));
+    };
+    // Consecutive text-only blocks sit side by side so no half of the row is left empty.
+    const items = [];
+    const list = p.story || [];
+    for (let k = 0; k < list.length; k++) {
+      const textOnly = (b) => !(b.images && b.images.length);
+      if (textOnly(list[k]) && list[k + 1] && textOnly(list[k + 1])) {
+        const pair = document.createElement('div');
+        pair.className = 'story-pair';
+        pair.append(buildBlock(list[k]), buildBlock(list[k + 1]));
+        items.push(pair);
+        k++;
+      } else {
+        items.push(buildBlock(list[k]));
+      }
+    }
+    story.replaceChildren(...items);
 
     const qr = $('sheet-qr');
     qr.hidden = !p.qr;
