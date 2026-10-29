@@ -2145,7 +2145,25 @@ body.sheet-locked {
   margin-top: 0;
 }
 
-.sheet-launch .sheet-qr {
+.sheet-badges-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 32px;
+  margin-top: 20px;
+}
+
+.sheet-badges-row:not(:has(> :not([hidden]))) {
+  display: none;
+}
+
+.sheet-badges-row .sheet-awards,
+.sheet-badges-row .sheet-qr {
+  margin-top: 0;
+}
+
+.sheet-badges-row .sheet-qr {
   margin-left: auto;
   flex-direction: row-reverse;
   text-align: right;

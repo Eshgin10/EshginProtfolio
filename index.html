@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/jpeg" href="/Images/eshgin-logo.jpg">
     <title>Eshgin - Portfolio</title>
-    <link rel="stylesheet" href="/style.css?v=20261029m">
+    <link rel="stylesheet" href="/style.css?v=20261029n">
 </head>
 
 <body>
@@ -233,14 +233,16 @@
                 </div>
                 <h2 class="sheet-title" id="sheet-title"></h2>
                 <div class="sheet-tags" id="sheet-tags"></div>
-                <div class="sheet-awards" id="sheet-awards" hidden></div>
+                <div class="sheet-badges-row">
+                    <div class="sheet-awards" id="sheet-awards" hidden></div>
+                <figure class="sheet-qr" id="sheet-qr" hidden>
+                    <img id="sheet-qr-img" alt="QR code to open the app on your phone" width="120" height="120">
+                    <figcaption>Scan to open the live app on your phone</figcaption>
+                </figure>
+                </div>
                 <p class="sheet-summary" id="sheet-summary"></p>
                 <div class="sheet-launch">
                     <div class="sheet-actions" id="sheet-actions"></div>
-                    <figure class="sheet-qr" id="sheet-qr" hidden>
-                        <img id="sheet-qr-img" alt="QR code to open the app on your phone" width="120" height="120">
-                        <figcaption>Scan to open the live app on your phone</figcaption>
-                    </figure>
                 </div>
                 <a class="sheet-media" id="sheet-media" target="_blank" rel="noopener"><img id="sheet-img" alt=""></a>
                 <div class="sheet-screens" id="sheet-screens" hidden></div>
@@ -263,8 +265,8 @@
         </div>
     </div>
 
-    <script src="/projects-data.js?v=20261029m"></script>
-    <script src="/app.js?v=20261029m"></script>
+    <script src="/projects-data.js?v=20261029n"></script>
+    <script src="/app.js?v=20261029n"></script>
     <script>
         window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
         formspree('initForm', { formElement: '#contact-form', formId: 'mwlkzzzo' });
