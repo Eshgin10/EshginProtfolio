@@ -1476,8 +1476,9 @@ body.no-scroll {
 .work-grid {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0;
   margin-top: 48px;
+  border-top: 1px solid var(--border-subtle);
 }
 
 .work-card {
@@ -1491,17 +1492,25 @@ body.no-scroll {
   font: inherit;
   color: inherit;
   background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: 16px;
+  border: none;
+  border-bottom: 1px solid var(--border-subtle);
+  border-radius: 0;
   cursor: pointer;
-  transition: border-color 0.3s ease, background 0.3s ease;
+  transition: padding 0.5s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s ease, opacity 0.4s ease;
 }
 
 .work-card:hover,
 .work-card:focus-visible {
+  padding-top: 52px;
+  padding-bottom: 52px;
   background: #1b1b1b;
-  border-color: var(--border-visible);
   outline: none;
+}
+
+/* Focus: the rest of the list recedes while one row is active. */
+.work-grid:hover .work-card:not(:hover),
+.work-grid:focus-within .work-card:not(:focus-visible) {
+  opacity: 0.4;
 }
 
 .work-card-num {
@@ -1817,4 +1826,9 @@ body.sheet-locked {
 
 @media (prefers-reduced-motion: reduce) {
   .sheet-scroll, .work-card, .work-card h3 { transition: none; }
+}
+
+@media (hover: none) {
+  .work-card:hover { padding-top: 20px; padding-bottom: 20px; }
+  .work-grid:hover .work-card:not(:hover) { opacity: 1; }
 }
