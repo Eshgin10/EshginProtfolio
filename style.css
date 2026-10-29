@@ -2146,5 +2146,7 @@ body.sheet-locked {
 }
 
 .sheet-launch .sheet-qr {
-  margin-left: 0;
+  margin-left: auto;
+  flex-direction: row-reverse;
+  text-align: right;
 }
