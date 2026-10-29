@@ -463,7 +463,50 @@ function initFeatured() {
 
     const story = $('sheet-story');
     story.hidden = !(p.story && p.story.length);
+    const buildBento = (blk) => {
+      const sec = document.createElement('section');
+      sec.className = 'story-bento';
+      const h = document.createElement('h3');
+      h.textContent = blk.heading;
+      const grid = document.createElement('div');
+      grid.className = 'bento-grid';
+      blk.bento.forEach((t) => {
+        const tile = document.createElement('div');
+        tile.className = 'bento-tile bento-' + t.area;
+        if (t.text) {
+          t.text.forEach((line) => {
+            const para = document.createElement('p');
+            para.textContent = line;
+            tile.appendChild(para);
+          });
+        } else if (t.big) {
+          const big = document.createElement('strong');
+          big.textContent = t.big;
+          const label = document.createElement('span');
+          label.textContent = t.label;
+          tile.append(big, label);
+        } else if (t.src) {
+          const im = document.createElement('img');
+          im.src = t.src;
+          im.alt = t.alt || '';
+          im.loading = 'lazy';
+          im.draggable = false;
+          tile.appendChild(im);
+          if (t.caption) {
+            const cap = document.createElement('span');
+            cap.className = 'bento-caption';
+            cap.textContent = t.caption;
+            tile.appendChild(cap);
+          }
+        }
+        grid.appendChild(tile);
+      });
+      sec.append(h, grid);
+      return sec;
+    };
+
     const buildBlock = (blk) => {
+      if (blk.bento) return buildBento(blk);
       const sec = document.createElement('section');
       sec.className = 'story-block' + (blk.images && blk.images.length ? ' has-media' : '');
       const copy = document.createElement('div');
@@ -503,7 +546,7 @@ function initFeatured() {
     const items = [];
     const list = p.story || [];
     for (let k = 0; k < list.length; k++) {
-      const textOnly = (b) => !(b.images && b.images.length);
+      const textOnly = (b) => !b.bento && !(b.images && b.images.length);
       if (textOnly(list[k]) && list[k + 1] && textOnly(list[k + 1])) {
         const pair = document.createElement('div');
         pair.className = 'story-pair';
