@@ -177,16 +177,21 @@ window.PROJECTS.unshift(
       {
         heading: 'The final and the team',
         bento: [
+          { area: 'photo-a', src: '/Images/junction-best-pitch.jpg', alt: 'Holding the Best Pitch certificate', caption: 'Best Pitch award' },
           {
-            area: 'text',
+            area: 'text-a',
             text: [
               'On Sunday afternoon the teams chosen for the final demoed to the jury.',
-              'A hackathon is a team sport. Sharing the work, the late decisions and the result with these people is the part I will remember. It was a great experience and taught us a lot about creating a working solution.'
+              'We finished 2nd in the Junction category and also took home the Best Pitch award.'
             ]
           },
-          { area: 'stat-a', big: '2nd', label: 'Junction category' },
-          { area: 'stat-b', big: 'Best Pitch', label: 'Award' },
-          { area: 'photo-a', src: '/Images/junction-best-pitch.jpg', alt: 'Holding the Best Pitch certificate', caption: 'Best Pitch award' },
+          {
+            area: 'text-b',
+            text: [
+              'A hackathon is a team sport. Sharing the work, the late decisions and the result with these people is the part I will remember.',
+              'It was a great experience and taught us a lot about creating a working solution.'
+            ]
+          },
           { area: 'photo-b', src: '/Images/junction-teammates-night.jpg', alt: 'Teammates by the water at night', caption: 'Teammates' }
         ]
       }
