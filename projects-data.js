@@ -132,6 +132,35 @@ window.PROJECTS = [
 window.PROJECTS.unshift(
   {
     group: 'featured',
+    slug: 'community-matchmaker',
+    title: 'Community Matchmaker',
+    subtitle: 'STUHI Tampere Hackathon · Junction challenge',
+    year: '2026',
+    tags: ['Mobile App', 'Hackathon', 'Design', 'Engineering'],
+    image: '/Images/junction-app-home.png',
+    awards: ['2nd place – Junction category', 'Best Pitch award'],
+    summary: 'A mobile app built with my team at the STUHI × Tampere Hackathon for the Junction challenge. It helps people in the Nordics and Baltics find teammates and mentors, with swipe-based matching, groups and chat.',
+    did: ['Product design and UI', 'App engineering', 'Matching and chat flows', 'Pitch preparation with the team'],
+    details: [
+      'Event: STUHI × Tampere Hackathon, 24–25 Oct 2026',
+      'Venue: Tampere University, Hervanta campus',
+      'Format: 48-hour team hackathon',
+      'My role: engineering and design',
+      'Result: 2nd place in the Junction category and the Best Pitch award'
+    ],
+    screens: [
+      { src: '/Images/junction-app-welcome.png', alt: 'Welcome screen' },
+      { src: '/Images/junction-app-home.png', alt: 'Home screen with the Nordics and Baltics globe' },
+      { src: '/Images/junction-app-swipe.png', alt: 'Swipe screen with a match' },
+      { src: '/Images/junction-app-chats.png', alt: 'Chats list' },
+      { src: '/Images/junction-app-profile.png', alt: 'Profile screen' }
+    ],
+    qr: '/Images/junction-app-qr.png',
+    live: 'https://c49d465b-202a-452c-8eb7-126ee7a81d6c.web.bilt.me',
+    source: ''
+  },
+  {
+    group: 'featured',
     slug: 'payment-intelligence-dashboard',
     title: 'Payment Intelligence Dashboard',
     subtitle: 'Payments Analytics Dashboard',

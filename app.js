@@ -435,11 +435,37 @@ function initFeatured() {
       chip.textContent = t;
       return chip;
     }));
-    const img = $('sheet-img');
-    img.src = p.image;
-    img.alt = p.title + ' preview';
+    const awards = $('sheet-awards');
+    awards.replaceChildren(...(p.awards || []).map((t) => {
+      const el = document.createElement('span');
+      el.textContent = t;
+      return el;
+    }));
+    awards.hidden = !(p.awards && p.awards.length);
+
+    // Phone-app projects show their screens in a row instead of one wide screenshot.
     const media = $('sheet-media');
-    if (p.live) { media.href = p.live; media.removeAttribute('aria-disabled'); } else { media.removeAttribute('href'); }
+    const screens = $('sheet-screens');
+    const hasScreens = !!(p.screens && p.screens.length);
+    media.hidden = hasScreens;
+    screens.hidden = !hasScreens;
+    screens.replaceChildren(...(p.screens || []).map((s) => {
+      const im = document.createElement('img');
+      im.src = s.src;
+      im.alt = s.alt || '';
+      im.loading = 'lazy';
+      return im;
+    }));
+    if (!hasScreens) {
+      const img = $('sheet-img');
+      img.src = p.image;
+      img.alt = p.title + ' preview';
+      if (p.live) media.href = p.live; else media.removeAttribute('href');
+    }
+
+    const qr = $('sheet-qr');
+    qr.hidden = !p.qr;
+    if (p.qr) $('sheet-qr-img').src = p.qr;
     fill($('sheet-did'), p.did || []);
     fill($('sheet-details'), p.details || []);
 
