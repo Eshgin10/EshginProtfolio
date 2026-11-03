@@ -37,16 +37,6 @@ window.PROJECTS_AZ = {
         captions: ['Hesablamadan əvvəl göndərişin yoxlanılması']
       },
       {
-        heading: 'Nümunə hesablama',
-        stats: [
-          '100 ton film üçün xalis CO2e',
-          'təkrar emal olunan hər ton üçün CO2e',
-          'təkrar emal tərəfdaşları olan ölkə',
-          'ildə 24 ton müştəri üçün daha az CO2e'
-        ],
-        note: 'Standart parametrlər: 100 ton LDPE film Nordic Plast SIA-ya, yük maşını ilə 50 km, baza hal. Müştəri rəqəmi standart ildə 24 tonu, AB ortalaması əvəzinə tamamilə LZP vasitəsilə təkrar emalı nəzərə alır.'
-      },
-      {
         heading: 'Müştərilər və səlahiyyətli orqanlar üçün',
         text: [
           'İkinci görünüş, LZP ilə və LZP-siz, müştərinin sualına birbaşa cavab verir: mənim qablaşdırmamın bu gün aqibəti nədir və LZP onu təkrar emal etsə nə dəyişir? Tamamlanmış axtarışlar qeydiyyatda saxlanılır, hesabat səhifəsi isə onları hökumət və ya müştəri üçün həftəlik və ya aylıq hesabata, PDF və ya Excel faylı şəklində çevirir.'

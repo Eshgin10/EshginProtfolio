@@ -178,16 +178,6 @@ window.PROJECTS.unshift(
         images: [{ src: '/Images/carbonic-route-check.webp', alt: 'Checking the shipment before calculating', caption: 'Checking the shipment before calculating' }]
       },
       {
-        heading: 'A worked example',
-        stats: [
-          { big: '\u221287.2 t', label: 'net CO2e for 100 t of film' },
-          { big: '\u2212872 kg', label: 'CO2e per tonne recycled' },
-          { big: '6', label: 'countries with recycling partners' },
-          { big: '34.8 t', label: 'less CO2e a year for a 24 t customer' }
-        ],
-        note: 'Default settings: 100 t of LDPE film to Nordic Plast SIA, 50 km by truck, base case. Customer figure uses the default 24 t a year, recycled fully through LZP instead of the EU average.'
-      },
-      {
         heading: 'For customers and authorities',
         text: [
           'A second view, With LZP vs without, answers the customer\u2019s question directly: what happens to my packaging today, and what changes if LZP recycles it? Finished searches are saved in a record, and the report page turns them into a weekly or monthly report for the government or a customer, as a PDF or an Excel file.'
