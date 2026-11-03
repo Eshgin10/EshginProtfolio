@@ -139,7 +139,7 @@ window.PROJECTS.unshift(
     tags: ['Web App', 'Climate', 'Hackathon', 'Data'],
     image: '/Images/carbonic-result.webp',
     summary: 'A tool built at Climathon 2026 in Riga for Latvijas Za\u013cais punkts (LZP). It shows how greenhouse gas emissions change when LDPE plastic film is recycled through LZP\u2019s partners instead of being burned or buried, with a source for every number.',
-    did: ['Route planner and results', 'Emissions calculation model', 'With LZP vs without comparison', 'PDF and Excel reports'],
+    did: ['Platform design', 'Platform development', 'Research support', 'Ideation with the team'],
     details: [
       'Event: Climathon 2026, Riga Technical University',
       'Dates: 30 Oct \u2013 1 Nov 2026',

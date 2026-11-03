@@ -4,7 +4,7 @@ window.PROJECTS_AZ = {
   'carbonic': {
     subtitle: 'Qablaşdırma emissiyaları marşrut planlayıcısı · Climathon 2026',
     summary: 'Riqada Climathon 2026-da Latvijas Zaļais punkts (LZP) üçün hazırlanmış alət. LDPE plastik filmi yandırmaq və ya basdırmaq əvəzinə LZP-nin tərəfdaşları vasitəsilə təkrar emal etdikdə istixana qazı emissiyalarının necə dəyişdiyini göstərir, hər rəqəmin mənbəyi ilə birlikdə.',
-    did: ['Marşrut planlayıcısı və nəticələr', 'Emissiya hesablama modeli', 'LZP ilə və LZP-siz müqayisə', 'PDF və Excel hesabatları'],
+    did: ['Platformanın dizaynı', 'Platformanın hazırlanması', 'Tədqiqata dəstək', 'Komanda ilə ideya generasiyası'],
     details: [
       'Tədbir: Climathon 2026, Riqa Texniki Universiteti',
       'Tarix: 30 oktyabr – 1 noyabr 2026',
