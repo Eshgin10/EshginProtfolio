@@ -137,7 +137,7 @@
     'Web Design': 'Veb dizayn', 'Front-end': 'Front-end', 'Gallery': 'Qalereya', 'Waitlist': 'Gözləmə siyahısı',
     'Landing Page': 'Lendinq', 'Agency': 'Agentlik', 'Full-stack': 'Full-stack', 'Dashboard': 'İdarə paneli',
     'Web App': 'Veb tətbiq', 'Automation': 'Avtomatlaşdırma', 'Integration': 'İnteqrasiya', 'Mobile App': 'Mobil tətbiq',
-    'Hackathon': 'Hakaton', 'Design': 'Dizayn', 'Engineering': 'Mühəndislik',
+    'Hackathon': 'Hakaton', 'Design': 'Dizayn', 'Engineering': 'Mühəndislik', 'Climate': 'İqlim', 'Data': 'Data',
     'Landing page design': 'Lendinq səhifə dizaynı', 'Responsive front-end': 'Responsiv front-end',
     'Interaction design': 'İnteraksiya dizaynı', 'Content structure': 'Məzmun strukturu',
     'Product messaging': 'Məhsul mesajlaşması', 'Visual design': 'Vizual dizayn', 'Gallery layout': 'Qalereya düzəni',
@@ -194,6 +194,12 @@
           return pt.captions[k] ? Object.assign({}, im, { caption: pt.captions[k], alt: pt.captions[k] }) : im;
         });
       }
+      if (pt.stats && blk.stats) {
+        b.stats = blk.stats.map(function (s, k) {
+          return Object.assign({}, s, pt.stats[k] ? { label: pt.stats[k] } : {});
+        });
+      }
+      if (pt.note) b.note = pt.note;
       if (pt.bento && blk.bento) {
         b.bento = blk.bento.map(function (tile, k) {
           return Object.assign({}, tile, pt.bento[k] || {});

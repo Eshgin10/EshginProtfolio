@@ -1,6 +1,72 @@
 // Azerbaijani copy for projects, keyed by slug. Anything not listed here (titles, links, images, years)
 // comes from projects-data.js; tags, "what I did" and detail lines are translated through i18n.js phrases.
 window.PROJECTS_AZ = {
+  'carbonic': {
+    subtitle: 'Qablaşdırma emissiyaları marşrut planlayıcısı · Climathon 2026',
+    summary: 'Riqada Climathon 2026-da Latvijas Zaļais punkts (LZP) üçün hazırlanmış alət. LDPE plastik filmi yandırmaq və ya basdırmaq əvəzinə LZP-nin tərəfdaşları vasitəsilə təkrar emal etdikdə istixana qazı emissiyalarının necə dəyişdiyini göstərir, hər rəqəmin mənbəyi ilə birlikdə.',
+    did: ['Marşrut planlayıcısı və nəticələr', 'Emissiya hesablama modeli', 'LZP ilə və LZP-siz müqayisə', 'PDF və Excel hesabatları'],
+    details: [
+      'Tədbir: Climathon 2026, Riqa Texniki Universiteti',
+      'Tarix: 30 oktyabr – 1 noyabr 2026',
+      'Çağırış tərəfdaşı: Latvijas Zaļais punkts (LZP)',
+      'İstiqamət: Dairəvi iqtisadiyyat',
+      'Texnologiyalar: React, TypeScript, Vite, Tailwind',
+      'Status: Canlı'
+    ],
+    story: [
+      {
+        heading: 'Problem',
+        text: [
+          'Latvijas Zaļais punkts (LZP) Latviyada qablaşdırma tullantılarının toplanmasını və təkrar emalını təşkil edir. Plastik film (LDPE) daha çətin axınlardan biridir: təkrar emal olunmadıqda əsasən yandırılır və ya basdırılır, təkrar emal olunduqda isə altı ölkədəki tərəfdaşlara göndərilir və hər birində məsafələr, texnologiya və enerji fərqlidir.',
+          'Bu, sadə bir sualı cavablandırmağı çətinləşdirir: bu filmin təkrar emalı iqlimə təsiri həqiqətən nə qədər azaldır? LZP elmi cəhətdən əsaslandırılmış, şəffaf və praktikada istifadə oluna bilən cavab istəyirdi.'
+        ]
+      },
+      {
+        heading: 'Çağırış',
+        text: [
+          'Climathon 2026 Riqa Texniki Universitetində (30 oktyabr – 1 noyabr 2026) üç günlük hakaton idi və RTU-nun UniLab akseleratoru tərəfindən təşkil olunurdu. LZP dairəvi iqtisadiyyat istiqamətinə bir çağırış gətirdi: qablaşdırmanın təkrar emalının iqlimə təsirini necə ölçmək olar?',
+          'Tapşırıq 2025 məlumatları və etibarlı emissiya əmsalları əsasında prototip tələb edirdi: istixana qazı emissiyalarını CO2e ilə hesablamaq, hər mərhələdə əsas mənbələri göstərmək, ən azı iki təkrar emal ssenarisini müqayisə etmək və təkrar emal olunmuş materialdan istifadə etdikdə qənaəti qiymətləndirmək. O, həmçinin GHG Protocol və həyat dövrü qiymətləndirməsi kimi qəbul olunmuş metodlara əsaslanmalı və karton və şüşə kimi digər materiallara uyğunlaşdırıla bilməli idi.'
+        ]
+      },
+      {
+        heading: 'Həll',
+        text: [
+          'Carbonic LZP mütəxəssisləri üçün daxili alətdir. O, LZP-nin 2025 tərəfdaş məlumatlarından qurulmuş hazır nəticə ilə açılır, beləliklə heç kim boş ekrandan başlamır və hər giriş istəyə bağlı “bəs əgər” ssenarisidir.',
+          'Marşrut planlayıcısı hər ekranda bir sual verir: hansı material və neçə ton, hara gedir (tərəfdaş və ya şəhər), necə daşınır (yük maşını, qatar və ya bərə) və hansı hesablama parametrləri istifadə olunur. Sonra yaranan, qarşısı alınan və xalis emissiyaları, mərhələlər üzrə bölgünü, xəritədə marşrutu və ən səmərəli variantları göstərir. Müqayisə iki marşrutu yan-yana qoyur.'
+        ],
+        captions: ['Hesablamadan əvvəl göndərişin yoxlanılması']
+      },
+      {
+        heading: 'Nümunə hesablama',
+        stats: [
+          '100 ton film üçün xalis CO2e',
+          'təkrar emal olunan hər ton üçün CO2e',
+          'təkrar emal tərəfdaşları olan ölkə',
+          'ildə 24 ton müştəri üçün daha az CO2e'
+        ],
+        note: 'Standart parametrlər: 100 ton LDPE film Nordic Plast SIA-ya, yük maşını ilə 50 km, baza hal. Müştəri rəqəmi standart ildə 24 tonu, AB ortalaması əvəzinə tamamilə LZP vasitəsilə təkrar emalı nəzərə alır.'
+      },
+      {
+        heading: 'Müştərilər və səlahiyyətli orqanlar üçün',
+        text: [
+          'İkinci görünüş, LZP ilə və LZP-siz, müştərinin sualına birbaşa cavab verir: mənim qablaşdırmamın bu gün aqibəti nədir və LZP onu təkrar emal etsə nə dəyişir? Tamamlanmış axtarışlar qeydiyyatda saxlanılır, hesabat səhifəsi isə onları hökumət və ya müştəri üçün həftəlik və ya aylıq hesabata, PDF və ya Excel faylı şəklində çevirir.'
+        ],
+        captions: ['LZP ilə və LZP-siz']
+      },
+      {
+        heading: 'Dürüst rəqəmlər',
+        text: [
+          'Hər rəqəmi izləmək olar. Method paneli düsturları, sistem sərhədini və hər əmsalı mənbəyi ilə birlikdə göstərir, yalnız təxmin olan əmsallar isə tətbiqdə belə işarələnir. Low, Base və High halları tək rəqəm əvəzinə aralığı göstərir. Nəticələr hesablanmış təxminlərdir, sertifikatlı həyat dövrü qiymətləndirməsi deyil və alət bunu özü bildirir. Karton və şüşə material siyahısında artıq “tezliklə” kimi var.'
+        ]
+      },
+      {
+        heading: 'Yol',
+        text: [
+          'Həftə sonu cümə günü axşam RTU-da açılış, çağırışların təqdimatı və komandaların formalaşması ilə başladı. İlk versiyamız şənbə axşamı repozitoriyaya düşdü, bazar günü səhər isə saat 12:30-dakı təqdimatdan əvvəl LZP ilə təkrar emalın niyə daha yaxşı olduğunu göstərmək üçün “LZP ilə və LZP-siz” səhifəsini yenidən dizayn etdik.'
+        ]
+      }
+    ]
+  },
   'community-matchmaker': {
     subtitle: 'STUHI Tampere hakatonu · Junction çağırışı',
     summary: 'STUHI × Tampere hakatonunda Junction çağırışı üçün komandamla hazırladığım mobil tətbiq. Şimali Avropa və Baltikyanı ölkələrdə insanlara komanda yoldaşı və mentor tapmasına kömək edir: sürüşdürmə ilə uyğunlaşdırma, qruplar və çat.',

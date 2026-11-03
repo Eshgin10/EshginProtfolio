@@ -522,8 +522,36 @@ function initFeatured() {
       return sec;
     };
 
+    const buildStats = (blk) => {
+      const sec = document.createElement('section');
+      sec.className = 'story-stats';
+      const h = document.createElement('h3');
+      h.textContent = blk.heading;
+      const grid = document.createElement('div');
+      grid.className = 'stats-grid';
+      blk.stats.forEach((s) => {
+        const tile = document.createElement('div');
+        tile.className = 'stat-tile';
+        const big = document.createElement('strong');
+        big.textContent = s.big;
+        const label = document.createElement('span');
+        label.textContent = s.label;
+        tile.append(big, label);
+        grid.appendChild(tile);
+      });
+      sec.append(h, grid);
+      if (blk.note) {
+        const note = document.createElement('p');
+        note.className = 'stats-note';
+        note.textContent = blk.note;
+        sec.appendChild(note);
+      }
+      return sec;
+    };
+
     const buildBlock = (blk) => {
       if (blk.bento) return buildBento(blk);
+      if (blk.stats) return buildStats(blk);
       const sec = document.createElement('section');
       sec.className = 'story-block' + (blk.images && blk.images.length ? ' has-media' : '');
       const copy = document.createElement('div');
@@ -563,7 +591,7 @@ function initFeatured() {
     const items = [];
     const list = p.story || [];
     for (let k = 0; k < list.length; k++) {
-      const textOnly = (b) => !b.bento && !(b.images && b.images.length);
+      const textOnly = (b) => !b.bento && !b.stats && !(b.images && b.images.length);
       if (textOnly(list[k]) && list[k + 1] && textOnly(list[k + 1])) {
         const pair = document.createElement('div');
         pair.className = 'story-pair';

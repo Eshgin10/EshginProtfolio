@@ -132,6 +132,86 @@ window.PROJECTS = [
 window.PROJECTS.unshift(
   {
     group: 'featured',
+    slug: 'carbonic',
+    title: 'Carbonic',
+    subtitle: 'Packaging emissions route planner \u00b7 Climathon 2026',
+    year: '2026',
+    tags: ['Web App', 'Climate', 'Hackathon', 'Data'],
+    image: '/Images/carbonic-result.webp',
+    summary: 'A tool built at Climathon 2026 in Riga for Latvijas Za\u013cais punkts (LZP). It shows how greenhouse gas emissions change when LDPE plastic film is recycled through LZP\u2019s partners instead of being burned or buried, with a source for every number.',
+    did: ['Route planner and results', 'Emissions calculation model', 'With LZP vs without comparison', 'PDF and Excel reports'],
+    details: [
+      'Event: Climathon 2026, Riga Technical University',
+      'Dates: 30 Oct \u2013 1 Nov 2026',
+      'Challenge partner: Latvijas Za\u013cais punkts (LZP)',
+      'Track: Circular economy',
+      'Stack: React, TypeScript, Vite, Tailwind',
+      'Status: Live'
+    ],
+    screens: [
+      { src: '/Images/carbonic-route-question.webp', alt: 'Choosing a recycling partner in the route planner' },
+      { src: '/Images/carbonic-result.webp', alt: 'Result with net emissions, stage breakdown and route map' },
+      { src: '/Images/carbonic-report.webp', alt: 'Report preview for the authorities' },
+      { src: '/Images/carbonic-method.webp', alt: 'Method and sources panel' }
+    ],
+    story: [
+      {
+        heading: 'The problem',
+        text: [
+          'Latvijas Za\u013cais punkts (LZP) organises the collection and recycling of packaging waste in Latvia. Plastic film (LDPE) is one of the harder streams: when it is not recycled it is mostly burned or buried, and when it is recycled it travels to partners in six countries, each with different distances, technology and energy.',
+          'That makes a simple question hard to answer: how much does recycling this film really reduce the climate impact? LZP wanted an answer that is scientifically grounded, transparent and usable in practice.'
+        ]
+      },
+      {
+        heading: 'The challenge',
+        text: [
+          'Climathon 2026 was a three-day hackathon at Riga Technical University (30 October \u2013 1 November 2026), organised by RTU\u2019s UniLab accelerator. LZP brought a challenge to the circular economy track: how to measure the climate impact of packaging recycling?',
+          'The brief asked for a prototype, built on 2025 data and sound emission factors, that calculates greenhouse gas emissions in CO2e, shows the main sources at each stage, compares at least two recycling scenarios and estimates the saving from using recycled instead of virgin material. It also had to follow recognised methods such as the GHG Protocol and life cycle assessment, and be adaptable to other materials like cardboard and glass.'
+        ]
+      },
+      {
+        heading: 'The solution',
+        text: [
+          'Carbonic is an internal tool for LZP specialists. It opens on a finished result built from LZP\u2019s 2025 partner data, so nobody starts from an empty screen, and every input is an optional what-if.',
+          'The route planner asks one question per screen: which material and how many tonnes, where it goes (a partner or a city), how it travels (truck, rail or ferry) and which calculation settings to use. Then it shows the emissions caused, the emissions avoided and the net result, with a breakdown by stage, the route on a map and the most efficient options. Compare puts two routes side by side.'
+        ],
+        images: [{ src: '/Images/carbonic-route-check.webp', alt: 'Checking the shipment before calculating', caption: 'Checking the shipment before calculating' }]
+      },
+      {
+        heading: 'A worked example',
+        stats: [
+          { big: '\u221287.2 t', label: 'net CO2e for 100 t of film' },
+          { big: '\u2212872 kg', label: 'CO2e per tonne recycled' },
+          { big: '6', label: 'countries with recycling partners' },
+          { big: '34.8 t', label: 'less CO2e a year for a 24 t customer' }
+        ],
+        note: 'Default settings: 100 t of LDPE film to Nordic Plast SIA, 50 km by truck, base case. Customer figure uses the default 24 t a year, recycled fully through LZP instead of the EU average.'
+      },
+      {
+        heading: 'For customers and authorities',
+        text: [
+          'A second view, With LZP vs without, answers the customer\u2019s question directly: what happens to my packaging today, and what changes if LZP recycles it? Finished searches are saved in a record, and the report page turns them into a weekly or monthly report for the government or a customer, as a PDF or an Excel file.'
+        ],
+        images: [{ src: '/Images/carbonic-with-lzp.webp', alt: 'With LZP vs without comparison', caption: 'With LZP vs without' }]
+      },
+      {
+        heading: 'Honest numbers',
+        text: [
+          'Every number can be traced. The Method panel lists the formulas, the system boundary and every factor with its source, and factors that are only estimates are marked as such in the app. Low, Base and High cases show a range instead of a single figure. The results are calculated estimates, not a certified life cycle assessment, and the tool says so. Cardboard and glass are already in the material list as coming soon.'
+        ]
+      },
+      {
+        heading: 'The journey',
+        text: [
+          'The weekend started on Friday evening at RTU with the opening, the challenge presentations and team forming. Our first version went into the repository on Saturday evening, and on Sunday morning we redesigned the With LZP page to show why recycling through LZP is better, ahead of the 12:30 pitch.'
+        ]
+      }
+    ],
+    live: 'https://eshgin10.github.io/carbonic/',
+    source: 'https://github.com/Eshgin10/carbonic'
+  },
+  {
+    group: 'featured',
     slug: 'community-matchmaker',
     title: 'Community Matchmaker',
     subtitle: 'STUHI Tampere Hackathon · Junction challenge',
