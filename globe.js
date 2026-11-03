@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---------- geometry helpers
   const nameOf = (f) => DATA_NAME[f.properties.name] || f.properties.name;
   const isMine = (n) => LIVED.includes(n) || VISITED.includes(n);
-  const baseR = () => (Math.min(W, H) / 2) * 0.94;
+  const baseR = () => (Math.min(W, H) / 2) * 0.9;
   const wrapLon = (l) => ((((l + 180) % 360) + 360) % 360) - 180;
   const clampLat = (l) => Math.max(-85, Math.min(85, l));
   const isNarrow = () => W < 700;
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.beginPath();
     ctx.arc(cx, cy, R, 0, Math.PI * 2);
     ctx.shadowColor = 'rgba(124, 156, 255, 0.35)';
-    ctx.shadowBlur = Math.min(60, R * 0.18);
+    ctx.shadowBlur = Math.min(26, R * 0.1);
     ctx.fillStyle = COLORS.ocean2;
     ctx.fill();
     ctx.restore();
@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Huge countries (Russia): frame the visited cities instead of the whole country.
     const r = countryR > 0.12 ? Math.max(spread * 1.6, 0.035) : Math.max(spread * 1.6, Math.min(countryR, 0.12), 0.035);
     const half = r * 2.4;
-    const k = Math.max(1.4, Math.min(KMAX, 1 / (0.94 * half)));
+    const k = Math.max(1.4, Math.min(KMAX, 1 / (0.9 * half)));
     return { lon: center[0], lat: center[1], k, ox: isNarrow() ? 0.5 : 0.62, oy: isNarrow() ? 0.6 : 0.5 };
   }
 

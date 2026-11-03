@@ -2217,3 +2217,31 @@ body.sheet-locked {
     height: 360px;
   }
 }
+
+/* Globe only: no card behind it */
+.travel-map {
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  margin-top: 48px;
+}
+
+.travel-map-svg .travel-canvas {
+  height: 620px;
+}
+
+.travel-legend {
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .travel-map {
+    padding: 0;
+    margin-top: 32px;
+  }
+
+  .travel-map-svg .travel-canvas {
+    height: 380px;
+  }
+}
