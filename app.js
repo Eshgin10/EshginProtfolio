@@ -382,9 +382,10 @@ function initGallery() {
   apply(0, false);
 }
 
-// Featured Work: grid of cards; clicking one slides a detail sheet over the page.
+// Featured Work: vertical 3D curved image stage; clicking a row slides a detail sheet over the page.
 function initFeatured() {
   const grid = document.getElementById('work-grid');
+  const stage = document.getElementById('work-stage');
   const sheet = document.getElementById('project-sheet');
   const projects = (window.PROJECTS || []).filter((p) => p.group === 'featured');
   if (!grid || !sheet || !projects.length) return;
@@ -394,42 +395,56 @@ function initFeatured() {
   let current = -1;
   let lastTrigger = null;
 
-  const pad = (n) => String(n + 1).padStart(2, '0');
-
-  function renderRows() {
-  grid.replaceChildren();
-  projects.forEach((raw, i) => {
+  const rowRefs = projects.map((raw, i) => {
     const p = LNG.project(raw);
-    const card = document.createElement('button');
-    card.type = 'button';
-    card.className = 'work-card';
-    card.setAttribute('aria-label', LNG.t('sheet.open') + ' ' + p.title);
+    const row = document.createElement('button');
+    row.type = 'button';
+    row.className = 'work-row';
+    row.setAttribute('aria-label', LNG.t('sheet.open') + ' ' + p.title);
 
-    const num = document.createElement('span');
-    num.className = 'work-card-num';
-    num.textContent = pad(i);
+    const meta = document.createElement('div');
+    meta.className = 'work-row-meta';
 
-    const h = document.createElement('h3');
-    h.textContent = p.title;
-    const tags = document.createElement('div');
-    tags.className = 'work-card-tags';
-    p.tags.forEach((t) => {
-      const chip = document.createElement('span');
-      chip.textContent = t;
-      tags.appendChild(chip);
-    });
+    const title = document.createElement('h3');
+    title.className = 'work-row-title';
+    title.textContent = p.title;
 
-    const arrow = document.createElement('span');
-    arrow.className = 'work-card-arrow';
-    arrow.setAttribute('aria-hidden', 'true');
-    arrow.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9"></path></svg>';
+    const sub = document.createElement('p');
+    sub.className = 'work-row-sub';
+    sub.textContent = p.subtitle + ', ' + p.year;
 
-    card.append(num, h, tags, arrow);
-    card.addEventListener('click', () => open(i, card));
-    grid.appendChild(card);
+    meta.append(title, sub);
+
+    const media = document.createElement('div');
+    media.className = 'work-row-media';
+
+    const img = document.createElement('img');
+    img.src = raw.image;
+    img.alt = p.title + ' preview';
+    img.draggable = false;
+    img.loading = 'eager';
+    media.appendChild(img);
+
+    row.append(meta, media);
+    row.addEventListener('click', () => open(i, row));
+    grid.appendChild(row);
+
+    return { row, title, sub, img, raw };
   });
+
+  function updateRowLabels() {
+    rowRefs.forEach(({ row, title, sub, img, raw }) => {
+      const p = LNG.project(raw);
+      row.setAttribute('aria-label', LNG.t('sheet.open') + ' ' + p.title);
+      title.textContent = p.title;
+      sub.textContent = p.subtitle + ', ' + p.year;
+      img.alt = p.title + ' preview';
+    });
   }
-  renderRows();
+
+  if (stage && typeof window.initFeaturedStage === 'function') {
+    window.initFeaturedStage(stage, rowRefs.map((r) => r.row));
+  }
 
   function fill(list, items) {
     list.replaceChildren(...items.map((t) => {
@@ -673,7 +688,7 @@ function initFeatured() {
   });
 
   window.addEventListener('langchange', () => {
-    renderRows();
+    updateRowLabels();
     if (sheet.classList.contains('is-open') && current >= 0) {
       const top = scroller.scrollTop;
       render(current);
