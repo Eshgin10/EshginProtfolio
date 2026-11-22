@@ -132,6 +132,94 @@ window.PROJECTS = [
 window.PROJECTS.unshift(
   {
     group: 'featured',
+    slug: 'utopia',
+    title: 'Utopia',
+    subtitle: 'Personal AI operating layer for Windows \u00b7 Junction 2026',
+    year: '2026',
+    tags: ['Desktop App', 'AI Agents', 'Electron', 'Hackathon'],
+    image: '/Images/utopia-preview.jpg',
+    summary: 'A calm personal AI operating layer for Windows built during Junction 2026 (European Tech Renaissance) in Espoo, Finland. Instead of adding another browser tab on top of scattered windows, Utopia connects local folders, Start-menu apps, and paired Chrome tabs with orchestrated background agents and adaptive visual answers.',
+    did: ['Desktop app architecture & UI', 'Agentic coordinator & local tools', 'Chrome companion & device bridge', 'Landing page & Windows Beta release'],
+    details: [
+      'Event: Junction 2026 (European Tech Renaissance)',
+      'Dates: 13\u201315 Nov 2026',
+      'Venue: Hype Areena, Espoo, Finland',
+      'Track: Agentic AI',
+      'Stack: Electron, Node.js, Claude, Exa, NSIS',
+      'Release: Windows Beta (v0.19.11)'
+    ],
+    story: [
+      {
+        heading: 'Junction 2026',
+        text: [
+          'Utopia (UOS) was built over 48 hours at Junction 2026 (13\u201315 November 2026) inside Hype Areena in Espoo, Finland. Under the theme European Tech Renaissance, builders from across Europe gathered to ship working prototypes in a single weekend.',
+          'We joined the Agentic AI track with one core question: why do we still juggle dozens of browser tabs, disconnected apps, and scattered folders when software could adapt quietly around our own context?'
+        ],
+        images: [
+          { src: '/Images/utopia-junction-hall.jpg', alt: 'Hype Areena hall packed with builders at Junction 2026', caption: 'Hype Areena, Espoo \u2014 Junction 2026' }
+        ]
+      },
+      {
+        heading: 'The idea',
+        text: [
+          'Most AI tools live inside yet another chat tab that knows nothing about the computer in front of you. Utopia starts from the opposite premise: computers should feel effortless\u2014listen, adapt, and disappear.',
+          'Rather than exposing raw model names, toggles, or prompt engineering, the desktop workspace brings files, notes, reminders, and shared browser context together into one calm conversational surface.'
+        ]
+      },
+      {
+        heading: 'What we built',
+        text: [
+          'Utopia (UOS) runs as a Windows Electron desktop app backed by a hosted research and voice gateway. Four layers power it: Full Context (local folder indexing, Start-menu app launching, and an authenticated Chrome companion), Agentic Work (a bounded Claude + Exa coordinator), Dynamic Interface (tailored visual cards, comparisons, and verified reports), and Active Security (encrypted safeStorage tokens, strict folder boundaries, and one-click Disconnect).',
+          'Alongside the desktop app, we built the marketing site and NSIS installer flow with account-free device registration so anyone can try Utopia Beta without configuring API keys.'
+        ]
+      },
+      {
+        heading: 'From the stage to the table',
+        text: [
+          'Throughout the weekend, teams coded right below the main stage as partners including Google DeepMind and NVIDIA spoke about the European Tech Renaissance and the shift toward agentic software.',
+          'Hearing those talks steps away from our table kept us focused on real desktop execution\u2014verifying local file confinement, Chrome tab pairing, and live research end to end.'
+        ],
+        images: [
+          { src: '/Images/utopia-junction-deepmind.jpg', alt: 'Google DeepMind on the Junction 2026 main stage', caption: 'Google DeepMind on the main stage' },
+          { src: '/Images/utopia-junction-nvidia.jpg', alt: 'NVIDIA on the Junction 2026 main stage', caption: 'NVIDIA \u2014 European Tech Renaissance' }
+        ]
+      },
+      {
+        heading: '48 hours of shipping',
+        bento: [
+          { area: 'photo-a', src: '/Images/utopia-junction-desk.jpg', alt: 'Working on Utopia in front of the Junction 2026 main stage', caption: 'Building in front of the main stage' },
+          {
+            area: 'text-a',
+            text: [
+              'We iterated nonstop through the weekend on the Electron coordinator, local file tools, and Chrome bridge until the desktop app and landing page worked together end to end.',
+              'Every permission boundary\u2014explicit folder consent, random pairing tokens, and one-click revocation\u2014was built straight into the experience.'
+            ]
+          },
+          {
+            area: 'text-b',
+            text: [
+              'By Sunday we had packaged a downloadable Windows Beta (Utopia-Setup.exe) with one-time device consent, account-free access, and a public showcase landing page.',
+              'Shipping both a working desktop assistant and its web home in 48 hours made Junction 2026 unforgettable.'
+            ]
+          },
+          { area: 'photo-b', src: '/Images/utopia-junction-team.jpg', alt: 'Late-night build session at Junction 2026', caption: 'Late-night build session' }
+        ]
+      },
+      {
+        heading: 'European Tech Renaissance',
+        text: [
+          'Junction 2026 wrapped up after two intense nights in Espoo, leaving us with a live Windows Beta foundation (v0.19.11), a public showcase site, and a clearer vision for how personal computing can feel lighter.'
+        ],
+        images: [
+          { src: '/Images/utopia-junction-renaissance.jpg', alt: 'Eshgin in front of the Renaissance CRT TV wall at Junction 2026', caption: 'Junction 2026 \u2014 European Tech Renaissance' }
+        ]
+      }
+    ],
+    live: 'https://utopia-uos.github.io/uos-landing-page/',
+    source: 'https://github.com/Eshgin10/uos-desktop-app'
+  },
+  {
+    group: 'featured',
     slug: 'carbonic',
     title: 'Carbonic',
     subtitle: 'Packaging emissions route planner \u00b7 Climathon 2026',

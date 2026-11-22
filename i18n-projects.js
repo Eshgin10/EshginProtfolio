@@ -1,6 +1,78 @@
 // Azerbaijani copy for projects, keyed by slug. Anything not listed here (titles, links, images, years)
 // comes from projects-data.js; tags, "what I did" and detail lines are translated through i18n.js phrases.
 window.PROJECTS_AZ = {
+  'utopia': {
+    subtitle: 'Windows üçün fərdi Sİ əməliyyat qatı · Junction 2026',
+    tags: ['Masaüstü tətbiq', 'Sİ Agentləri', 'Electron', 'Hakaton'],
+    summary: 'Finlandiyanın Espoo şəhərində Junction 2026 (European Tech Renaissance) hakatonunda hazırlanmış Windows üçün sakit fərdi Sİ əməliyyat qatı. Dağınıq pəncərələrin üzərinə daha bir brauzer tabı əlavə etmək əvəzinə, Utopia yerli qovluqları, Start menyusu tətbiqlərini və qoşulmuş Chrome tablarını orkestrasiya olunan fon agentləri və adaptiv vizual cavablarla birləşdirir.',
+    did: ['Masaüstü tətbiq arxitekturası və UI', 'Agent koordinatoru və yerli alətlər', 'Chrome əlavəsi və cihaz körpüsü', 'Lendinq səhifəsi və Windows Beta buraxılışı'],
+    details: [
+      'Tədbir: Junction 2026 (European Tech Renaissance)',
+      'Tarix: 13–15 noyabr 2026',
+      'Məkan: Hype Areena, Espoo, Finlandiya',
+      'İstiqamət: Agentic AI',
+      'Texnologiyalar: Electron, Node.js, Claude, Exa, NSIS',
+      'Buraxılış: Windows Beta (v0.19.11)'
+    ],
+    story: [
+      {
+        heading: 'Junction 2026',
+        text: [
+          'Utopia (UOS) Finlandiyanın Espoo şəhərindəki Hype Areena-da keçirilən Junction 2026 (13–15 noyabr 2026) hakatonunda 48 saat ərzində hazırlandı. European Tech Renaissance mövzusu altında Avropanın müxtəlif yerlərindən gələn qurucular bir həftəsonunda işlək prototiplər ortaya çıxardılar.',
+          'Biz Agentic AI istiqamətinə bir əsas sualla qoşulduq: proqram təminatı öz kontekstimizə sakitcə uyğunlaşa bildiyi halda, niyə hələ də onlarla brauzer tabı, bir-birindən ayrı tətbiqlər və dağınıq qovluqlar arasında gəzirik?'
+        ],
+        captions: ['Hype Areena, Espoo — Junction 2026']
+      },
+      {
+        heading: 'İdeya',
+        text: [
+          'Əksər Sİ alətləri qarşınızdakı kompüterdən xəbəri olmayan növbəti bir söhbət tabında yaşayır. Utopia əks yanaşmadan başlayır: kompüterlər rahat hiss olunmalıdır — dinləməli, uyğunlaşmalı və arxa plana çəkilməlidir.',
+          'Xam model adlarını, keçidləri və ya prompt mühəndisliyini önə çıxarmaq əvəzinə, masaüstü mühit faylları, qeydləri, xatırlatmaları və paylaşılan brauzer kontekstini bir sakit söhbət səthində birləşdirir.'
+        ]
+      },
+      {
+        heading: 'Nə qurduq',
+        text: [
+          'Utopia (UOS) yerləşdirilmiş tədqiqat və səs şlüzü ilə işləyən Windows Electron masaüstü tətbiqidir. Onu dörd əsas qat gücləndirir: Full Context (yerli qovluq indeksləməsi, Start menyusu tətbiqlərinin açılması və autentifikasiyalı Chrome əlavəsi), Agentic Work (məhdudlaşdırılmış Claude + Exa koordinatoru), Dynamic Interface (xüsusi vizual kartlar, müqayisələr və yoxlanılmış hesabatlar) və Active Security (şifrələnmiş safeStorage tokenləri, ciddi qovluq sərhədləri və bir kliklə Disconnect).',
+          'Masaüstü tətbiqlə yanaşı, hər kəsin API açarları qurmadan Utopia Beta-nı sınaya bilməsi üçün hesab tələb etməyən cihaz qeydiyyatlı marketinq saytını və NSIS quraşdırıcı axınını da hazırladıq.'
+        ]
+      },
+      {
+        heading: 'Səhnədən masaya',
+        text: [
+          'Həftəsonu boyu komandalar Google DeepMind və NVIDIA kimi tərəfdaşların European Tech Renaissance və agentik sistemlərin gələcəyi haqqında danışdığı əsas səhnənin düz qarşısında kod yazırdılar.',
+          'Bu çıxışları iş masamızdan bir neçə addım aralıda eşitmək bizi slaydlar əvəzinə real masaüstü icrasına — yerli fayl təhlükəsizliyi, Chrome tab qoşulması və canlı tədqiqatın başdan-ayağa yoxlanılmasına fokusladı.'
+        ],
+        captions: ['Əsas səhnədə Google DeepMind', 'NVIDIA — European Tech Renaissance']
+      },
+      {
+        heading: '48 saatlıq qurulma',
+        bento: [
+          { caption: 'Əsas səhnə qarşısında işləyərkən', alt: 'Junction 2026 əsas səhnəsi qarşısında Utopia üzərində iş' },
+          {
+            text: [
+              'Həftəsonu boyu masaüstü tətbiq və lendinq səhifəsi birlikdə problemsiz işləyənədək Electron koordinatoru, yerli fayl alətləri və Chrome körpüsü üzərində fasiləsiz çalışdıq.',
+              'Hər icazə sərhədi — açıq qovluq razılığı, təsadüfi qoşulma tokenləri və bir kliklə ləğv — birbaşa təcrübənin içinə quruldu.'
+            ]
+          },
+          {
+            text: [
+              'Bazar gününə qədər birdəfəlik cihaz razılığı, hesabsız giriş və ictimai vitrin saytı ilə yüklənə bilən Windows Beta (Utopia-Setup.exe) paketini hazırladıq.',
+              '48 saatda həm işlək masaüstü köməkçini, həm də onun veb evini buraxmaq Junction 2026-nı unudulmaz etdi.'
+            ]
+          },
+          { caption: 'Gecə yarısı kod sessiyası', alt: 'Junction 2026-da gecə yarısı iş sessiyası' }
+        ]
+      },
+      {
+        heading: 'European Tech Renaissance',
+        text: [
+          'Junction 2026 Espoo-da iki gərgin gecədən sonra canlı Windows Beta əsası (v0.19.11), ictimai vitrin saytı və fərdi kompüterlərin necə daha yüngül hiss oluna biləcəyinə dair daha aydın bir baxışla başa çatdı.'
+        ],
+        captions: ['Junction 2026 — European Tech Renaissance']
+      }
+    ]
+  },
   'carbonic': {
     subtitle: 'Qablaşdırma emissiyaları marşrut planlayıcısı · Climathon 2026',
     summary: 'Riqada Climathon 2026-da Latvijas Zaļais punkts (LZP) üçün hazırlanmış alət. LDPE plastik filmi yandırmaq və ya basdırmaq əvəzinə LZP-nin tərəfdaşları vasitəsilə təkrar emal etdikdə istixana qazı emissiyalarının necə dəyişdiyini göstərir, hər rəqəmin mənbəyi ilə birlikdə.',
