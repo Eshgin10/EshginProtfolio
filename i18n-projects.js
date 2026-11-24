@@ -2,9 +2,9 @@
 // comes from projects-data.js; tags, "what I did" and detail lines are translated through i18n.js phrases.
 window.PROJECTS_AZ = {
   'utopia': {
-    subtitle: 'Windows üçün fərdi Sİ əməliyyat qatı · Junction 2026',
+    subtitle: 'Windows üçün Sİ əməliyyat sistemi · Junction 2026',
     tags: ['Masaüstü tətbiq', 'Sİ Agentləri', 'Electron', 'Hakaton'],
-    summary: 'Finlandiyanın Espoo şəhərində Junction 2026 (European Tech Renaissance) hakatonunda hazırlanmış Windows üçün sakit fərdi Sİ əməliyyat qatı. Dağınıq pəncərələrin üzərinə daha bir brauzer tabı əlavə etmək əvəzinə, Utopia yerli qovluqları, Start menyusu tətbiqlərini və qoşulmuş Chrome tablarını orkestrasiya olunan fon agentləri və adaptiv vizual cavablarla birləşdirir.',
+    summary: 'Utopia (UOS) Finlandiyanın Espoo şəhərində Junction 2026 hakatonunda hazırlanmış, bütün kompüterinizi tək bir interfeysdən idarə etməyə imkan verən Sİ əməliyyat sistemidir. Qovluqlar, quraşdırılmış tətbiqlər və onlarla brauzer tabı arasında keçid etmək əvəzinə, sizə lazım olanı bir yerdən soruşursunuz — Utopia faylları tapıb redaktə edir, tətbiqləri açır, paylaşılan Chrome tablarını oxuyur, canlı veb araşdırması aparır və strukturlaşdırılmış vizual cavablar və hesabatlar yaradır.',
     did: ['Masaüstü tətbiq arxitekturası və UI', 'Agent koordinatoru və yerli alətlər', 'Chrome əlavəsi və cihaz körpüsü', 'Lendinq səhifəsi və Windows Beta buraxılışı'],
     details: [
       'Tədbir: Junction 2026 (European Tech Renaissance)',
@@ -26,8 +26,8 @@ window.PROJECTS_AZ = {
       {
         heading: 'İdeya',
         text: [
-          'Əksər Sİ alətləri qarşınızdakı kompüterdən xəbəri olmayan növbəti bir söhbət tabında yaşayır. Utopia əks yanaşmadan başlayır: kompüterlər rahat hiss olunmalıdır — dinləməli, uyğunlaşmalı və arxa plana çəkilməlidir.',
-          'Xam model adlarını, keçidləri və ya prompt mühəndisliyini önə çıxarmaq əvəzinə, masaüstü mühit faylları, qeydləri, xatırlatmaları və paylaşılan brauzer kontekstini bir sakit söhbət səthində birləşdirir.'
+          'Əksər Sİ alətləri real kompüterinizə heç bir çıxışı olmayan bir brauzer tabının içində qalır. Utopia bu modeli dəyişir: fayllarınızın, tətbiqlərinizin, xatırlatmalarınızın və brauzer tablarınızın hamısını tək bir vahid interfeysdən idarə edən Sİ əməliyyat sistemi qatı kimi işləyir.',
+          'Sənədləri axtarmaq, onlayn variantları müqayisə etmək və qeydləri nizamlamaq üçün beş fərqli alət arasında keçid etmək əvəzinə, bir sorğu verirsiniz və Utopia işi kompüteriniz boyunca özü icra edir.'
         ]
       },
       {
@@ -67,7 +67,7 @@ window.PROJECTS_AZ = {
       {
         heading: 'European Tech Renaissance',
         text: [
-          'Junction 2026 Espoo-da iki gərgin gecədən sonra canlı Windows Beta əsası (v0.19.11), ictimai vitrin saytı və fərdi kompüterlərin necə daha yüngül hiss oluna biləcəyinə dair daha aydın bir baxışla başa çatdı.'
+          'Junction 2026 Espoo-da iki gərgin gecədən sonra canlı Windows Beta (v0.19.11), ictimai lendinq səhifəsi və bütün kompüteri tək bir Sİ interfeysindən idarə etmək üçün işlək əsasla başa çatdı.'
         ],
         captions: ['Junction 2026 — European Tech Renaissance']
       }

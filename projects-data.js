@@ -134,11 +134,11 @@ window.PROJECTS.unshift(
     group: 'featured',
     slug: 'utopia',
     title: 'Utopia',
-    subtitle: 'Personal AI operating layer for Windows \u00b7 Junction 2026',
+    subtitle: 'AI operating system for Windows \u00b7 Junction 2026',
     year: '2026',
     tags: ['Desktop App', 'AI Agents', 'Electron', 'Hackathon'],
     image: '/Images/utopia-preview.jpg?v=20261124',
-    summary: 'A calm personal AI operating layer for Windows built during Junction 2026 (European Tech Renaissance) in Espoo, Finland. Instead of adding another browser tab on top of scattered windows, Utopia connects local folders, Start-menu apps, and paired Chrome tabs with orchestrated background agents and adaptive visual answers.',
+    summary: 'Utopia (UOS) is an AI operating system built during Junction 2026 in Espoo, Finland that lets you manage your entire computer from one interface. Instead of jumping between folders, installed apps, and dozens of browser tabs, you ask for what you need in one place\u2014and Utopia finds and edits files, launches apps, reads shared Chrome tabs, runs live web research, and generates structured visual answers and reports.',
     did: ['Desktop app architecture & UI', 'Agentic coordinator & local tools', 'Chrome companion & device bridge', 'Landing page & Windows Beta release'],
     details: [
       'Event: Junction 2026 (European Tech Renaissance)',
@@ -162,8 +162,8 @@ window.PROJECTS.unshift(
       {
         heading: 'The idea',
         text: [
-          'Most AI tools live inside yet another chat tab that knows nothing about the computer in front of you. Utopia starts from the opposite premise: computers should feel effortless\u2014listen, adapt, and disappear.',
-          'Rather than exposing raw model names, toggles, or prompt engineering, the desktop workspace brings files, notes, reminders, and shared browser context together into one calm conversational surface.'
+          'Most AI tools are trapped inside a browser tab with zero access to your actual computer. Utopia flips that model: it acts as an AI operating system layer where your files, apps, reminders, and browser tabs are all managed from one unified interface.',
+          'Instead of switching between five different tools to search documents, compare options online, and organize notes, you give one request and let Utopia handle the workflow across your machine.'
         ]
       },
       {
@@ -208,7 +208,7 @@ window.PROJECTS.unshift(
       {
         heading: 'European Tech Renaissance',
         text: [
-          'Junction 2026 wrapped up after two intense nights in Espoo, leaving us with a live Windows Beta foundation (v0.19.11), a public showcase site, and a clearer vision for how personal computing can feel lighter.'
+          'Junction 2026 wrapped up after two intense nights in Espoo, leaving us with a live Windows Beta (v0.19.11), a public landing page, and a working foundation for managing an entire computer from one AI-native interface.'
         ],
         images: [
           { src: '/Images/utopia-junction-renaissance.jpg', alt: 'Eshgin in front of the Renaissance CRT TV wall at Junction 2026', caption: 'Junction 2026 \u2014 European Tech Renaissance' }
