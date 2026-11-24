@@ -137,7 +137,7 @@ window.PROJECTS.unshift(
     subtitle: 'Personal AI operating layer for Windows \u00b7 Junction 2026',
     year: '2026',
     tags: ['Desktop App', 'AI Agents', 'Electron', 'Hackathon'],
-    image: '/Images/utopia-preview.jpg',
+    image: '/Images/utopia-preview.jpg?v=20261124',
     summary: 'A calm personal AI operating layer for Windows built during Junction 2026 (European Tech Renaissance) in Espoo, Finland. Instead of adding another browser tab on top of scattered windows, Utopia connects local folders, Start-menu apps, and paired Chrome tabs with orchestrated background agents and adaptive visual answers.',
     did: ['Desktop app architecture & UI', 'Agentic coordinator & local tools', 'Chrome companion & device bridge', 'Landing page & Windows Beta release'],
     details: [
