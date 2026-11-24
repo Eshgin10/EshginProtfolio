@@ -1684,6 +1684,38 @@ body.sheet-locked {
   border-top: 1px solid var(--border-subtle);
 }
 
+#sheet-details li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.detail-icon {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  margin-top: 4px;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-icon svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.detail-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.detail-key {
+  color: var(--text-secondary);
+}
+
 .sheet-actions {
   display: flex;
   flex-wrap: wrap;

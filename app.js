@@ -446,6 +446,74 @@ function initFeatured() {
     window.initFeaturedStage(stage, rowRefs.map((r) => r.row));
   }
 
+  const DETAIL_ICONS = {
+    event: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>',
+    dates: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+    venue: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+    track: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>',
+    stack: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>',
+    release: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>',
+    partner: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>',
+    status: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>',
+    format: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>',
+    role: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+    result: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>',
+    type: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>',
+    hosting: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>',
+    platform: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>',
+    default: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>'
+  };
+
+  const DETAIL_ICON_MAP = {
+    'event': 'event', 'tədbir': 'event',
+    'dates': 'dates', 'date': 'dates', 'tarix': 'dates',
+    'venue': 'venue', 'location': 'venue', 'məkan': 'venue',
+    'track': 'track', 'istiqamət': 'track',
+    'stack': 'stack', 'tech': 'stack', 'texnologiyalar': 'stack',
+    'release': 'release', 'version': 'release', 'buraxılış': 'release',
+    'challenge partner': 'partner', 'partner': 'partner', 'çağırış tərəfdaşı': 'partner',
+    'status': 'status',
+    'format': 'format',
+    'my role': 'role', 'role': 'role', 'mənim rolum': 'role',
+    'result': 'result', 'award': 'result', 'nəticə': 'result',
+    'type': 'type', 'növ': 'type',
+    'hosting': 'hosting', 'hostinq': 'hosting',
+    'platform': 'platform', 'platforma': 'platform'
+  };
+
+  function detailIconFor(label) {
+    const k = String(label || '').trim().toLowerCase().replace(/\u0307/g, '');
+    return DETAIL_ICONS[DETAIL_ICON_MAP[k] || 'default'];
+  }
+
+  function fillDetails(list, items) {
+    list.replaceChildren(...items.map((t) => {
+      const li = document.createElement('li');
+      const idx = t.indexOf(':');
+      const key = idx > 0 ? t.slice(0, idx).trim() : '';
+      const val = idx > 0 ? t.slice(idx + 1).trim() : t;
+
+      const icon = document.createElement('span');
+      icon.className = 'detail-icon';
+      icon.setAttribute('aria-hidden', 'true');
+      icon.innerHTML = detailIconFor(key);
+
+      const text = document.createElement('span');
+      text.className = 'detail-text';
+      if (key) {
+        const kEl = document.createElement('span');
+        kEl.className = 'detail-key';
+        kEl.textContent = key + ':';
+        text.append(kEl, document.createTextNode(' ' + val));
+      } else {
+        text.textContent = t;
+      }
+
+      li.append(icon, text);
+      return li;
+    }));
+  }
+
   function fill(list, items) {
     list.replaceChildren(...items.map((t) => {
       const li = document.createElement('li');
@@ -623,7 +691,7 @@ function initFeatured() {
     qr.hidden = !p.qr;
     if (p.qr) $('sheet-qr-img').src = p.qr;
     fill($('sheet-did'), p.did || []);
-    fill($('sheet-details'), p.details || []);
+    fillDetails($('sheet-details'), p.details || []);
 
     const actions = $('sheet-actions');
     actions.replaceChildren();
