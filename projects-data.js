@@ -293,6 +293,20 @@ window.PROJECTS.unshift(
   },
   {
     group: 'featured',
+    slug: 'nemesis',
+    title: 'Nemesis',
+    subtitle: 'Web Application',
+    year: '2026',
+    tags: ['Full-stack', 'Web App'],
+    image: '/Images/nemesis.png',
+    summary: 'A full web application with a focus on interface and function.',
+    did: ['Interface design', 'Front-end build', 'Back-end & data', 'Deployment'],
+    details: ['Type: Web app', 'Format: Full-stack', 'Hosting: Vercel', 'Status: Live'],
+    live: 'https://nemesis-lime-chi.vercel.app/',
+    source: 'https://github.com/Eshgin10/Nemesis'
+  },
+  {
+    group: 'featured',
     slug: 'community-matchmaker',
     title: 'Community Matchmaker',
     subtitle: 'STUHI Tampere Hackathon · Junction challenge',
@@ -388,20 +402,6 @@ window.PROJECTS.unshift(
     details: ['Type: Data tool', 'Format: Web app', 'Hosting: Railway', 'Status: Live'],
     live: 'https://datahealth-production.up.railway.app/',
     source: 'https://github.com/Eshgin10/DataHealth'
-  },
-  {
-    group: 'featured',
-    slug: 'nemesis',
-    title: 'Nemesis',
-    subtitle: 'Web Application',
-    year: '2026',
-    tags: ['Full-stack', 'Web App'],
-    image: '/Images/nemesis.png',
-    summary: 'A full web application with a focus on interface and function.',
-    did: ['Interface design', 'Front-end build', 'Back-end & data', 'Deployment'],
-    details: ['Type: Web app', 'Format: Full-stack', 'Hosting: Vercel', 'Status: Live'],
-    live: 'https://nemesis-lime-chi.vercel.app/',
-    source: 'https://github.com/Eshgin10/Nemesis'
   },
   {
     group: 'featured',
