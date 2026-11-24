@@ -150,10 +150,10 @@ window.PROJECTS.unshift(
     ],
     story: [
       {
-        heading: 'Junction 2026',
+        heading: 'About',
         text: [
-          'Utopia (UOS) was built over 48 hours at Junction 2026 (13\u201315 November 2026) inside Hype Areena in Espoo, Finland. Under the theme European Tech Renaissance, builders from across Europe gathered to ship working prototypes in a single weekend.',
-          'We joined the Agentic AI track with one core question: why do we still juggle dozens of browser tabs, disconnected apps, and scattered folders when software could adapt quietly around our own context?'
+          'Utopia (UOS) was built over 48 hours during Junction 2026 (13\u201315 November 2026) at Hype Areena in Espoo, Finland. Under the theme European Tech Renaissance, builders from across Europe gathered to turn ambitious prototypes into working software in a single weekend.',
+          'We joined the Agentic AI track to tackle a problem every computer user feels daily: our files, apps, notes, and browser tabs are scattered across disconnected windows, and AI still sits trapped in a separate chat tab that cannot actually work across your machine.'
         ],
         images: [
           { src: '/Images/utopia-junction-hall.jpg', alt: 'Hype Areena hall packed with builders at Junction 2026', caption: 'Hype Areena, Espoo \u2014 Junction 2026' }
@@ -161,16 +161,18 @@ window.PROJECTS.unshift(
       },
       {
         heading: 'The idea',
+        singleColumn: true,
         text: [
-          'Most AI tools are trapped inside a browser tab with zero access to your actual computer. Utopia flips that model: it acts as an AI operating system layer where your files, apps, reminders, and browser tabs are all managed from one unified interface.',
-          'Instead of switching between five different tools to search documents, compare options online, and organize notes, you give one request and let Utopia handle the workflow across your machine.'
+          'We believe the future of personal software is not another app or chat sidebar\u2014it is an AI operating system layer that lets you manage your entire computer from one interface. Instead of manually hunting through folders, switching between five open programs, and copy-pasting context into prompts, you state what you want and the system coordinates the work across your local environment.',
+          'That belief shaped three core bets we made from hour one. First, local context with explicit boundaries beats blind cloud syncing: Utopia indexes only the folders and Chrome tabs you explicitly connect, keeping sensitive stores and private app data untouched. Second, bounded agentic execution beats open-ended loops: fixed tool catalogs, strict read/write limits, and reversible edits make desktop AI dependable. Third, adaptive visual interfaces beat walls of text: answers should take the form the task calls for\u2014structured comparisons, file actions, checklists, and verified reports.'
         ]
       },
       {
-        heading: 'What we built',
+        heading: 'The product',
+        singleColumn: true,
         text: [
-          'Utopia (UOS) runs as a Windows Electron desktop app backed by a hosted research and voice gateway. Four layers power it: Full Context (local folder indexing, Start-menu app launching, and an authenticated Chrome companion), Agentic Work (a bounded Claude + Exa coordinator), Dynamic Interface (tailored visual cards, comparisons, and verified reports), and Active Security (encrypted safeStorage tokens, strict folder boundaries, and one-click Disconnect).',
-          'Alongside the desktop app, we built the marketing site and NSIS installer flow with account-free device registration so anyone can try Utopia Beta without configuring API keys.'
+          'Utopia (UOS) is a Windows Electron desktop application (v0.19.11) paired with a hosted research/voice gateway and an NSIS Windows Beta installer (Utopia-Setup.exe). On the device side, a local context engine (context-store.cjs) indexes up to 40 directory levels, 150,000 entries, and 100,000 files while rejecting symlinks that escape connected roots, reading supported text formats (TXT, MD, CSV, JSON, LOG, ICS), and writing verified reports with undo support.',
+          'For browser and app workflows, a local Chrome companion extension communicates over a localhost-only bridge (127.0.0.1:43127) secured with a 256-bit pairing token and activeTab DOM scoping, while PowerShell-backed app discovery lets Utopia launch installed Start-menu applications. Under the hood, a bounded Claude + Exa coordinator (coordinator.mjs) orchestrates multi-step research and tool calls, Windows safeStorage encrypts device credentials, and an account-free device registration service handles quotas so users can install and run Utopia Beta without configuring API keys.'
         ]
       },
       {
@@ -186,6 +188,7 @@ window.PROJECTS.unshift(
       },
       {
         heading: '48 hours of shipping',
+        tall: true,
         bento: [
           { area: 'photo-a', src: '/Images/utopia-junction-desk.jpg', alt: 'Working on Utopia in front of the Junction 2026 main stage', caption: 'Building in front of the main stage' },
           {

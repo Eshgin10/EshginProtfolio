@@ -565,7 +565,7 @@ function initFeatured() {
     story.hidden = !(p.story && p.story.length);
     const buildBento = (blk) => {
       const sec = document.createElement('section');
-      sec.className = 'story-bento';
+      sec.className = 'story-bento' + (blk.tall ? ' is-tall' : '');
       const h = document.createElement('h3');
       h.textContent = blk.heading;
       const grid = document.createElement('div');
@@ -670,11 +670,11 @@ function initFeatured() {
       }
       return sec;
     };
-    // Consecutive text-only blocks sit side by side so no half of the row is left empty.
+    // Consecutive text-only blocks sit side by side unless marked singleColumn.
     const items = [];
     const list = p.story || [];
     for (let k = 0; k < list.length; k++) {
-      const textOnly = (b) => !b.bento && !b.stats && !(b.images && b.images.length);
+      const textOnly = (b) => !b.bento && !b.stats && !b.singleColumn && !(b.images && b.images.length);
       if (textOnly(list[k]) && list[k + 1] && textOnly(list[k + 1])) {
         const pair = document.createElement('div');
         pair.className = 'story-pair';

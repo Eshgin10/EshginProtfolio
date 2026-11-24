@@ -1954,6 +1954,10 @@ body.sheet-locked {
   max-width: 560px;
 }
 
+.story-block:not(.has-media) .story-copy {
+  max-width: 820px;
+}
+
 .story-copy h3 {
   font-family: var(--font-display);
   font-size: clamp(28px, 3.4vw, 44px);
@@ -2091,6 +2095,19 @@ body.sheet-locked {
 
 .bento-photo-a img { object-position: 50% 38%; }
 
+.story-bento.is-tall .bento-grid {
+  grid-auto-rows: auto;
+}
+
+.story-bento.is-tall .bento-photo-a,
+.story-bento.is-tall .bento-photo-b {
+  aspect-ratio: 3 / 4;
+}
+
+.story-bento.is-tall .bento-photo-a img {
+  object-position: center;
+}
+
 .bento-photo-a:hover img,
 .bento-photo-b:hover img {
   transform: scale(1.04);
@@ -2125,6 +2142,8 @@ body.sheet-locked {
 
   .bento-photo-a { aspect-ratio: 4 / 5; }
   .bento-photo-b { aspect-ratio: 4 / 3; }
+  .story-bento.is-tall .bento-photo-a,
+  .story-bento.is-tall .bento-photo-b { aspect-ratio: 3 / 4; }
   .bento-text-a { padding-left: 0 !important; }
 }
 

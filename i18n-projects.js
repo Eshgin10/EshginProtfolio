@@ -16,25 +16,25 @@ window.PROJECTS_AZ = {
     ],
     story: [
       {
-        heading: 'Junction 2026',
+        heading: 'Haqqında',
         text: [
-          'Utopia (UOS) Finlandiyanın Espoo şəhərindəki Hype Areena-da keçirilən Junction 2026 (13–15 noyabr 2026) hakatonunda 48 saat ərzində hazırlandı. European Tech Renaissance mövzusu altında Avropanın müxtəlif yerlərindən gələn qurucular bir həftəsonunda işlək prototiplər ortaya çıxardılar.',
-          'Biz Agentic AI istiqamətinə bir əsas sualla qoşulduq: proqram təminatı öz kontekstimizə sakitcə uyğunlaşa bildiyi halda, niyə hələ də onlarla brauzer tabı, bir-birindən ayrı tətbiqlər və dağınıq qovluqlar arasında gəzirik?'
+          'Utopia (UOS) Finlandiyanın Espoo şəhərindəki Hype Areena-da keçirilən Junction 2026 (13–15 noyabr 2026) hakatonunda 48 saat ərzində hazırlandı. European Tech Renaissance mövzusu altında Avropanın müxtəlif yerlərindən gələn qurucular bir həftəsonunda iddialı prototipləri işlək proqram təminatına çevirmək üçün toplaşmışdılar.',
+          'Biz Agentic AI istiqamətinə hər bir kompüter istifadəçisinin gündəlik yaşadığı bir problemi həll etmək üçün qoşulduq: fayllarımız, tətbiqlərimiz, qeydlərimiz və brauzer tablarımız ayrı-ayrı pəncərələrə səpələnib, Sİ isə hələ də kompüteriniz boyunca işləyə bilməyən ayrı bir söhbət tabında qalıb.'
         ],
         captions: ['Hype Areena, Espoo — Junction 2026']
       },
       {
         heading: 'İdeya',
         text: [
-          'Əksər Sİ alətləri real kompüterinizə heç bir çıxışı olmayan bir brauzer tabının içində qalır. Utopia bu modeli dəyişir: fayllarınızın, tətbiqlərinizin, xatırlatmalarınızın və brauzer tablarınızın hamısını tək bir vahid interfeysdən idarə edən Sİ əməliyyat sistemi qatı kimi işləyir.',
-          'Sənədləri axtarmaq, onlayn variantları müqayisə etmək və qeydləri nizamlamaq üçün beş fərqli alət arasında keçid etmək əvəzinə, bir sorğu verirsiniz və Utopia işi kompüteriniz boyunca özü icra edir.'
+          'Biz inanırıq ki, fərdi proqram təminatının gələcəyi növbəti bir tətbiq və ya söhbət yan paneli deyil — bütün kompüterinizi tək bir interfeysdən idarə etməyə imkan verən Sİ əməliyyat sistemi qatıdır. Qovluqlarda əl ilə axtarış etmək, beş açıq proqram arasında keçid etmək və konteksti kopyalayıb yapışdırmaq əvəzinə, nə istədiyinizi deyirsiniz və sistem işi yerli mühitiniz boyunca özü koordinasiya edir.',
+          'Bu yanaşma ilk saatdan etibarən üç əsas qərarımızı formalaşdırdı. Birincisi, açıq sərhədlərə malik yerli kontekst kor-koranə bulud sinxronizasiyasından üstündür: Utopia yalnız sizin icazə verdiyiniz qovluqları və Chrome tablarını indeksləyir. İkincisi, məhdudlaşdırılmış agentik icra sonsuz döngələrdən daha etibarlıdır: sabit alət kataloqu, ciddi oxuma/yazma limitləri və geri qaytarıla bilən redaktələr masaüstü Sİ-ni sabit edir. Üçüncüsü, adaptiv vizual interfeyslər uzun mətn divarlarından daha faydalıdır: cavablar müqayisələr, fayl əməliyyatları, yoxlama siyahıları və təsdiqlənmiş hesabatlar şəklində olmalıdır.'
         ]
       },
       {
-        heading: 'Nə qurduq',
+        heading: 'Məhsul',
         text: [
-          'Utopia (UOS) yerləşdirilmiş tədqiqat və səs şlüzü ilə işləyən Windows Electron masaüstü tətbiqidir. Onu dörd əsas qat gücləndirir: Full Context (yerli qovluq indeksləməsi, Start menyusu tətbiqlərinin açılması və autentifikasiyalı Chrome əlavəsi), Agentic Work (məhdudlaşdırılmış Claude + Exa koordinatoru), Dynamic Interface (xüsusi vizual kartlar, müqayisələr və yoxlanılmış hesabatlar) və Active Security (şifrələnmiş safeStorage tokenləri, ciddi qovluq sərhədləri və bir kliklə Disconnect).',
-          'Masaüstü tətbiqlə yanaşı, hər kəsin API açarları qurmadan Utopia Beta-nı sınaya bilməsi üçün hesab tələb etməyən cihaz qeydiyyatlı marketinq saytını və NSIS quraşdırıcı axınını da hazırladıq.'
+          'Utopia (UOS) yerləşdirilmiş tədqiqat/səs şlüzü və NSIS Windows Beta quraşdırıcısı (Utopia-Setup.exe) ilə birləşdirilmiş Windows Electron masaüstü tətbiqidir (v0.19.11). Cihaz tərəfində yerli kontekst mühərriki (context-store.cjs) 40 qovluq səviyyəsinə, 150.000 qeydə və 100.000 fayla qədər indeksləmə aparır, qoşulmuş köklərdən kənara çıxan simvolik keçidləri rədd edir, dəstəklənən mətn formatlarını (TXT, MD, CSV, JSON, LOG, ICS) oxuyur və geri qaytarma dəstəyi ilə yoxlanılmış hesabatlar yazır.',
+          'Brauzer və tətbiq axınları üçün yerli Chrome əlavəsi 256-bit qoşulma tokeni və activeTab DOM məhdudiyyəti ilə qorunan yalnız localhost körpüsü (127.0.0.1:43127) üzərindən işləyir, PowerShell əsaslı tətbiq aşkarlanması isə Start menyusundakı tətbiqləri açmağa imkan verir. Arxa planda məhdudlaşdırılmış Claude + Exa koordinatoru (coordinator.mjs) çoxaddımlı araşdırma və alət çağırışlarını idarə edir, Windows safeStorage cihaz məlumatlarını şifrələyir və hesabsız cihaz qeydiyyatı xidməti kvotaları tənzimləyir.'
         ]
       },
       {
